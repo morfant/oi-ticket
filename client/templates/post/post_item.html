@@ -1,0 +1,39 @@
+<template name="postItem">
+  <div class="post">
+    <div class="post-content">
+
+
+      <h3>{{{title}}}</h3>
+      <span>Written at {{submitted}}
+      submitted by {{author}} {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
+      </span>
+
+
+      <br><br>
+
+      <div name="text" cols="100" rows="10" style="resize:none" readonly="readonly" class="post-content">
+
+      <!-- triple {{{}}} means reading as HTML tag -->
+      {{{text}}}
+      </div>
+    </div>
+
+    {{#if isInPostsList}}
+      <a href="{{pathFor 'reserveTicket'}}" class="discuss btn btn-default">예약하기</a>
+    {{/if}}
+
+
+    <br><br><br><br>
+
+<!--     {{#with sendingResult}}
+      {{#if error}}
+        <p>There was an error: {{error.errorType}} {{error.message}}!</p>
+        {{else}}
+        <p>Resutl of sening: {{sendingResult}} </p>
+      {{/if}} 
+    {{/with}}
+ -->
+
+
+  </div>
+</template>

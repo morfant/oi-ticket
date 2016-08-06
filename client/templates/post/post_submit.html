@@ -1,0 +1,65 @@
+<template name="postSubmit">
+  <form class="main form">
+
+    <div class="form-group {{errorClass 'title'}}">
+      <label class="control-label" for="title">Title</label>
+      <div class="controls">
+          <input name="title" id="title" type="text" value="" placeholder="Name your post" class="form-control"/>
+          <span class="help-block">{{errorMessage 'title'}}</span>
+
+      </div>
+    </div>
+
+    <!-- {{> froalaEditor}} -->
+
+    <div class="form-group">
+      <label class="control-label" for="notice">Notice (optional) </label>
+      <div class="controls">
+          <input name="notice" id="notice" type="text" value="" placeholder="Write Playbar notice" class="form-control"/>
+          <!-- <span class="help-block">{{errorMessage 'notice'}}</span> -->
+
+      </div>
+    </div>
+
+
+
+<script src="js/medium-editor.js"></script>
+<script type="text/javascript">var editor = new MediumEditor('.editable',{
+      placeholder: {
+        text: 'Click to post'
+    }
+  }
+);</script>
+
+
+
+  <!-- <textarea name="text" cols="50" rows="10" class="editable"></textarea> -->
+
+
+<!-- <div class="editable"></div> -->
+
+
+    <div class="form-group {{errorClass 'text'}}">
+      <label class="control-label" for="text">Text</label>
+      <div class="controls">
+
+        <!-- Medium editor -->
+        <div class="editable" name="text" id="text"></div>
+
+        <br /><br /><br /><br />
+        <br /><br /><br /><br />
+        <br /><br /><br /><br />
+        
+          <span class="help-block">{{errorMessage 'text'}}</span>
+      </div>
+    </div>
+
+
+
+
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+
+
+
+</template>
