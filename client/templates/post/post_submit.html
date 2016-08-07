@@ -2,7 +2,7 @@
   <form class="main form">
 
     <div class="form-group {{errorClass 'title'}}">
-      <label class="control-label" for="title">Title</label>
+      <label class="control-label" for="title">제목</label>
       <div class="controls">
           <input name="title" id="title" type="text" value="" placeholder="Name your post" class="form-control"/>
           <span class="help-block">{{errorMessage 'title'}}</span>
@@ -54,6 +54,14 @@
       </div>
     </div>
 
+
+
+    <!-- image upload -->
+    {{> uploadJquery}} <br />
+    {{> uploadJquery}} <br />
+    {{> uploadJquery}} <br />
+
+    <br />
 
 
 
