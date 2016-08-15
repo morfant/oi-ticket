@@ -1,27 +1,152 @@
 <template name="postSubmit">
   <form class="main form">
 
+<!-- <style>
+#div1 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}
+</style>
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ -->
+
+    <div class="form-group {{errorClass 'image'}}">
+      <label class="control-label" for="title">이미지</label>
+      <div class="controls">
+
+      <!-- image upload -->
+      {{> dropZone}} <br />
+      <!-- {{> uploadJquery}} <br /> -->
+
+      <div id="img-preview"></div>
+      <span class="help-block">{{errorMessage 'image'}}</span>
+      </div>
+    </div>
+
+
+
+
     <div class="form-group {{errorClass 'title'}}">
       <label class="control-label" for="title">제목</label>
       <div class="controls">
-          <input name="title" id="title" type="text" value="" placeholder="Name your post" class="form-control"/>
-          <span class="help-block">{{errorMessage 'title'}}</span>
-
+        <input name="title" id="title" type="text" value="" placeholder="ex) 사슬" class="form-control"/>
+        <span class="help-block">{{errorMessage 'title'}}</span>
       </div>
     </div>
 
     <!-- {{> froalaEditor}} -->
 
     <div class="form-group">
-      <label class="control-label" for="notice">Notice (optional) </label>
+      <label class="control-label" for="notice">공연시간설명</label>
       <div class="controls">
-          <input name="notice" id="notice" type="text" value="" placeholder="Write Playbar notice" class="form-control"/>
-          <!-- <span class="help-block">{{errorMessage 'notice'}}</span> -->
-
+        <input name="notice" id="notice" type="text" value="" placeholder="월.화.수.목.금 15시/19시, 토.일 20시
+ *7/20은 1회차 공연만 진행됩니다" class="form-control"/>
+        <span class="help-block">{{errorMessage 'notice'}}</span>
       </div>
     </div>
 
 
+    <div class="form-group">
+      <label class="control-label" for="ticketPrice">티켓가격</label>
+      <div class="controls">
+        <input name="ticketPrice" id="ticketPrice" type="text" value="" placeholder="1회당 30석, 1석 10,000원" class="form-control"/>
+        <span class="help-block">{{errorMessage 'ticektPrice'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="duration">공연시간</label>
+      <div class="controls">
+        <input name="duration" id="duration" type="text" value="" placeholder="약 100분(인터미션 없음, 변동 가능)" class="form-control"/>
+        <span class="help-block">{{errorMessage 'duration'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="contact">문의</label>
+      <div class="controls">
+        <input name="contact" id="contact" type="text" value="" placeholder="064-000-5252" class="form-control"/>
+        <span class="help-block">{{errorMessage 'contact'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="grade">관람연령</label>
+      <div class="controls">
+        <input name="grade" id="grade" type="text" value="" placeholder="만15세이상관람가" class="form-control"/>
+        <span class="help-block">{{errorMessage 'grade'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="sponsor">주최</label>
+      <div class="controls">
+        <input name="sponsor" id="sponsor" type="text" value="" placeholder="문화공간더오이" class="form-control"/>
+        <span class="help-block">{{errorMessage 'sponsor'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="production">제작</label>
+      <div class="controls">
+        <input name="production" id="production" type="text" value="" placeholder="극단오이" class="form-control"/>
+        <span class="help-block">{{errorMessage 'production'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="director">연출</label>
+      <div class="controls">
+        <input name="director" id="director" type="text" value="" placeholder="" class="form-control"/>
+        <span class="help-block">{{errorMessage 'director'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="original">작</label>
+      <div class="controls">
+        <input name="original" id="original" type="text" value="" placeholder="" class="form-control"/>
+        <span class="help-block">{{errorMessage 'original'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="cast">출연</label>
+      <div class="controls">
+        <input name="cast" id="cast" type="text" value="" placeholder="" class="form-control"/>
+        <span class="help-block">{{errorMessage 'cast'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="arrange">각색</label>
+      <div class="controls">
+        <input name="arrange" id="arrange" type="text" value="" placeholder="" class="form-control"/>
+        <!-- <span class="help-block">{{errorMessage 'arrange'}}</span> -->
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="description">작품소개</label>
+      <div class="controls">
+        <input name="description" id="description" type="text" value="" placeholder="" class="form-control"/>
+        <span class="help-block">{{errorMessage 'description'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="synopsis">시놉시스</label>
+      <div class="controls">
+        <input name="synopsis" id="synopsis" type="text" value="" placeholder="" class="form-control"/>
+        <span class="help-block">{{errorMessage 'synopsis'}}</span>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="control-label" for="staffs">스탭 소개</label>
+      <div class="controls">
+        <input name="staffs" id="staffs" type="text" value="" placeholder="" class="form-control"/>
+        <span class="help-block">{{errorMessage 'staffs'}}</span>
+      </div>
+    </div>
 
 <script src="js/medium-editor.js"></script>
 <script type="text/javascript">var editor = new MediumEditor('.editable',{
@@ -56,16 +181,12 @@
 
 
 
-    <!-- image upload -->
-    {{> uploadJquery}} <br />
-    {{> uploadJquery}} <br />
-    {{> uploadJquery}} <br />
 
     <br />
 
 
 
-    <input type="submit" value="Submit" class="btn btn-primary"/>
+    <input type="submit" value="Submit" class="btn btn-primary submit"/>
   </form>
 
 

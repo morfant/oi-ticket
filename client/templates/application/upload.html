@@ -1,4 +1,5 @@
 <template name="uploadJquery">
     <!-- {{getPostId ..}} -->
-    {{> upload_bootstrap fileTypes='.png, .jpg' multiple=true formData=specificFormData}}
+    {{> upload_bootstrap callbacks=myCallbacks fileTypes='.png, .jpg, .gif' multiple=true formData=specificFormData}}
+
 </template>

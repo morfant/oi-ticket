@@ -1,16 +1,25 @@
 fs = Meteor.npmRequire('fs');
 
-WebApp.connectHandlers.use('/images', function(req, res){
+WebApp.connectHandlers.use('/host_Uploads', function(req, res){
 
     // console.log("images on server");
-    var fileName = req.originalUrl.split('/')[2];
+    var pathLength = req.originalUrl.split('/').length;
+    var fileName = req.originalUrl.split('/')[pathLength-1];
+    // console.log("filename: " + fileName);
     var ext = fileName.split('.')[1];
 
-    var canGetExts = ['jpg', 'png', 'jpeg'];
 
-    if (!_.contains(canGetExts, ext)) {
+    var canGetExts = [/^gif/i, /^jpe?g/i, /^png/i];    
+
+    if (!_.any(canGetExts, function (re) {
+            return re.test(ext);
+        })) {
         throw new Meteor.Error( 500, '\'jpg\', \'jpeg\', \'png\' only acceptable.' );
     }
+
+    // if (!_.contains(canGetExts, ext)) {
+    //     throw new Meteor.Error( 500, '\'jpg\', \'jpeg\', \'png\' only acceptable.' );
+    // }
 
     var file = fs.readFile(process.env.PWD + '/host_Uploads/' + fileName,
         function(error, data){
