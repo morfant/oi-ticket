@@ -47,6 +47,8 @@ Template.postSubmit.events({
 
     var post = {
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
+      period: $(e.target).find('[name=period]').val().replace(/[\r\n]/g, "<br />"),
+      place: $(e.target).find('[name=place]').val().replace(/[\r\n]/g, "<br />"),
       notice: $(e.target).find('[name=notice]').val().replace(/[\r\n]/g, "<br />"),
       // text: $(e.target).find('[name=text]').val().replace(/[\r\n]/g, "<br />"),
       // text: $(e.target).find('[name=text]').html(),

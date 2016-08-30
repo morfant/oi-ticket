@@ -1,3 +1,9 @@
+var elementDesc = {
+  "place": "장소",
+  "price": "입장권",
+};
+
+
 Template.postItem.created = function(){
   Session.set('sendingResult', {});
 }
@@ -6,6 +12,13 @@ var POST_HEIGHT = 80;
 var Positions = new Meteor.Collection(null); // null means local collection
 
 Template.postItem.helpers({
+  item: function() {
+    return Posts.findOne();
+  },
+  isExistInDB: function(element) {
+    // TODO: Implement
+    return true;
+  },
   isInPostsList: function() {
     if (Router.current().route.getName() == 'postsList') return true;
     else return false;
