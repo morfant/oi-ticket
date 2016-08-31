@@ -1,10 +1,24 @@
 var elementDesc = {
   "place": "장소",
+  "playDates": "공연시간",
   "price": "입장권",
+  "duration": "소요시간",
+  "contact": "문의",
+  "ageGrade": "관람연령",
+  "sponsor": "주최",
+  "production": "제작",
+  "director": "연출",
+  "original": "작",
+  "cast": "출연",
+  "arrange": "각색",
+  "description": "작품소개",
+  "synopsis": "시놉시스",
+  "staffs": "스태프",
 };
 
 
 Template.postItem.created = function(){
+  Session.set('isRendered', false);
   Session.set('sendingResult', {});
 }
 
@@ -12,6 +26,25 @@ var POST_HEIGHT = 80;
 var Positions = new Meteor.Collection(null); // null means local collection
 
 Template.postItem.helpers({
+  addElement: function(element) {
+    // console.log("addElement");
+    // console.log(element);
+    // console.log(elementDesc[element]);
+    var infoText = document.getElementById('infomationText');
+    var alist = document.createElement("LI");
+    var title_p = document.createElement('p');
+    var content_p = document.createElement('p');
+    title_p.id = "tit";
+    content_p.id = "con";
+    title_p.innerHTML = elementDesc[element];
+    // console.log(this); //a post
+    // console.log(this[element]);
+    content_p.innerHTML = this[element]; 
+    alist.appendChild(title_p);
+    alist.appendChild(content_p);
+    infoText.appendChild(alist);
+
+  },
   item: function() {
     return Posts.findOne();
   },
@@ -66,8 +99,16 @@ Template.postItem.helpers({
   },
   sendingResult: function () {
     return Session.get('sendingResult');
+  },
+  getRendered: function () {
+    return Session.get("isRendered");
   }
 });
+
+
+Template.postItem.rendered = function(){
+  Session.set("isRendered", true);
+}
 
 
 resetButtonValue = function(target, str, delay) {

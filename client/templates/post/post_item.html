@@ -5,50 +5,48 @@
     <div class="post-content">
 
 
-    <div class="left_image">
+    <div class="_image">
     <p>image will be ready...</p>
       <!-- image -->
 
 
     </div>
 
-    <div class="right_text">
-      <p class="subTitle">{{title}}</p>
+    <div class="_text">
+      <p class="subTitle"> <h2>{{title}}</h2> </p>
 
       <p class="topTxt">
         <strong>{{period}}</strong><br>
       </p>
 
-      <ul class="infomationText">
 
-      {{#each item}}
-        {{#if isExistInDB place}}
-          <li>
-            <p class="tit">{{elementDesc.place}}</p>
-            <p class="con">{{place}}</p>
-          </li>
-        {{/if}}
-      {{/each}}
+      <ul id="infomationText">
 
-      <h3>장소 {{place}}</h3>
-      <h3>입장권 {{price}}</h3>
-      <h3>{{duration}}</h3>
-      <h3>{{contact}}</h3>
-      <h3>{{ageGrade}}</h3>
-      <h3>{{sponsor}}</h3>
-      <h3>{{production}}</h3>
-      <h3>{{director}}</h3>
-      <h3>{{original}}</h3>
-      <h3>{{cast}}</h3>
-      <h3>{{arrange}}</h3>
+      {{#if getRendered}}
+        {{addElement "place"}}
+        {{addElement "playDates"}}
+        {{addElement "price"}}
+        {{addElement "duration"}}
+        {{addElement "contact"}}
+        {{addElement "ageGrade"}}
+        {{addElement "sponsor"}}
+        {{addElement "production"}}
+        {{addElement "director"}}
+        {{addElement "original"}}
+        {{addElement "cast"}}
+      {{/if}}
+
 
       </ul>
     </div>
 
     <div class="center_text">
-      <h3>{{description}}</h3>
-      <h3>{{synopsis}}</h3>
-      <h3>{{staffs}}</h3>           
+      {{#if getRendered}}
+        {{addElement "arrange"}}
+        {{addElement "description"}}
+        {{addElement "synopsis"}}
+        {{addElement "staffs"}}
+      {{/if}}
     </div>
 
 

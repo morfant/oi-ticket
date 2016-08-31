@@ -45,7 +45,15 @@
         <input name="place" id="place" type="text" value="제주특별자치도 제주시 삼도2동 예술공간오이 지하 1층 소극장" placeholder="제주특별자치도 제주시 삼도2동 예술공간오이 지하 1층 소극장" class="form-control"/>
         <span class="help-block">{{errorMessage 'place'}}</span>
       </div>
-    </div>    
+    </div> 
+
+    <div class="form-group {{errorClass 'playDates'}}">
+      <label class="control-label" for="playDates">공연시간</label>
+      <div class="controls">
+        <input name="playDates" id="playDates" type="text" value="평일 19:30, 주말 15:00, 화요일 쉼" placeholder="평일 19:30, 주말 15:00, 화요일 쉼" class="form-control"/>
+        <span class="help-block">{{errorMessage 'playDates'}}</span>
+      </div>
+    </div>        
     <!-- {{> froalaEditor}} -->
 
     <div class="form-group">
