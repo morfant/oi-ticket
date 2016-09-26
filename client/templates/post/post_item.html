@@ -4,6 +4,12 @@
 
     <div class="post-content">
 
+    {{#if currentUser}}
+    <span>Written at {{submitted}}
+    submitted by {{author}} {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
+    </span>
+    {{/if}}
+
 
     <div class="_image">
     <p>image will be ready...</p>
@@ -54,10 +60,6 @@
       
 
       <br><br>
-
-      <span>Written at {{submitted}}
-      submitted by {{author}} {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
-      </span>
 
       <div name="text" cols="100" rows="10" style="resize:none" readonly="readonly" class="post-content">
 

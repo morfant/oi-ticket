@@ -50,6 +50,7 @@ Template.postSubmit.events({
       period: $(e.target).find('[name=period]').val().replace(/[\r\n]/g, "<br />"),
       place: $(e.target).find('[name=place]').val().replace(/[\r\n]/g, "<br />"),
       playDates: $(e.target).find('[name=playDates]').val().replace(/[\r\n]/g, "<br />"),
+      playDatesDetail: $(e.target).find('[name=playDatesDetail]').val().replace(/[\r\n]/g, "<br />"),
       price: $(e.target).find('[name=ticketPrice]').val().replace(/[\r\n]/g, "<br />"),
       duration: $(e.target).find('[name=duration]').val().replace(/[\r\n]/g, "<br />"),
       contact: $(e.target).find('[name=contact]').val().replace(/[\r\n]/g, "<br />"),
@@ -88,6 +89,27 @@ Template.postSubmit.events({
       Router.go('postPage', {_id: result._id});
 
     });
+
+
+    // var path = fileInfo.filepath;
+    // console.log(path);
+
+    // var exp = fileInfo.name.split('.')[1];
+    // console.log(exp);
+    
+    // var file = path + fileInfo.name;
+    // console.log(file);
+    // var newName = path + "jsjntest" + "." + exp;
+
+    // Meteor.call('renameImg', file, newName, function(error, result) {
+    //   // display the error to the user and abort
+    //   if (error)
+    //     return throwError(error.reason);
+
+    //   console.log("rename succeed");
+
+    // });
+
 
   }
 });

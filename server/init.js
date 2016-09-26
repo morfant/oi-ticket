@@ -1,41 +1,56 @@
 var im = Meteor.npmRequire('imagemagick');
 
+
+forDeploy = false;
+
+var _tmpDir, _uploadDir;
+
+if (forDeploy){
+  _tmpDir = '/host_Uploads/tmp/';
+  _uploadDir = '/host_Uploads/';
+} else {
+  _tmpDir = process.env.PWD + '/host_Uploads/tmp/';
+  _uploadDir = process.env.PWD +  '/host_Uploads/';
+}
+
+
 Meteor.startup(function () {
 
   UploadServer.init({
 
-    tmpDir: process.env.PWD + '/host_Uploads/tmp/',
-    uploadDir: process.env.PWD + '/host_Uploads/',
-    overwrite: true,
-    // tmpDir: '/host_Uploads/tmp/',
-    // uploadDir: '/host_Uploads/',    
+    tmpDir: _tmpDir,
+    uploadDir: _uploadDir,
     checkCreateDirectories: true,
+    overwrite: true,
     getDirectory: function(fileInfo, formData) {
       // create a sub-directory in the uploadDir based on the content type (e.g. 'images')
       // return formData.contentType;
       return '/';
     },
+ 
     // getFileName: function(fileInfo, formData) { //if this function not defined, file saved as it's original name.
-      // console.log(formData);
-      // return formData.imgID;
+    //   console.log(fileInfo);
+    //   return formData.imgID;
     // },
+
     finished: function(fileInfo, formFields) {
       // perform a disk operation
       // console.log(fileInfo);
 
-      var targetImg = 'http://localhost:3000/host_Uploads/fullWidth/'+fileInfo.name;
-      var dimension = {};
+      // var targetImg = _uploadDir+'/fullWidth/'+fileInfo.name;
+      // var dimension = {};
 
-      im.identify(targetImg, function(err, output){
-      if (err) throw err;
-        // console.log('width: '+output.width);
-        dimension.width = output.width;
-        dimension.height = output.height;
-        //TO DO: get fullWidth image size instead original size.
-        // console.log("dimension: "+dimension.width+" / "+dimension.height);
-      });
+      // im.identify(targetImg, function(err, output){
+      //   if (err) throw err;
+      //     // console.log('width: '+output.width);
+      //     dimension.width = output.width;
+      //     dimension.height = output.height;
+      //     //TO DO: get fullWidth image size instead original size.
+      //     // console.log("dimension: "+dimension.width+" / "+dimension.height);
+      //   });
 
-      fileInfo.dimension = dimension;
+      // fileInfo.dimension = dimension;
+      fileInfo.filepath = _uploadDir;
 
     },
     imageVersions: {
