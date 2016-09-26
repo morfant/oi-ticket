@@ -236,3 +236,31 @@ body {
     /*padding: 25px 80px 25px 80px;*/
     /*font-size: 18px;*/
 }
+.thumbNailDiv {
+  float:left;
+  height:100%;
+  width:100%; 
+}
+.thumbNailDiv .left {
+ float:left; width:25%;
+ text-align: center; /* move image at horizontal center*/
+}
+.thumbNailDiv .middle {
+ float:left; width:50%; 
+ text-align: center;
+}
+.thumbNailDiv .right {
+ float:right; width:25%; 
+ text-align: center;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+}
+

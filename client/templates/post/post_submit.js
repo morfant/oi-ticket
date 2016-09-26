@@ -16,6 +16,24 @@ Template.postSubmit.rendered = function() {
 
 
 Template.postSubmit.helpers({
+  equals: function(a, b) {
+    console.log(a);
+    console.log(b);
+    console.log("compare equal");
+    if (a == b){
+      console.log("true")
+      return true;
+    } else {
+      console.log("false");
+      return false;
+    }
+  },
+
+  uploadedImgNum: function() {
+    console.log(uploadedImgNum);
+    return uploadedImgNum;
+  },
+
   testValue: function() {
     return testValue;
   },

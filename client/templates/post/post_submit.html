@@ -23,21 +23,27 @@
     </div>
 
 
-    <div id="thumbNailDiv">
-      <div id="t_div_0">
-        <p id="t_p_0"></p>
-        <img id="t_img_0" height="100" width="100" />
-      </div>
+    <div class="thumbNailDiv">
+    {{#if equals uploadedImgNum 1}}
 
-      <div id="t_div_1">
+    {{> thumbNailView divClass="left" pClass="t_p_1" imgClass="t_img_1"}}
+
+    {{/if}}
+
+    <!-- {{#if(uploadedImgNum > 1)}} {{/if}} -->
+
+    <!-- {{#if uploadedImgNum > 2}} {{/if}} -->
+<!-- 
+      <div class="middle">
         <p id="t_p_1"></p>
-        <img id="t_img_1" height="100" width="100" />
+        <img id="t_img_1" height="100" width="100" align="middle" />
       </div>
 
-      <div id="t_div_2">
+      <div class="right">
         <p id="t_p_2"></p>
-        <img id="t_img_2" height="100" width="100" />
+        <img id="t_img_2" height="100" width="100" align="middle" />
       </div>
+       -->
     </div>
 
 

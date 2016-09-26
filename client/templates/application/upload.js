@@ -1,6 +1,4 @@
 var uniqueID = "";
-var imgElementId = ["t_img_1", "t_img_2", "t_img_3"];
-var imgElementId = ["t_p_1", "t_p_2", "t_img_3"];
 
 Template.uploadJquery.created = function(){
   // uniqueID = this.data.uniqueID;
@@ -26,6 +24,7 @@ Template.uploadJquery.helpers({
           // console.log(fileInfo);
           // console.log(context);
 
+          uploadedImgNum++;
           if (uploadedImgNum <= UPLOAD_IMG_MAXIUM) {
 
             var path = fileInfo.filepath;
@@ -56,7 +55,8 @@ Template.uploadJquery.helpers({
                 // console.log(nameSplited);
                 p.innerHTML = newName;
 
-                uploadedImgNum++;
+                //TODO : add delete button
+
               }
 
             });
