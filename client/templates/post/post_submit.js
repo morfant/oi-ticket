@@ -1,15 +1,16 @@
-var randomKey = "";
+img_unique_id = "";
+uploadedImgNum = 0;
 var testValue = "test오이test";
 
 Template.postSubmit.created = function() {
   Session.set('postSubmitErrors', {});
 
-  randomKey = Random.id();
+  img_unique_id = Random.id();
   // console.log("in postsubmit.created(): " + randomKey);
 };
 
 
-Template.postSubmit.rendered= function() {
+Template.postSubmit.rendered = function() {
 
 };
 
@@ -19,9 +20,9 @@ Template.postSubmit.helpers({
     return testValue;
   },
 
-  randomKey: function() {
-    console.log("in postSubmit helpers randomKey(): " + randomKey);
-    return {uniqueID: randomKey};
+  imgUniqId: function() {
+    console.log("in postSubmit helpers randomKey(): " + img_unique_id);
+    return {uniqueID: img_unique_id};
   },
 
   errorMessage: function(field) {
