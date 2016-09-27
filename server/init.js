@@ -6,11 +6,11 @@ forDeploy = false;
 var _tmpDir, _uploadDir;
 
 if (forDeploy){
-  _tmpDir = '/host_Uploads/tmp/';
-  _uploadDir = '/host_Uploads/';
+  _tmpDir = UPLOAD_DIR_TMP;
+  _uploadDir = UPLOAD_DIR;
 } else {
-  _tmpDir = process.env.PWD + '/host_Uploads/tmp/';
-  _uploadDir = process.env.PWD +  '/host_Uploads/';
+  _tmpDir = process.env.PWD + UPLOAD_DIR_TMP;
+  _uploadDir = process.env.PWD + UPLOAD_DIR;
 }
 
 
@@ -22,11 +22,11 @@ Meteor.startup(function () {
     uploadDir: _uploadDir,
     checkCreateDirectories: true,
     overwrite: true,
-    getDirectory: function(fileInfo, formData) {
-      // create a sub-directory in the uploadDir based on the content type (e.g. 'images')
-      // return formData.contentType;
-      return '/';
-    },
+    // getDirectory: function(fileInfo, formData) {
+    //   // create a sub-directory in the uploadDir based on the content type (e.g. 'images')
+    //   // return formData.contentType;
+    //   return '/';
+    // },
  
     // getFileName: function(fileInfo, formData) { //if this function not defined, file saved as it's original name.
     //   console.log(fileInfo);

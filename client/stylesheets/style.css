@@ -246,7 +246,7 @@ body {
  text-align: center; /* move image at horizontal center*/
 }
 .thumbNailDiv .middle {
- float:left; width:50%; 
+ float:center; 
  text-align: center;
 }
 .thumbNailDiv .right {

@@ -1,3 +1,6 @@
+imgBasePath = "";
+imgFiles = [];
+
 var uniqueID = "";
 
 var findEmptyImgHolder = function() {
@@ -62,8 +65,8 @@ Template.uploadJquery.helpers({
           // if (uploadedImgNum <= UPLOAD_IMG_MAXIUM) {
           if (emptyIdx != null) {
 
-            var path = fileInfo.filepath;
-            console.log(path);
+            imgBasePath = fileInfo.filepath;
+            console.log(imgBasePath);
 
             var exp = fileInfo.name.split('.')[1];
             console.log(exp);
@@ -73,7 +76,7 @@ Template.uploadJquery.helpers({
             // var newName = uploadedImgNum + "_" + img_unique_id + "_" + file;
             var newName = emptyIdx + "_OF_" + img_unique_id + "_" + file;
 
-            Meteor.call('renameImg', path + file, path + newName, function(error, result) {
+            Meteor.call('renameImg', imgBasePath + file, imgBasePath + newName, function(error, result) {
               // display the error to the user and abort
               if (error) {
                 console.log("got error");
@@ -81,16 +84,20 @@ Template.uploadJquery.helpers({
               } else {
                 console.log("rename succeed");
 
+                imgFiles[emptyIdx] = imgBasePath + newName;
+                console.log(imgFiles[0]);
+
               // If any empty holder exist, fill thumbnail img into it.
               // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
                 var img = document.getElementById("t_img_" + emptyIdx);
                 var p = document.getElementById("t_p_" + emptyIdx);
                 console.log(newName);
-                console.log('/host_Uploads/' + newName);
-                img.src = '/host_Uploads/' + newName;
+                console.log(UPLOAD_DIR + newName);
+                img.src = UPLOAD_DIR + newName;
+
                 // var nameSplited = newName.split('_');
                 // console.log(nameSplited);
-                p.innerHTML = newName;
+                p.innerHTML = emptyIdx + "_" + file;
                 //TODO : add delete button
 
               }

@@ -1,11 +1,33 @@
 img_unique_id = "";
-uploadedImgNum = 0;
 thumbNailImgFillArr = [false, false, false];
+
 var testValue = "test오이test";
+
+var delImg = function(idx) {
+
+  console.log(imgFiles[idx]);
+
+  thumbNailImgFillArr[idx] = false;
+  Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
+  
+  // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
+  Meteor.call('deleteImg', imgFiles[idx], function(error, result) {
+
+    // display the error to the user and abort
+    if (error) {
+      console.log("got error");
+      return throwError(error.reason);
+    } else {
+      console.log("delete succeed");
+    }
+
+  });
+};
+
 
 Template.postSubmit.created = function() {
   Session.set('postSubmitErrors', {});
-  Session.set('uploadedImgNumSes', uploadedImgNum);
+  // Session.set('uploadedImgNumSes', uploadedImgNum);
   Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
 
 
@@ -21,7 +43,7 @@ Template.postSubmit.rendered = function() {
 
 Template.postSubmit.helpers({
   getThumbNailImgFill: function(idx) {
-    console.log("thumbNailImgFillArr[" + idx + "]: " + thumbNailImgFillArr[idx]);
+    // console.log("thumbNailImgFillArr[" + idx + "]: " + thumbNailImgFillArr[idx]);
     thumbNailImgFillArr = Session.get('thumbNailImgFillArrSes');
     return thumbNailImgFillArr[idx];
   },
@@ -49,11 +71,11 @@ Template.postSubmit.helpers({
     }
   },
 
-  uploadedImgNum: function() {
-    console.log(uploadedImgNum);
-    // return uploadedImgNum;
-    return Session.get('uploadedImgNumSes');
-  },
+  // uploadedImgNum: function() {
+  //   console.log(uploadedImgNum);
+  //   // return uploadedImgNum;
+  //   return Session.get('uploadedImgNumSes');
+  // },
 
   testValue: function() {
     return testValue;
@@ -153,32 +175,21 @@ Template.postSubmit.events({
 
   },
 
-  'click .del_1': function(e) {
+  'click .deleteImg': function(e) {
     e.preventDefault();
 
-    Meteor.call('deleteImg', path + newName, function(error, result) {
-      // display the error to the user and abort
-      if (error) {
-        console.log("got error");
-        return throwError(error.reason);
-      } else {
-        console.log("delete succeed");
+    var targetId = $(e.target).parent().attr('id');
+    // console.log(target);
 
-      // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
-        var img = document.getElementById("t_img_" + uploadedImgNum);
-        var p = document.getElementById("t_p_" + uploadedImgNum);
-        console.log(newName);
-        console.log('/host_Uploads/' + newName);
-        img.src = '/host_Uploads/' + newName;
-        // var nameSplited = newName.split('_');
-        // console.log(nameSplited);
-        p.innerHTML = newName;
+    if (targetId == 'del_0') {
+      delImg(0);
+    } else if (targetId == 'del_1') {
+      delImg(1);
+    } else if (targetId == 'del_2') {
+      delImg(2);
+    } else {
 
-        //TODO : add delete button
-
-      }
-
-    });
+    }
 
 
   }
