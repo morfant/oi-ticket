@@ -24,10 +24,17 @@
 
 
     <div class="thumbNailDiv">
-    {{#if equals uploadedImgNum 1}}
+     
+    {{#if getThumbNailImgFill 0 }}
+      {{> thumbNailView divClass="left" pClass="t_p_0" imgClass="t_img_0" delIdx="del_0"}}
+    {{/if}}
 
-    {{> thumbNailView divClass="left" pClass="t_p_1" imgClass="t_img_1"}}
+    {{#if getThumbNailImgFill 1 }}
+      {{> thumbNailView divClass="middle" pClass="t_p_1" imgClass="t_img_1" delIdx="del_1"}}
+    {{/if}}
 
+    {{#if getThumbNailImgFill 2 }}
+      {{> thumbNailView divClass="right" pClass="t_p_2" imgClass="t_img_2" delIdx="del_2"}}
     {{/if}}
 
     <!-- {{#if(uploadedImgNum > 1)}} {{/if}} -->

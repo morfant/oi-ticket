@@ -1,9 +1,13 @@
 img_unique_id = "";
 uploadedImgNum = 0;
+thumbNailImgFillArr = [false, false, false];
 var testValue = "test오이test";
 
 Template.postSubmit.created = function() {
   Session.set('postSubmitErrors', {});
+  Session.set('uploadedImgNumSes', uploadedImgNum);
+  Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
+
 
   img_unique_id = Random.id();
   // console.log("in postsubmit.created(): " + randomKey);
@@ -16,6 +20,12 @@ Template.postSubmit.rendered = function() {
 
 
 Template.postSubmit.helpers({
+  getThumbNailImgFill: function(idx) {
+    console.log("thumbNailImgFillArr[" + idx + "]: " + thumbNailImgFillArr[idx]);
+    thumbNailImgFillArr = Session.get('thumbNailImgFillArrSes');
+    return thumbNailImgFillArr[idx];
+  },
+
   equals: function(a, b) {
     console.log(a);
     console.log(b);
@@ -29,9 +39,20 @@ Template.postSubmit.helpers({
     }
   },
 
+  gt: function(a, b) {
+    if (a >= b){
+      console.log("true")
+      return true;
+    } else {
+      console.log("false");
+      return false;
+    }
+  },
+
   uploadedImgNum: function() {
     console.log(uploadedImgNum);
-    return uploadedImgNum;
+    // return uploadedImgNum;
+    return Session.get('uploadedImgNumSes');
   },
 
   testValue: function() {
@@ -108,7 +129,7 @@ Template.postSubmit.events({
       Router.go('postPage', {_id: result._id});
 
     });
-
+ 
 
     // var path = fileInfo.filepath;
     // console.log(path);
@@ -130,5 +151,38 @@ Template.postSubmit.events({
     // });
 
 
+  },
+
+  'click .del_1': function(e) {
+    e.preventDefault();
+
+    Meteor.call('deleteImg', path + newName, function(error, result) {
+      // display the error to the user and abort
+      if (error) {
+        console.log("got error");
+        return throwError(error.reason);
+      } else {
+        console.log("delete succeed");
+
+      // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
+        var img = document.getElementById("t_img_" + uploadedImgNum);
+        var p = document.getElementById("t_p_" + uploadedImgNum);
+        console.log(newName);
+        console.log('/host_Uploads/' + newName);
+        img.src = '/host_Uploads/' + newName;
+        // var nameSplited = newName.split('_');
+        // console.log(nameSplited);
+        p.innerHTML = newName;
+
+        //TODO : add delete button
+
+      }
+
+    });
+
+
   }
+
+
+
 });
