@@ -242,12 +242,12 @@ body {
   width:100%; 
 }
 .thumbNailDiv .left {
- float:left; width:25%;
- text-align: center; /* move image at horizontal center*/
+  float:left; width:25%;
+  text-align: center; /* move image at horizontal center*/
 }
 .thumbNailDiv .middle {
- float:center; 
- text-align: center;
+  float:left; width:50%; 
+  text-align: center;
 }
 .thumbNailDiv .right {
  float:right; width:25%; 

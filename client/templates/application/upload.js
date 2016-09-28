@@ -75,6 +75,7 @@ Template.uploadJquery.helpers({
             console.log(file);
             // var newName = uploadedImgNum + "_" + img_unique_id + "_" + file;
             var newName = emptyIdx + "_OF_" + img_unique_id + "_" + file;
+            newName = newName.replace(" ", ""); //remove whitespace
 
             Meteor.call('renameImg', imgBasePath + file, imgBasePath + newName, function(error, result) {
               // display the error to the user and abort

@@ -1,9 +1,6 @@
-img_unique_id = "";
-thumbNailImgFillArr = [false, false, false];
-
 var testValue = "test오이test";
 
-var delImg = function(idx) {
+var delImgOnPage = function(idx) {
 
   console.log(imgFiles[idx]);
 
@@ -26,6 +23,9 @@ var delImg = function(idx) {
 
 
 Template.postSubmit.created = function() {
+  img_unique_id = "";
+  thumbNailImgFillArr = [false, false, false];
+
   Session.set('postSubmitErrors', {});
   // Session.set('uploadedImgNumSes', uploadedImgNum);
   Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
@@ -37,6 +37,20 @@ Template.postSubmit.created = function() {
 
 
 Template.postSubmit.rendered = function() {
+
+  // TODO : delete all (.jp(e)g, .png, .gif) files
+  Meteor.call('deleteAllImg', function(error, result) {
+      console.log("Meteor call");
+      // display the error to the user and abort
+      if (error) {
+        console.log("ERROR!!");
+        console.log(error.reason);
+        return throwError(error.reason);
+      }
+      
+      console.log("Delete all imgs");
+
+    })
 
 };
 
@@ -126,8 +140,8 @@ Template.postSubmit.events({
       description: $(e.target).find('[name=description]').val().replace(/[\r\n]/g, "<br />"),
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
+      imgId: img_unique_id,
 
-      // imgId: randomKey
     };
     console.log(post.title);
     console.log(post.price);
@@ -148,30 +162,18 @@ Template.postSubmit.events({
         return throwError(error.reason);
       }
       
+      Meteor.call('moveAllImg', function(error, result) {
+        if (error) {
+          console.log("ERROR - moveAllImg");
+          return throwError(error);
+        }
+
+      });
+
       Router.go('postPage', {_id: result._id});
 
     });
  
-
-    // var path = fileInfo.filepath;
-    // console.log(path);
-
-    // var exp = fileInfo.name.split('.')[1];
-    // console.log(exp);
-    
-    // var file = path + fileInfo.name;
-    // console.log(file);
-    // var newName = path + "jsjntest" + "." + exp;
-
-    // Meteor.call('renameImg', file, newName, function(error, result) {
-    //   // display the error to the user and abort
-    //   if (error)
-    //     return throwError(error.reason);
-
-    //   console.log("rename succeed");
-
-    // });
-
 
   },
 
@@ -182,11 +184,11 @@ Template.postSubmit.events({
     // console.log(target);
 
     if (targetId == 'del_0') {
-      delImg(0);
+      delImgOnPage(0);
     } else if (targetId == 'del_1') {
-      delImg(1);
+      delImgOnPage(1);
     } else if (targetId == 'del_2') {
-      delImg(2);
+      delImgOnPage(2);
     } else {
 
     }
