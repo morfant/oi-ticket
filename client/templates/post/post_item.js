@@ -25,6 +25,20 @@ Template.postItem.created = function(){
 var POST_HEIGHT = 80;
 var Positions = new Meteor.Collection(null); // null means local collection
 
+
+var imgSlide = function() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+
+
 Template.postItem.helpers({
   addElement: function(element) {
     // console.log("addElement");
@@ -108,6 +122,21 @@ Template.postItem.helpers({
 
 Template.postItem.rendered = function(){
   Session.set("isRendered", true);
+
+  var aPost = Posts.findOne();
+  var imgNumber = aPost.imgNum;
+  var imgId = aPosts.imgId;
+  var imgDiv = this.find('#_images');
+
+  for (var i = 0; i < imgNumber; i++){
+    var img = document.createElement("img");
+    // img.id = "slideImages";
+    img.src = BASE_DIR + POSTED_DIR + imgId + "_" + i;
+    console.log(BASE_DIR + POSTED_DIR + imgId + "_" + i);
+    imgDiv.appendChild(img);
+  }
+
+
 }
 
 

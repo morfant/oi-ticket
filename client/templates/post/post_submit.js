@@ -22,8 +22,21 @@ var delImgOnPage = function(idx) {
 };
 
 
+var getImgNum = function() {
+  var imgNum = 0;
+  for (var i = 0; i < thumbNailImgFillArr.length; i++){
+    if (thumbNailImgFillArr[i] == true) imgNum++;
+  }
+  return imgNum;
+}
+
+
 Template.postSubmit.created = function() {
-  img_unique_id = "";
+  // imgBasePath = "";
+  imgFiles = []; //Store img file name shoing on page
+
+  img_unique_id = Random.id();
+  img_num = 0;
   thumbNailImgFillArr = [false, false, false];
 
   Session.set('postSubmitErrors', {});
@@ -31,7 +44,6 @@ Template.postSubmit.created = function() {
   Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
 
 
-  img_unique_id = Random.id();
   // console.log("in postsubmit.created(): " + randomKey);
 };
 
@@ -121,6 +133,8 @@ Template.postSubmit.events({
     console.log("postInsert in client");
     // console.log($(e.target).find('#text').html());
 
+    var nImg = getImgNum();
+    
     var post = {
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
       period: $(e.target).find('[name=period]').val().replace(/[\r\n]/g, "<br />"),
@@ -141,6 +155,7 @@ Template.postSubmit.events({
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
       imgId: img_unique_id,
+      imgNum: nImg,
 
     };
     console.log(post.title);
