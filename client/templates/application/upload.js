@@ -1,16 +1,16 @@
-// imgBasePath = "";
+// imgAbsPath = "";
 // imgFiles = [];
 
 var uniqueID = "";
 
 var findEmptyImgHolder = function() {
   var emptyIdx = null;
-  for (var i = 0; i < thumbNailImgFillArr.length; i++) {
-    if (thumbNailImgFillArr[i] == false) {
+  for (var i = 0; i < thumbNailImgHolderArr.length; i++) {
+    if (thumbNailImgHolderArr[i] == false) {
       emptyIdx = i;
-      thumbNailImgFillArr[i] = true;
-      Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
-      console.log(emptyIdx);
+      thumbNailImgHolderArr[i] = true;
+      Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
+      // console.log(emptyIdx);
       break;
     }
   };
@@ -49,23 +49,26 @@ Template.uploadJquery.helpers({
           // if (uploadedImgNum <= UPLOAD_IMG_MAXIUM) {
           if (emptyIdx != null) {
 
-            var imgBasePath = fileInfo.filepath;
-            console.log(imgBasePath);
+            imgAbsPath = fileInfo.filepath;
+            /* ex) /Users/giy/oi-ticket/host_Uploads/ */
+            // console.log("imgAbsPath: " + imgAbsPath);
 
             var exp = fileInfo.name.split('.').reverse()[0];
-            console.log(exp);
+            /* ex) png */
+            // console.log("ext: " + exp);
 
             var file = fileInfo.name;
-            console.log(file);
+            /* ex) grass.png */
+            // console.log("filename: " + file);
+
             // var newName = uploadedImgNum + "_" + img_unique_id + "_" + file;
             var newName = img_unique_id + "_" + emptyIdx + "." + exp;
-            console.log("newName");
-            console.log(newName);
+            // console.log("newName: " + newName);
             // newName = newName.replace(/ /g, ""); //remove whitespace
             // console.log("newName replaced");
             // console.log(newName);
 
-            Meteor.call('renameImg', imgBasePath + file, imgBasePath + newName, function(error, result) {
+            Meteor.call('renameImg', imgAbsPath + file, imgAbsPath + newName, function(error, result) {
               // display the error to the user and abort
               if (error) {
                 console.log("got error");
@@ -73,16 +76,18 @@ Template.uploadJquery.helpers({
               } else {
                 console.log("rename succeed");
 
-                imgFiles[emptyIdx] = imgBasePath + newName; //defined post_submit.js
-                console.log(imgFiles[0]);
+                // imgFiles[emptyIdx] = imgAbsPath + newName; //defined post_submit.js
+                imgFiles[emptyIdx] = newName; //defined post_submit.js
+                console.log("imgFiles - UPLOADED: " + imgFiles);
+                // console.log(imgFiles[0]);
 
               // If any empty holder exist, fill thumbnail img into it.
               // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
                 var img = document.getElementById("t_img_" + emptyIdx);
                 var p = document.getElementById("t_p_" + emptyIdx);
-                // console.log(newName);
-                console.log(UPLOAD_DIR + newName);
-                img.src = UPLOAD_DIR + newName;
+
+                // console.log(UPLOAD_DIR_SUBMIT + newName);
+                img.src = UPLOAD_DIR_SUBMIT + newName;
 
                 // var nameSplited = newName.split('_');
                 // console.log(nameSplited);

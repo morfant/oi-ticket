@@ -4,11 +4,11 @@ var delImgOnPage = function(idx) {
 
   console.log(imgFiles[idx]);
 
-  thumbNailImgFillArr[idx] = false;
-  Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
+  thumbNailImgHolderArr[idx] = false;
+  Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
   
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
-  Meteor.call('deleteImg', imgFiles[idx], function(error, result) {
+  Meteor.call('deleteImg', imgAbsPath + imgFiles[idx], function(error, result) {
 
     // display the error to the user and abort
     if (error) {
@@ -24,24 +24,24 @@ var delImgOnPage = function(idx) {
 
 var getImgNum = function() {
   var imgNum = 0;
-  for (var i = 0; i < thumbNailImgFillArr.length; i++){
-    if (thumbNailImgFillArr[i] == true) imgNum++;
+  for (var i = 0; i < thumbNailImgHolderArr.length; i++){
+    if (thumbNailImgHolderArr[i] == true) imgNum++;
   }
+  console.log(imgNum);
   return imgNum;
 }
 
 
 Template.postSubmit.created = function() {
-  // imgBasePath = "";
   imgFiles = []; //Store img file name shoing on page
 
   img_unique_id = Random.id();
   img_num = 0;
-  thumbNailImgFillArr = [false, false, false];
+  thumbNailImgHolderArr = [false, false, false];
 
   Session.set('postSubmitErrors', {});
   // Session.set('uploadedImgNumSes', uploadedImgNum);
-  Session.set('thumbNailImgFillArrSes', thumbNailImgFillArr);
+  Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
 
 
   // console.log("in postsubmit.created(): " + randomKey);
@@ -49,6 +49,8 @@ Template.postSubmit.created = function() {
 
 
 Template.postSubmit.rendered = function() {
+
+  console.log("imgFiles - PAGE RENDERED: " + imgFiles);
 
   // TODO : delete all (.jp(e)g, .png, .gif) files
   Meteor.call('deleteAllImg', function(error, result) {
@@ -69,9 +71,9 @@ Template.postSubmit.rendered = function() {
 
 Template.postSubmit.helpers({
   getThumbNailImgFill: function(idx) {
-    // console.log("thumbNailImgFillArr[" + idx + "]: " + thumbNailImgFillArr[idx]);
-    thumbNailImgFillArr = Session.get('thumbNailImgFillArrSes');
-    return thumbNailImgFillArr[idx];
+    // console.log("thumbNailImgHolderArr[" + idx + "]: " + thumbNailImgHolderArr[idx]);
+    thumbNailImgHolderArr = Session.get('thumbNailImgHolderArrSes');
+    return thumbNailImgHolderArr[idx];
   },
 
   equals: function(a, b) {
@@ -130,10 +132,10 @@ Template.postSubmit.events({
   'submit form': function(e) {
     e.preventDefault();
 
-    console.log("postInsert in client");
+    // console.log("postInsert in client");
     // console.log($(e.target).find('#text').html());
 
-    var nImg = getImgNum();
+    console.log("imgFiles - BEFORE SUBMITT: " + imgFiles);
     
     var post = {
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
@@ -154,22 +156,21 @@ Template.postSubmit.events({
       description: $(e.target).find('[name=description]').val().replace(/[\r\n]/g, "<br />"),
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
-      imgId: img_unique_id,
-      imgNum: nImg,
+      includeImages: imgFiles,
+      // imgId: img_unique_id,
+      // imgNum: nImg,
 
     };
-    console.log(post.title);
-    console.log(post.price);
 
     var errors = validatePost(post);
     // if (errors.title || errors.text)
     if (errors.title)      
       return Session.set('postSubmitErrors', errors);
 
-    console.log("Before Meteor call");
+    // console.log("Before Meteor call");
 
     Meteor.call('postInsert', post, function(error, result) {
-      console.log("Meteor call");
+      // console.log("Meteor call");
       // display the error to the user and abort
       if (error) {
         console.log("ERROR!!");
@@ -185,6 +186,12 @@ Template.postSubmit.events({
 
       });
 
+      // clear imgFiles array
+      // imgFiles = [];
+      // console.log("clear imgFiles");
+      // console.log(imgFiles);
+
+      console.log("inserted post id: " + result._id);
       Router.go('postPage', {_id: result._id});
 
     });

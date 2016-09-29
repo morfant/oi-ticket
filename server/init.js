@@ -7,10 +7,10 @@ var _tmpDir, _uploadDir;
 
 if (forDeploy){
   _tmpDir = UPLOAD_DIR_TMP;
-  _uploadDir = UPLOAD_DIR;
+  _uploadDir = UPLOAD_DIR_SUBMIT;
 } else {
   _tmpDir = process.env.PWD + UPLOAD_DIR_TMP;
-  _uploadDir = process.env.PWD + UPLOAD_DIR;
+  _uploadDir = process.env.PWD + UPLOAD_DIR_SUBMIT;
 }
 
 

@@ -1,40 +1,58 @@
 fs = Meteor.npmRequire('fs');
 
-WebApp.connectHandlers.use('/host_Uploads', function(req, res){
+var re_uploads = new RegExp("host_Uploads");
+var re_uploads_submit = new RegExp("host_Uploads\/submitting");
+// var imageFolders = [/host_Uploads/, /host_Uploads\/submitting/];
+var imageFolders = [ re_uploads, re_uploads_submit ];
 
-    // console.log("images on server");
-    var pathLength = req.originalUrl.split('/').length;
-    var fileName = req.originalUrl.split('/')[pathLength-1];
-    // console.log("filename: " + fileName);
-    var ext = fileName.split('.')[1];
+WebApp.connectHandlers.use(function (req, res, next) {
+    // if (/\?.*_escaped_fragment_=/.test(req.url) ||
+    if (_.any(imageFolders, function (re) {
+        // console.log(re);
+        return re.test(req.url);
+    })) {
+        
+        // console.log("req.url: " + req.url);
+        // console.log("req.originalUrl: " + req.originalUrl);
+
+        // console.log("images on server");
+        var pathLength = req.originalUrl.split('/').length;
+        var fileName = req.originalUrl.split('/')[pathLength-1];
+        // console.log("filename: " + fileName);
+        var ext = fileName.split('.')[1];
 
 
-    var canGetExts = [/^gif/i, /^jpe?g/i, /^png/i];    
+        var canGetExts = [/^gif/i, /^jpe?g/i, /^png/i];    
 
-    if (!_.any(canGetExts, function (re) {
-            return re.test(ext);
-        })) {
-        throw new Meteor.Error( 500, '\'jpg\', \'jpeg\', \'png\' only acceptable.' );
-    }
+        if (!_.any(canGetExts, function (re) {
+                return re.test(ext);
+            })) {
+            throw new Meteor.Error( 500, '\'jpg\', \'jpeg\', \'png\' only acceptable.' );
+        }
 
-    // if (!_.contains(canGetExts, ext)) {
-    //     throw new Meteor.Error( 500, '\'jpg\', \'jpeg\', \'png\' only acceptable.' );
-    // }
+        var readPath = "";
+        if (re_uploads_submit.test(req.url)) { readPath = UPLOAD_DIR_SUBMIT; }
+        else if (re_uploads.test(req.url)) { readPath = UPLOAD_DIR; }
+        console.log("readPath: " + readPath);
 
-    var file = fs.readFile(process.env.PWD + '/host_Uploads/' + fileName,
-        function(error, data){
-            if (error){
-                // console.log(error);
-                res.writeHeader(500);
-                res.end(error.toString());
-            } else {
-                // console.log(data);
-                res.writeHeader(200, {
-                    'Content-Type': 'image/' + ext,
-                    'Content-Length': data.length
-                });
-                res.end(data); //end the respone 
-            }
-        });
+        var file = fs.readFile(process.env.PWD + readPath + fileName,
+            function(error, data){
+                if (error){
+                    // console.log(error);
+                    res.writeHeader(500);
+                    res.end(error.toString());
+                } else {
+                    // console.log(data);
+                    res.writeHeader(200, {
+                        'Content-Type': 'image/' + ext,
+                        'Content-Length': data.length
+                    });
+                    res.end(data); //end the respone 
+                }
+            });
+        } else {
+            // console.log(req.url);
+            next();
+        }
 });
 

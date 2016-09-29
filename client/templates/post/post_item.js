@@ -123,16 +123,21 @@ Template.postItem.helpers({
 Template.postItem.rendered = function(){
   Session.set("isRendered", true);
 
-  var aPost = Posts.findOne();
-  var imgNumber = aPost.imgNum;
-  var imgId = aPosts.imgId;
-  var imgDiv = this.find('#_images');
+  var post = Posts.findOne({postId: this._id});
+  var imgFiles = post.includeImages;
 
-  for (var i = 0; i < imgNumber; i++){
+  // console.log("imgNumber: " + imgNumber);
+  // console.log("imgId: " + imgId);
+
+  // console.log(this);
+  var imgDiv = this.find('#_images');
+  console.log(imgDiv);
+
+  for (var i = 0; i < imgFiles.length; i++){
     var img = document.createElement("img");
     // img.id = "slideImages";
-    img.src = BASE_DIR + POSTED_DIR + imgId + "_" + i;
-    console.log(BASE_DIR + POSTED_DIR + imgId + "_" + i);
+    img.src = UPLOAD_DIR+ imgFiles[i];
+    console.log(UPLOAD_DIR + imgFiles[i]);
     imgDiv.appendChild(img);
   }
 
