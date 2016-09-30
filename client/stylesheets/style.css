@@ -264,3 +264,13 @@ body {
   border-radius: 15px;
 }
 
+.slideImages {
+  width: 600px;
+  height: 400px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+
+
+}
+

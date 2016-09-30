@@ -10,14 +10,23 @@
     </span>
     {{/if}}
 
+    <br><br><br><br>
 
+
+    <!-- {{> imageSlide src_0=includeImages.[0] src_1=includeImages.[1] src_2=includeImages.[2]}} -->
+    {{> imageSlide id=_id src=includeImages}}
+
+
+<!--     {{postId}}
     <div id="_images">
-<!--       <img id="image_show_0" />
-      <img id="image_show_1" />
-      <img id="image_show_2" /> -->
+
+    {{getImage}}
+      <img id="slideImgs" />
+      <img id="slideImgs" />
+
     </div>
 
-
+ -->
     <div class="_text">
       <p class="subTitle"> <h2>{{title}}</h2> </p>
 
@@ -28,8 +37,25 @@
 
       <ul id="infomationText">
 
-      {{#if getRendered}}
-        {{addElement "place"}}
+      {{> listElement title="장소" content=place}}
+      {{> listElement title="공연시간" content=playDates}}
+      {{> listElement title="입장권" content=price}}
+      {{> listElement title="소요시간" content=duration}}
+      {{> listElement title="문의" content=contact}}
+      {{> listElement title="관람연령" content=ageGrade}}
+      {{> listElement title="주최" content=sponsor}}
+      {{> listElement title="제작" content=production}}
+      {{> listElement title="연출" content=director}}
+      {{> listElement title="원작" content=original}}
+      {{> listElement title="출연" content=cast}}
+      {{> listElement title="각색" content=arrange}}
+      {{> listElement title="작품소개" content=description}}
+      {{> listElement title="시놉시스" content=synopsis}}
+      {{> listElement title="스태프" content=staffs}}
+
+
+      <!-- {{#if getRendered}} -->
+<!--         {{addElement "place"}}
         {{addElement "playDates"}}
         {{addElement "price"}}
         {{addElement "duration"}}
@@ -39,20 +65,20 @@
         {{addElement "production"}}
         {{addElement "director"}}
         {{addElement "original"}}
-        {{addElement "cast"}}
-      {{/if}}
+        {{addElement "cast"}} -->
+      <!-- {{/if}} -->
 
 
       </ul>
     </div>
 
     <div class="center_text">
-      {{#if getRendered}}
+<!--       {{#if getRendered}}
         {{addElement "arrange"}}
         {{addElement "description"}}
         {{addElement "synopsis"}}
         {{addElement "staffs"}}
-      {{/if}}
+      {{/if}} -->
     </div>
 
 
