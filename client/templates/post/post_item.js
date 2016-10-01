@@ -18,14 +18,11 @@ elementDesc = {
 
 
 Template.postItem.created = function(){
-  postNum++;
+  postNum++; //used in post_list.js
   Session.set('isRendered', false);
   Session.set('sendingResult', {});
 
-  // console.log("thisID: " + this._id);
-  // var post = Posts.findOne(this._id);
-  // imgFiles = post.includeImages;
-  // console.log(post._id + " / " + imgFiles);
+
 }
 
 var POST_HEIGHT = 80;
@@ -35,38 +32,38 @@ var Positions = new Meteor.Collection(null); // null means local collection
 
 
 Template.postItem.helpers({
-  getImgId: function(ids) {
-    console.log(ids);
-    var imgs = Posts.findOne(this._id).includeImages;
-    console.log(imgs);
-    var id = imgs[0].split('_')[0];
-    console.log(id);
-    if (imgs) return imgs[0].split('_')[0];
+  // getImgId: function(ids) {
+  //   console.log(ids);
+  //   var imgs = Posts.findOne(this._id).includeImages;
+  //   console.log(imgs);
+  //   var id = imgs[0].split('_')[0];
+  //   console.log(id);
+  //   if (imgs) return imgs[0].split('_')[0];
 
-  },
-  getImage: function() {
-    var imgs = Posts.findOne(this._id).includeImages;
-    // var imgSrc = BASE_DIR + UPLOAD_DIR + imgs[idx];
+  // },
+  // getImage: function() {
+  //   var imgs = Posts.findOne(this._id).includeImages;
+  //   // var imgSrc = BASE_DIR + UPLOAD_DIR + imgs[idx];
 
-    // var imgDiv = this.find('#_images');
-    // var imgDiv = document.getElementById('_images');
+  //   // var imgDiv = this.find('#_images');
+  //   // var imgDiv = document.getElementById('_images');
 
-    for (var i = 0; i < imgs.length; i++){
-      // var img = document.createElement("img");
-      // img.src = UPLOAD_DIR + imgFiles[i];
-      // console.log("img1: " + img);
-      // img.className = "sslideImages";
-      // console.log("img2: " + img);
-      // console.log(UPLOAD_DIR + imgFiles[i]);
-      // imgDiv.appendChild(img);
-    }
+  //   for (var i = 0; i < imgs.length; i++){
+  //     // var img = document.createElement("img");
+  //     // img.src = UPLOAD_DIR + imgFiles[i];
+  //     // console.log("img1: " + img);
+  //     // img.className = "sslideImages";
+  //     // console.log("img2: " + img);
+  //     // console.log(UPLOAD_DIR + imgFiles[i]);
+  //     // imgDiv.appendChild(img);
+  //   }
 
-    // return "<img id=\"alskjdl\">";
+  //   // return "<img id=\"alskjdl\">";
 
-    // imgSlide();
+  //   // imgSlide();
 
-    // return imgSrc;
-  },
+  //   // return imgSrc;
+  // },
   addElement: function(element) {
     // console.log("addElement");
     // console.log(element);
@@ -146,39 +143,12 @@ Template.postItem.helpers({
   },
   getRendered: function () {
     return Session.get("isRendered");
-  },
-  slideImage: function () {
-
-    var imgDiv = this.find('#_images');
-    console.log(imgDiv);
-
-    for (var i = 0; i < imgFiles.length; i++){
-      var img = document.createElement("img");
-      img.src = UPLOAD_DIR+ imgFiles[i];
-      // console.log("img1: " + img);
-      img.className = "slideImages";
-      // console.log("img2: " + img);
-      console.log(UPLOAD_DIR + imgFiles[i]);
-      imgDiv.appendChild(img);
-    }
-
-    // imgSlide();
-
   }
-
 });
 
 
 Template.postItem.rendered = function(){
   Session.set("isRendered", true);
-
-
-  // var t = this.find('[name=ybje7wDYT6ysFPCjK]');
-  // console.log("t: " + t[0]);
-
-  // var post = Posts.findOne({postId: this._id});
-  // console.log("rendered: " + post);   
-
 }
 
 

@@ -1,41 +1,10 @@
-Template.postsList.created = function(){
-	postNum = 0;
+var imgs = [];
+var imgIdx = [];
 
-	// if (slideShowTimer != undefined) Meteor.clearInterval(slideShowTimer); //cancel previous setInterval
+Template.postsList.created = function(){
+	postNum = 0; //calculated by post_item.js
 
 }
-
-
-// //Set data first!!!
-// var PostsData = [
-//     {
-//         title: '#1',
-//         contents: 'hello',
-//         isOnNow: true,
-//         isUpNext: false,
-//         isLasts: false,
-//         date: "20160712"
-//     },
-
-//     {
-//         title: '#2',
-//         contents: 'http://jjwc.cafe24.com:8000/mpd.ogg',
-//         isOnNow: false,
-//         isUpNext: true,
-//         isLasts: false,
-//         date: "20160712"
-//     },
-
-//     {
-//         title: '#3',
-//         contents: 'http://jjwc.cafe24.com:8000/mpd.ogg',
-//         isOnNow: false,
-//         isUpNext: false,
-//         isLasts: true,
-//         date: "20160712"
-//     }
-// ];
-
 
 
 Template.postsList.helpers({
@@ -52,83 +21,61 @@ Template.postsList.helpers({
 });
 
 
-	// var imgSlide = function(imgs) {
-
-	// 	console.log("imgSlide()");
-	// 	// for (var j = 0; j < postNum; j++){
-
-	// 	//     for (var i = 0; i < 3; i++) {
-	// 	// 		imgs[i + (j*3)].style.display = "none";
-	// 	// 	}
-
-	// 	//     imgIdx[j]++;
-	// 	//     if (imgIdx[j] > 3) {imgIdx[j] = 1}    
-	// 	//     imgs[imgIdx[j]-1].style.display = "block";  
-
-	// 	// };
-
-	//     Meteor.setTimeout(imgSlide(images), 5000); // Change image every 2 seconds
-	// };
-
 
 Template.postsList.rendered = function(){
 
 	console.log(postNum);
 
-	// var imgs = this.find('[name=sImg]');
-	imgs = document.getElementsByClassName('slideImages');
+	// imgs = document.getElementsByClassName('slideImages');
+	imgs = this.$('.slideImages');
 	console.log(imgs);
-	// var realImgs = [];
-	// var j = 0;
 
-	// for (var i = 0; i < imgs.length; i++){
-	// 	if (imgs[i].src != ''){
-	// 		realImgs[j] = imgs[i];
-	// 		j++;
-	// 	}
-	// 	console.log(imgs[i].src);
-	// }
-
-	// imgs = []; //empty array
-
-	// console.log(realImgs);
-
-
-
-	/* Image Slide show */
-	imgIdx = [];
+	/* Prepare imgIdx[] */
 	for (var i = 0; i < postNum; i++) {
-		imgIdx[i] = 0;
+		imgIdx[i] = 1;
 	}
 
-	console.log("imgIdx: " + imgIdx);
+	/* Image Slide show */
 
-	interval = 2000;
+	/* Show first image before setInterval */
+	for (let i = 0; i < postNum; i++){
+		imgs[i*3].style.display = "block";
+	}
+	
 
-
+	console.log("SET INTERVAL");
     slideShowTimer = Meteor.setInterval(function imgSlide() {
 
-		console.log("imgSlide()");
+		console.log("imgSlide()!!");
 		for (var j = 0; j < postNum; j++){
 
 		    for (var i = 0; i < 3; i++) {
 				imgs[i + (j*3)].style.display = "none";
-				console.log("idx: " + (i + (j*3)).toString());
+				// console.log("idx: " + (i + (j*3)).toString());
 			}
 
 		    imgIdx[j]++;
 		    if (imgIdx[j] > 3) {imgIdx[j] = 1}    
-		    console.log("imgIdx: " + imgIdx);
-			console.log("j*3-1: " + j);
+		    // console.log("imgIdx: " + imgIdx);
+			// console.log("j*3-1: " + j);
 		    imgs[imgIdx[j]-1 + (j*3)].style.display = "block";  
 
 		};
 
     }, 2000);
 
-    console.log(slideShowTimer);
-	// imgSlide(images);
+    // console.log(slideShowTimer);
 
 
 }
+
+
+Template.postsList.destroyed = function () {
+	console.log("CANCEL INTERVAL");
+	Meteor.clearInterval(slideShowTimer);
+};
+
+
+
+
 
