@@ -46,7 +46,7 @@ Template.postsList.rendered = function(){
 	console.log("SET INTERVAL");
     slideShowTimer = Meteor.setInterval(function imgSlide() {
 
-		console.log("imgSlide()!!");
+		// console.log("imgSlide()!!");
 		for (var j = 0; j < postNum; j++){
 
 		    for (var i = 0; i < 3; i++) {

@@ -17,10 +17,14 @@ elementDesc = {
 };
 
 
+
+
 Template.postItem.created = function(){
   postNum++; //used in post_list.js
   Session.set('isRendered', false);
   Session.set('sendingResult', {});
+  Session.set('reserveStat', {0: false, 1: false, 2: false});
+  Session.set('clickedPost', {});
 
 
 }
@@ -143,6 +147,18 @@ Template.postItem.helpers({
   },
   getRendered: function () {
     return Session.get("isRendered");
+  },
+  getRevStat: function(idx) {
+    var rslt = Session.get('reserveStat');
+    console.log(rslt);
+    return rslt[idx];
+  },
+  getClickedId: function(id){
+    var clickedId = Session.get('clickedPost');
+    // console.log("clickedId: " + clickedId);
+    // console.log("arg id: " + id);
+    if (clickedId === id) return true;
+    else return false;
   }
 });
 
@@ -161,6 +177,25 @@ resetButtonValue = function(target, str, delay) {
 }
 
 Template.postItem.events({
+  'click .reserve': function(e) {
+    e.preventDefault();
+    console.log("reserve button clicked!");
+    // console.log(e.target.className);
+    //TODO: use regex instead.
+    var postId = e.target.className.split(' ').reverse()[0];
+    console.log(postId);
+    Session.set('clickedPost', postId);
+    // Session.set('reserveStat', {0: true, 1: false, 2: false});
+
+
+  },
+  'click .reserve_cancel': function(e) {
+    e.preventDefault();
+    console.log("cancel button clicked!");
+    Session.set('reserveStat', {0: false, 1: false, 2: false});
+
+
+  },
     'click #mailing': function(e) {
         e.preventDefault();
         console.log("mailing button clicked");

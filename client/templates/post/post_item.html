@@ -13,23 +13,12 @@
     <br><br><br><br>
 
 
-    <!-- {{> imageSlide src_0=includeImages.[0] src_1=includeImages.[1] src_2=includeImages.[2]}} -->
-    {{> imageSlide id=_id src=includeImages}}
 
-
-<!--     {{postId}}
-    <div id="_images">
-
-    {{getImage}}
-      <img id="slideImgs" />
-      <img id="slideImgs" />
-
-    </div>
-
- -->
     <div class="_text">
       <p class="subTitle"> <h2>{{title}}</h2> </p>
 
+      {{> imageSlide id=_id src=includeImages}}
+      
       <p class="topTxt">
         <strong>{{period}}</strong><br>
       </p>
@@ -94,8 +83,17 @@
       </div>
     </div>
 
+<!-- RESERVATION  -->
+
     {{#if isInPostsList}}
-      <a href="{{pathFor 'reserveTicket'}}" class="discuss btn btn-default">예약하기</a>
+      <!-- <a href="{{pathFor 'reserveTicket'}}" class="discuss btn btn-default">예약하기</a> -->
+      <a class="btn btn-default reserve {{_id}}">예약하기</a>
+      <a class="btn btn-default reserve_cancel {{_id}}">취소</a>
+    {{/if}}
+
+
+    {{# if getClickedId _id}} 
+      {{> nameUndNummer}}
     {{/if}}
 
 

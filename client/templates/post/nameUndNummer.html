@@ -1,0 +1,59 @@
+<template name="nameUndNummer">
+
+<br /><br /><br />
+
+	<div class="reservationStep 01">
+		<ul class="titleBox mdCursor">
+			<li class="reserve_number number">1</li>
+			<li class="reserve_stepDesc title">예약자 정보(Reservation info)</li>
+		</ul>
+	</div>
+
+
+<br /><br />
+
+
+    <div class="form-group {{errorClass 'reserve_name'}}">
+      <label class="control-label" for="reserve_name">이름(Name)</label>
+      <div class="controls">
+        <input name="reserve_name" id="reserve_name" type="text" class="form-control"/>
+        <span class="help-block">{{errorMessage 'reserve_name'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group {{errorClass 'reserve_mobilePhone'}}">
+      <label class="control-label" for="reserve_mobilePhone">휴대폰번호(Mobile number)</label>
+      <div class="controls">
+        <input name="reserve_mobilePhone" id="reserve_mobilePhone" type="text" class="form-control"/>
+        <span class="help-block">{{errorMessage 'reserve_mobilePhone'}}</span>
+      </div>
+    </div>
+
+    <div class="form-group {{errorClass 'reserve_numberOfSeats'}}">
+      <label class="control-label" for="reserve_numberOfSeats">예약자 수(Number of seats)</label>
+      <div class="controls">
+        <input name="reserve_numberOfSeats" id="reserve_numberOfSeats" type="text" class="form-control"/>
+        <span class="help-block">{{errorMessage 'reserve_numberOfSeats'}}</span>
+      </div>
+    </div>
+
+
+<!-- 
+	<div class="form-group">
+		<label for="name">이름(Name)</label>
+		<input type="text" class="form-control" id="name">
+		<br />
+
+		<label for="phone">휴대폰번호(Mobile number)</label>
+		<input type="text" class="form-control" id="phone">
+		<br />
+
+		<label for="nos">예약자 수(Number of seats)</label>
+		<input type="text" class="form-control" id="nos">
+		<br />
+	</div>
+
+ -->
+
+</template>
+
