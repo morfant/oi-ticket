@@ -1,0 +1,66 @@
+<template name="addEditEventModal">
+  <div class="modal fade" id="add-edit-event-modal" tabindex="-1" role="dialog" aria-labelledby="add-edit-event-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="add-edit-event">{{modalLabel.label}} Event</h4>
+      </div>
+
+  <div class="modal-body">      
+    <form id="add-edit-event-form">
+        
+      <div class="form-group">
+        <label for="modal_start_date">공연 시작일(start date)</label>
+        <input type="text" name="modal_start_date" class="form-control" value="{{event.start}}">
+      </div>
+
+      <div class="form-group">
+        <label for="modal_end_date">공연 끝일(end date)</label>
+        <input type="text" name="modal_end_date" class="form-control" value="{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}">
+      </div>
+
+      <div class="form-group shows">
+        <label for="modal_start_time">공연시작시간(start time)</label>
+        <button type="button" class="btn btn-success addShow">+</button>
+        <input type="text" name="modal_start_time" class="form-control" placeholder="ex) 13:30">
+      </div>
+
+      <div class="form-group">
+        <label for="modal_duration">소요시간(duration)</label>
+        <input type="text" name="modal_duration" class="form-control" placeholder="ex) 01:30">
+      </div>
+
+<div>&nbsp;</div>
+
+<!--             </div>
+          </div>
+ -->
+          <!-- <div class="form-group"> -->
+
+          <!-- </div> -->
+          <!-- </div> -->
+
+  <!--         <div class="row">
+            <div class="col-xs-12 col-sm-4">
+              <label for="guests">Number of Guests</label>
+              <input type="text" name="guests" class="form-control" value="{{event.guests}}">
+            </div>
+          </div> -->
+
+
+        
+        <div class="modal-footer">
+          {{#if modalType 'edit'}}
+            <button class="btn btn-danger pull-left delete-event">Delete Event</button>
+          {{/if}}
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button id="submitButton" type="submit" class="btn btn-success">{{modalLabel.button}} Event</button>
+          </div>
+        
+      </form>
+      </div>      
+    </div>
+  </div>
+</div>
+</template>

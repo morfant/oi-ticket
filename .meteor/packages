@@ -38,3 +38,6 @@ meteorhacks:npm
 
 npm-container
 check
+aldeed:simple-schema
+fullcalendar:fullcalendar
+momentjs:moment
