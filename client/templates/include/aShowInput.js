@@ -8,13 +8,13 @@ Template.aShowInput.created = function() {
         if (i < 10) hours[i] = "0"+i;
         else hours[i] = i.toString();
     }
-    console.log("hours: " + hours);
+    // console.log("hours: " + hours);
 
     for (var i = 1; i <= 6; i++){
         mins[0] = "00";
         mins[i] = i * 10;
     }
-    console.log("mins: " + mins);
+    // console.log("mins: " + mins);
 
 };
 
@@ -28,11 +28,11 @@ Template.aShowInput.rendered = function() {
 Template.aShowInput.helpers({
     setIdx(idx) {
         showIndex = idx;
-        console.log("setIndex: " + showIndex);
+        // console.log("setIndex: " + showIndex);
 
     },
     getIdx() {
-        console.log("getIdx: " + showIndex);
+        // console.log("getIdx: " + showIndex);
         return showIndex;
     },
     nShowText() {

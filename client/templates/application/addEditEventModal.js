@@ -2,6 +2,8 @@ Template.addEditEventModal.created = function() {
   Session.set('nShow', 0);
   nShow = 0; //공연 회차 표시용 index
   nShowArr = [];
+
+  // console.log(Template.currentData());
 }
 
 Template.addEditEventModal.rendered = function() {
@@ -70,32 +72,62 @@ Template.addEditEventModal.events({
 
   'click #submitButton': function( e, template ) {
     e.preventDefault();
+    console.log("modal submit!!");
 
     var eventModal = Session.get( 'eventModal' ),
-        submitType = eventModal.type === 'edit' ? 'editEvent' : 'addEvent',
-        eventItem  = {
-          title: template.find( '[name="title"]' ).value,
-          start: template.find( '[name="start"]' ).value,
-          end: template.find( '[name="end"]' ).value,
-          type: template.find( '[name="type"] option:selected' ).value
-          // guests: parseInt( template.find( '[name="guests"]' ).value, 10 )
-        };
+        submitType = eventModal.type === 'edit' ? 'editEvent' : 'addEvent';
 
-    if (eventItem.type == 'Live') eventItem.backgroundColor = "rgb(201, 48, 44)";
-    if (eventItem.type == 'Recorded') eventItem.backgroundColor = "rgb(58, 135, 173)";
+    var eventItems  = [];
+    var days = eventModal.days;
+
+    for (var j = 0; j < days.length; j++) {
+      var eventItem = {};
+      console.log("days " + j + " :" + days[j]);
+      eventItem.date = days[j];
+      var times = [];
+      for (var i = 0; i < nShow; i++) {
+        var h_id = "#hour_modal_show_" + (i + 1);
+        var m_id = "#min_modal_show_" + (i + 1);
+        var gotHour = template.find(h_id).value;
+        var gotMin = template.find(m_id).value;
+        var time = gotHour + gotMin;
+        console.log("time: " + time);
+        // console.log("id: " + id);
+        times[i] = time;
+        // times[i] = template.find('#hour_modal_show_1').value;
+        console.log(times[i]);
+      }
+      eventItem.time = times;
+
+      eventItems[j] = eventItem;
+      console.log("eventItem.date: " + eventItem.date);
+      console.log("eventItem.time: " + eventItem.time);
+      console.log("eventItem " + j + " :" + eventItems[j]);
+    }
+
+    // console.log("eventItems: " + eventItems);
+
+    // type: template.find( '[name="type"] option:selected' ).value
+    // guests: parseInt( template.find( '[name="guests"]' ).value, 10 )
+
+
+    //TODO: 회차에 따라 다른 색이 적용되도록 한다
+    // if (eventItem.type == 'Live') eventItem.backgroundColor = "rgb(201, 48, 44)";
+    // if (eventItem.type == 'Recorded') eventItem.backgroundColor = "rgb(58, 135, 173)";
 
     if ( submitType === 'editEvent' ) {
       eventItem._id   = eventModal.event;
     }
 
-    Meteor.call( submitType, eventItem, ( error ) => {
-      if ( error ) {
-        Bert.alert( error.reason, 'danger' );
-      } else {
-        Bert.alert( `Event ${ eventModal.type }ed!`, 'success' );
-        closeModal();
-      }
-    });
+    // Meteor.call( submitType, eventItem, ( error ) => {
+    //   if ( error ) {
+    //     Bert.alert( error.reason, 'danger' );
+    //   } else {
+    //     Bert.alert( `Event ${ eventModal.type }ed!`, 'success' );
+    //     closeModal();
+    //   }
+    // });
+
   },
 
   'click .addShow': function( e, template ) {

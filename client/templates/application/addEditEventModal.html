@@ -31,23 +31,28 @@
           {{/if}}
         {{/each}}
 
+
+        <!-- Delete show button -->
         {{#if getShowIdx}}
           <button type="button" class="btn btn-danger delShow">x</button>
         {{/if}}
 
 
+      </div>
 
-<!--         <label for="modal_start_time">1회차(1)</label>
-        <input type="text" name="modal_start_time" class="form-control show" placeholder="ex) 13:30"> -->
-
+<!--       <div class="form-group">
+        <label for="modal_num_of_seats">좌석수(number of seats)</label>
+        <input type="text" name="modal_num_of_seats" class="form-control" placeholder="ex) 33">
       </div>
 
       <div class="form-group">
         <label for="modal_duration">소요시간(duration)</label>
-        <input type="text" name="modal_duration" class="form-control" placeholder="ex) 01:30">
-      </div>
 
-<div>&nbsp;</div>
+        {{> timeSelect}}
+
+      </div>     -->  
+
+      <div>&nbsp;</div>
 
 <!--             </div>
           </div>

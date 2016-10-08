@@ -1,12 +1,6 @@
-<template name="aShowInput">
+<template name="timeSelect">
 
-    {{setIdx idx}}
-    <div class="selects">
-
-        <div class="lb">
-            <label>{{nShowText}}</label>
-        </div>
-
+    <div class="selects time">
 
         <div class="hour_lb col-md-6">
             <label>시(hour)</label>
@@ -16,16 +10,16 @@
             <label>분(min)</label>
         </div>
          
-        <div class="hour col-md-6">
-            <select name="hour" class="form-control" id="hour_{{nShowId}}">
+        <div class="time_select_hour col-md-6">
+            <select name="hour" class="form-control">
                 {{#each hour in getHours}}
                     {{>timeOption val=hour}}
                 {{/each}}
             </select>
         </div>
 
-        <div class="min col-md-6">
-            <select name="min" class="form-control" id="min_{{nShowId}}">
+        <div class="time_select_min col-md-6">
+            <select name="min" class="form-control">
                 {{#each min in getMins}}
                     {{>timeOption val=min}}
                 {{/each}}
