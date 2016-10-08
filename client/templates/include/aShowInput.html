@@ -1,10 +1,23 @@
 <template name="aShowInput">
 
     {{setIdx idx}}
-    <!-- <label>{{getIdx}}</label> -->
     <label>{{nShowText}}</label>
-    <input type="text" id="{{nShowId}}" class="form-control">
-<!--     <button type="button" class="btn btn-danger delShow {{nShowDelBtnClass}}">x</button>
- -->    <br />
+
+    <select name="hour" class="form-control" id="hour_{{nShowId}}">
+        {{#each hour in getHours}}
+            {{>timeOption val=hour}}
+        {{/each}}
+    </select>
+
+    <select name="min" class="form-control" id="min_{{nShowId}}">
+        {{#each min in getMins}}
+            {{>timeOption val=min}}
+        {{/each}}
+      <!-- <option value="00">00</option> -->
+      <!-- <option value="15">01</option> -->
+    </select>
+
+    <!-- <input type="text" id="{{nShowId}}" class="form-control"> -->
+    <br />
 
 </template>
