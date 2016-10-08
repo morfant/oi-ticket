@@ -1,3 +1,15 @@
+Template.addEditEventModal.created = function() {
+  Session.set('nShow', 0);
+  nShow = 0; //공연 회차 표시용 index
+  nShowArr = [];
+}
+
+Template.addEditEventModal.rendered = function() {
+  nShow = 1; //1회차는 자동으로 입력되어 있도록 한다.
+  nShowArr[0] = nShow;
+  Session.set('nShow', nShowArr);
+}
+
 var closeModal = () => {
   $( '#add-edit-event-modal' ).modal( 'hide' );
   $( '.modal-backdrop' ).fadeOut();
@@ -23,6 +35,20 @@ Template.addEditEventModal.helpers({
   },
   selected( v1, v2 ) {
     return v1 === v2;
+  },
+  getDays() {
+    let eventModal = Session.get( 'eventModal' );
+
+    if ( eventModal ) {
+      return {
+        days: eventModal.days //JSON object
+      };
+    };
+  },
+  getShowIdx() {
+    var n = Session.get('nShow');
+    console.log("getShowIdx() " + n);
+    return n;
   },
   event() {
     let eventModal = Session.get( 'eventModal' );
@@ -72,12 +98,27 @@ Template.addEditEventModal.events({
     });
   },
 
-  'click .addShow': function( e ) {
+  'click .addShow': function( e, template ) {
     e.preventDefault();
     console.log("plus button clicked!");
 
+    nShowArr[nShow] = nShow + 1;
+    nShow = nShow + 1;
+    Session.set('nShow', nShowArr);
+  
   },
+  'click .delShow': function( e, template ) {
+    e.preventDefault();
+    console.log("plus button clicked!");
 
+    if (nShow > 1) {
+      nShowArr.pop();
+      nShow = nShow - 1;
+      Session.set('nShow', nShowArr);
+    }
+
+  
+  },
   'click .delete-event': function( e ) {
     e.preventDefault();
 

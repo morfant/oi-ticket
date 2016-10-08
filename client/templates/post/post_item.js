@@ -196,6 +196,8 @@ Template.postItem.events({
 
 
   },
+
+  //NOT USING
     'click #mailing': function(e) {
         e.preventDefault();
         console.log("mailing button clicked");

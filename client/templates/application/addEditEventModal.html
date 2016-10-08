@@ -20,10 +20,26 @@
         <input type="text" name="modal_end_date" class="form-control" value="{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}">
       </div>
 
-      <div class="form-group shows">
-        <label for="modal_start_time">공연시작시간(start time)</label>
+      <div class="form-group" name="shows">
+        <label for="modal_start_time_subtitle">공연(start time)</label>
         <button type="button" class="btn btn-success addShow">+</button>
-        <input type="text" name="modal_start_time" class="form-control" placeholder="ex) 13:30">
+        <br />
+
+        {{#each showIdx in getShowIdx}}
+          {{#if showIdx}}
+            {{> aShowInput idx=showIdx}}
+          {{/if}}
+        {{/each}}
+
+        {{#if getShowIdx}}
+          <button type="button" class="btn btn-danger delShow">x</button>
+        {{/if}}
+
+
+
+<!--         <label for="modal_start_time">1회차(1)</label>
+        <input type="text" name="modal_start_time" class="form-control show" placeholder="ex) 13:30"> -->
+
       </div>
 
       <div class="form-group">

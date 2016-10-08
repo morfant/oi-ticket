@@ -129,13 +129,23 @@ Template.calender.rendered = function() {
     },
     select( start, end, jsEvent, view ) {
       console.log("select!");
-      console.log(start);
-      console.log(end);
-      // console.log(jsEvent);
-      // console.log(view);
+      // console.log(start);
+      // console.log(end);
+      var days = [];
+
+      for(var iMoment = start; iMoment.isBefore(end); iMoment.add(1, 'days')){
+        var aMoment = iMoment.clone().format(MOMENT_FORMAT_DAY); 
+        // console.log("amoment: " + aMoment);
+        days.push(aMoment);
+        // console.log("days in loop: " + days);
+      }
+
+      // console.log("days: " + days);
+
       Session.set( 'eventModal', {
         type: 'add',
         start: start.format(MOMENT_FORMAT_DAY),
+        days: days,
         end: end.format(MOMENT_FORMAT_DAY)
       });
       // console.log(date);
