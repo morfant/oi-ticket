@@ -35,7 +35,7 @@ var getImgNum = function() {
 Template.postSubmit.created = function() {
   imgFiles = []; //Store img file name shoing on page
 
-  img_unique_id = Random.id();
+  img_unique_id = Random.id(); // Used for events of a post also. (addEditEventModal.js)
   img_num = 0;
   thumbNailImgHolderArr = [false, false, false];
 

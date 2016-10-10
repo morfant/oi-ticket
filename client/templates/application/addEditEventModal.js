@@ -57,7 +57,7 @@ Template.addEditEventModal.helpers({
 
     if ( eventModal ) {
 
-      return eventModal.type === 'edit' ? Events.findOne( eventModal.event ) : {
+      return eventModal.type === 'edit' ? false : {
         start: eventModal.start,
         end: eventModal.end
       };
@@ -77,56 +77,58 @@ Template.addEditEventModal.events({
     var eventModal = Session.get( 'eventModal' ),
         submitType = eventModal.type === 'edit' ? 'editEvent' : 'addEvent';
 
-    var showDays  = [];
-    var days = eventModal.days;
+    var eventItems = [];
 
-    for (var j = 0; j < days.length; j++) {
-      var aDayItem = {};
-      console.log("days " + j + " :" + days[j]);
-      aDayItem.date = days[j];
-      aDayItem.available = true;
-      var shows = [];
-      for (var i = 0; i < nShow; i++) {
-        var aShow = {};
-        var h_id = "#hour_modal_show_" + (i + 1);
-        var m_id = "#min_modal_show_" + (i + 1);
-        var gotHour = template.find(h_id).value;
-        var gotMin = template.find(m_id).value;
-        var gotTime = gotHour + ":" + gotMin;
-        var maxSeats = template.find("#modal_num_of_seats").value;
-        aShow.time = gotTime;
-        // aShow.title = (i+1) + " 회차";
-        // aShow.start = days[j] + " " + gotTime;
-        aShow.event = {
-          title: (i+1) + " 회차", // + gotTime
-          start: days[j] + " " + gotTime, //http://momentjs.com/docs/#/parsing/string/, 
-          // 2013-02-08 09:30 
-          seats: maxSeats
-        };
-        console.log("time + " + i + ": " + gotTime);
-        shows[i] = aShow;
+    /* ADD */
+    if (submitType === 'addEvent'){
+      var days = eventModal.days;
+
+      for (var j = 0; j < days.length; j++) {
+        for (var i = 0; i < nShow; i++) {
+          var aShowEvent = {};
+          aShowEvent.post_uniq_ID = img_unique_id; // Defined in post_submit.js
+
+          var maxSeats = template.find("#modal_num_of_seats").value;
+          aShowEvent.seats = Number(maxSeats);
+
+          aShowEvent.title = (i+1) + " 회차"; // + gotTime
+
+          var h_id = "#hour_modal_show_" + (i + 1);
+          var m_id = "#min_modal_show_" + (i + 1);
+          var gotHour = template.find(h_id).value;
+          var gotMin = template.find(m_id).value;
+          var gotTime = gotHour + ":" + gotMin;
+          aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/, 
+            // 2013-02-08 09:30 
+
+          eventItems.push(aShowEvent);
+        }
       }
-      aDayItem.shows = shows;
-      // aDayItem.title = "회차";
-      // aDayItem.start = "2016-10-12 17:00";
-      showDays[j] = aDayItem;
     }
 
-    /* print object values */
-    // for (var i = 0; i < days.length; i++) {
-    //   console.log("eventItems["+i+"].date: " + eventItems[i].date);
-    //   for (var j = 0; j < nShow; j++) {
-    //     console.log("eventItems["+i+"].time["+j+"]: " + eventItems[i].time[j]);
-    //   }
-    // }
-
+    /* EDIT */
     if ( submitType === 'editEvent' ) {
-      showDays._id   = eventModal.event;
+      var aShowEvent = {};
+
+      var maxSeats = template.find("#modal_num_of_seats").value;
+      aShowEvent.seats = Number(maxSeats);
+
+      var h_id = "#hour_modal_show_" + (0 + 1);
+      var m_id = "#min_modal_show_" + (0 + 1);
+      var gotHour = template.find(h_id).value;
+      var gotMin = template.find(m_id).value;
+      var gotTime = gotHour + ":" + gotMin;
+      // aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/, 
+      console.log("start at edit func() : " + eventModal.start);
+      aShowEvent.start = eventModal.start;
+   
+      aShowEvent._id = eventModal.id;
+      eventItems.push(aShowEvent);
     }
 
 
-    _.each(showDays, function(eventItem) {
-
+    /* Insert or update db */
+    _.each(eventItems, function(eventItem) {
       Meteor.call( submitType, eventItem, ( error, result ) => {
         if ( error ) {
           Bert.alert( error.reason, 'danger' );
@@ -138,27 +140,13 @@ Template.addEditEventModal.events({
           closeModal();
         }
       });
-
     });
-
-
-    // type: template.find( '[name="type"] option:selected' ).value
-    // guests: parseInt( template.find( '[name="guests"]' ).value, 10 )
 
 
     //TODO: 회차에 따라 다른 색이 적용되도록 한다
     // if (eventItem.type == 'Live') eventItem.backgroundColor = "rgb(201, 48, 44)";
     // if (eventItem.type == 'Recorded') eventItem.backgroundColor = "rgb(58, 135, 173)";
 
-
-    // Meteor.call( submitType, eventItem, ( error ) => {
-    //   if ( error ) {
-    //     Bert.alert( error.reason, 'danger' );
-    //   } else {
-    //     Bert.alert( `Event ${ eventModal.type }ed!`, 'success' );
-    //     closeModal();
-    //   }
-    // });
 
   },
 

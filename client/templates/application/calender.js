@@ -1,5 +1,6 @@
 var MOMENT_FORMAT = "MMM D, YYYY HH:mm";
 var MOMENT_FORMAT_DAY = "YYYY-MM-DD";
+var MOMENT_FORMAT_DAY_TIME = "YYYY-MM-DD HH:mm";
 
 var isPast = ( date ) => {
   let today = moment().format(MOMENT_FORMAT);
@@ -77,19 +78,22 @@ Template.calender.rendered = function() {
         }
     },
     events( start, end, timezone, callback ) {
-
+/*
       var events = [];
       Events.find().fetch().map( ( event ) => {
 
         // console.log("event: " + event);
+        console.log("event._id: " + event._id);
         var n = event.shows.length;
         for (var i = 0; i < n; i++) {
           events.push(event.shows[i].event);
-          console.log("event start time in events(): " + event.shows[i].event.start);
+          // console.log("event start time in events(): " + event.shows[i].event.start);
         }
-
+      });
+*/
+      let events = Events.find().fetch().map( ( event ) => {
         // event.eventStartEditable = !isPast( event.start );
-        // return event;
+        return event;
       });
 
       if ( events ) {
@@ -99,71 +103,13 @@ Template.calender.rendered = function() {
     },
     eventRender( event, element ) { //Triggered while an event is being rendered.
 
-      console.log("eventRender() event.title: " + event.title);
-      console.log("eventRender() event.start: " + event.start.format('HH:mm'));
+      // console.log("eventRender() event.title: " + event.title);
+      // console.log("eventRender() event.start: " + event.start.format('HH:mm'));
 
       var timeStr = event.start.format("HH:mm");
-
-/*
-      var titles = [];
-      var starts = [];
-      var showClass = [];
-      var fcElements = [];
-      for (var i = 0; i < event.shows.length; i++) {
-        titles.push(event.shows[i].event.title);
-        starts.push(event.shows[i].event.start);
-        showClass = "show_" + (i+1);
-
-        var fcOriginal = element.find('.fc-event-container').html();
-        console.log(fcOriginal);
-        var fce = document.createElement("div"); 
-        fce.className = "fc-content" + " showtime_" + (i+1);
-        fce.innerHTML = fcOriginal;
-        fcElements.push(fce);
-        // console.log("fceElement: " + fcElements[i]);
-
-      };
-
-*/
-
-
-  // var newContent = document.createTextNode("Hi there and greetings!"); 
-  // newDiv.appendChild(newContent); //add the text node to the newly created div. 
-
-
-   // var x = document.getElementById("myLI").parentElement.nodeName;
-
-
-
-// <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"><div class="fc-content"><span class="fc-time">10:30a</span> <span class="fc-title">Meeting</span></div></a>
-
-/*
-      var fcParent = element.find('.fc-content').parent();
-
-      for (var i = 0; i < event.shows.length; i++) {
-        fcElements[i].innerHTML = 
-          "<h4>" + titles[i] + "</h4> \
-          <p class=" + showClass + ">" + starts[i] + "</p>"
-          ;
-*/
-        // element.find("showtime_"+(i+1)).html(
-        //   "<h4>" + titles[i] + "</h4> \
-        //   <p class=" + showClass + ">" + starts[i] + "</p>"
-        //   );
-
-        // fcParent.append(fcElements[i]);
-
-
-        // element.find( '.fc-content' ).html(
-          // `<h4>${ event.title }</h4>
-          // "<h4>" + titles[i] + "</h4> \
-          // <p class=" + showClass + ">" + starts[i] + "</p>"
-        // );
-// <span class="fc-time">7a</span> <span class="fc-title">Birthday Party</span>
-
       element.find( '.fc-content' ).html(
         "<span class=\"fc-time\">" + timeStr + "</span> \
-         <span class=\"fc-title\">" + event.title + "</span>"
+         <span class=\"fc-title\">" + event.title + " " + event.seats + "</span>"
       );
 
     },
@@ -197,8 +143,22 @@ Template.calender.rendered = function() {
     //   // console.log(date.format("dddd, YYYY MM DD, h:mm a"));
     //   $( '#add-edit-event-modal' ).modal( 'show' );
     // },
-    eventClick( event ) {
-      Session.set( 'eventModal', { type: 'edit', event: event._id } );
+    eventClick( event, jsEvent, view ) {
+      // console.log("event in eventClick() :" + event.title);
+      // console.log("event in eventClick() :" + event.start);
+      console.log("event in eventClick() :" + event.start);
+      console.log("event in eventClick() :" + event.title);
+      console.log("event in eventClick() :" + event._id);
+      console.log("event in eventClick() :" + event.seats);
+
+
+      var startStr = event.start.format(MOMENT_FORMAT_DAY_TIME);
+      console.log("startStr: " + startStr);
+      Session.set( 'eventModal', {
+        type: 'edit',
+        start: startStr,
+        id: event._id
+      } );
       $( '#add-edit-event-modal' ).modal( 'show' );
     },
     select( start, end, jsEvent, view ) {

@@ -10,6 +10,8 @@
   <div class="modal-body">      
     <form id="add-edit-event-form">
         
+
+      {{#if event}}
       <div class="form-group">
         <label for="modal_start_date">공연 시작일(start date)</label>
         <input type="text" name="modal_start_date" class="form-control" value="{{event.start}}">
@@ -19,10 +21,16 @@
         <label for="modal_end_date">공연 끝일(end date)</label>
         <input type="text" name="modal_end_date" class="form-control" value="{{#if event.end}}{{event.end}}{{else}}{{event.start}}{{/if}}">
       </div>
+      {{/if}}
+
 
       <div class="form-group" name="shows">
         <label for="modal_start_time_subtitle">공연(start time)</label>
+
+      {{#if event}}
         <button type="button" class="btn btn-success addShow">+</button>
+      {{/if}}
+
         <br />
 
         {{#each showIdx in getShowIdx}}
@@ -33,8 +41,10 @@
 
 
         <!-- Delete show button -->
-        {{#if getShowIdx}}
-          <button type="button" class="btn btn-danger delShow">x</button>
+        {{#if event}}
+          {{#if getShowIdx}}
+            <button type="button" class="btn btn-danger delShow">x</button>
+          {{/if}}
         {{/if}}
 
 
