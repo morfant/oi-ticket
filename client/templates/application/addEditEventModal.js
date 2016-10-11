@@ -86,7 +86,7 @@ Template.addEditEventModal.events({
       for (var j = 0; j < days.length; j++) {
         for (var i = 0; i < nShow; i++) {
           var aShowEvent = {};
-          aShowEvent.post_uniq_ID = img_unique_id; // Defined in post_submit.js
+          aShowEvent.post_ID = "0"; //"0" means yet get post._id. Will deleted when submit page loaded.
 
           var maxSeats = template.find("#modal_num_of_seats").value;
           aShowEvent.seats = Number(maxSeats);

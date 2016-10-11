@@ -43,8 +43,24 @@ Template.postSubmit.created = function() {
   // Session.set('uploadedImgNumSes', uploadedImgNum);
   Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
 
-
   // console.log("in postsubmit.created(): " + randomKey);
+
+
+  /* Clear useless events */ 
+  Meteor.call('clearEvents', function(error, result) {
+      console.log("Meteor call - clearEvents()");
+
+      // display the error to the user and abort
+      if (error) {
+        console.log("ERROR!!");
+        console.log(error.reason);
+        return throwError(error.reason);
+      }
+      
+      console.log("clearEvents succeed.");
+
+    })
+
 };
 
 
@@ -156,7 +172,7 @@ Template.postSubmit.events({
       description: $(e.target).find('[name=description]').val().replace(/[\r\n]/g, "<br />"),
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
-      includeImages: imgFiles,
+      includeImages: imgFiles, //filenames
       // imgId: img_unique_id,
       // imgNum: nImg,
 
@@ -167,25 +183,51 @@ Template.postSubmit.events({
     if (errors.title)      
       return Session.set('postSubmitErrors', errors);
 
+
+    var errors = validateEvent();
+    if (errors.event)      
+      return Session.set('postSubmitErrors', errors);
+
+
     // console.log("Before Meteor call");
 
+    /* 1. post insert */
     Meteor.call('postInsert', post, function(error, result) {
-      // console.log("Meteor call");
+      console.log("Meteor call - postInsert()");
       // display the error to the user and abort
       if (error) {
         console.log("ERROR!!");
         console.log(error.reason);
         return throwError(error.reason);
       }
-      
-      Meteor.call('moveAllImg', function(error, result) {
-        if (error) {
-          console.log("ERROR - moveAllImg");
+
+      console.log("result._id: " + result._id);
+
+      /* 2. fix events to post._id */
+      var update = {
+        post_ID: result._id,
+      };         
+
+      Meteor.call( 'fixEventToPost', update, ( error ) => {
+        if ( error ) {
+          console.log("ERROR - fixEventToPost");
+          // bert.alert( error.reason, 'danger' );
           return throwError(error);
         }
 
-      });
+        /* 3. move Imgs */
+        Meteor.call('moveAllImg', function(error, result) {
+          if (error) {
+            console.log("ERROR - moveAllImg");
+            return throwError(error);
+          }
 
+        });
+
+
+      });
+      
+      
       // clear imgFiles array
       // imgFiles = [];
       // console.log("clear imgFiles");
