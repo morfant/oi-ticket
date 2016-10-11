@@ -1,6 +1,7 @@
 var MOMENT_FORMAT = "MMM D, YYYY HH:mm";
 var MOMENT_FORMAT_DAY = "YYYY-MM-DD";
 var MOMENT_FORMAT_DAY_TIME = "YYYY-MM-DD HH:mm";
+var DEFAULT_NUM_OF_SEATS = 30;
 
 var isPast = ( date ) => {
   let today = moment().format(MOMENT_FORMAT);
@@ -113,26 +114,42 @@ Template.calender.rendered = function() {
       );
 
     },
-    // eventDrop( event, delta, revert ) {
-    //   let _start = event.start.format(MOMENT_FORMAT);
-    //   let _end = event.end.format(MOMENT_FORMAT);
-    //   if ( !isPast( _start ) ) {
-    //     let update = {
-    //       _id: event._id,
-    //       start: _start,
-    //       end: _end
-    //     };
+    eventDrop( event, delta, revert ) {
+      let _start = event.start.format(MOMENT_FORMAT_DAY_TIME);
+      // let _end = event.end.format(MOMENT_FORMAT);
+      console.log("eventDrop() start / end : " + _start + " / ");
 
-    //     Meteor.call( 'editEvent', update, ( error ) => {
-    //       if ( error ) {
-    //         Bert.alert( error.reason, 'danger' );
-    //       }
-    //     });
-    //   } else {
-    //     revert();
-    //     Bert.alert( 'Sorry, you can\'t move items to the past!', 'danger' );
-    //   }
-    // },
+      if ( !isPast( _start ) ) {
+        let update = {
+          _id: event._id,
+          start: _start,
+        };         
+
+        Meteor.call( 'editEvent', update, ( error ) => {
+          if ( error ) {
+            bert.alert( error.reason, 'danger' );
+          }
+        });
+      } else {
+        if ( confirm( '이미 지난 날짜로 일정을 이동하시겠습니까?' ) ) {
+
+           let update = {
+            _id: event._id,
+            start: _start,
+          };         
+
+          Meteor.call( 'editEvent', update, ( error ) => {
+            if ( error ) {
+              bert.alert( error.reason, 'danger' );
+            }
+          });
+
+        } else {
+          revert();
+        }
+      }
+      
+    },
     // dayClick( date ) {
     //   Session.set( 'eventModal', {
     //     type: 'add',
@@ -195,6 +212,8 @@ Template.calender.rendered = function() {
       });
       // console.log(date);
       // console.log(date.format("dddd, YYYY MM DD, h:mm a"));
+
+      $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(DEFAULT_NUM_OF_SEATS);
       $( '#add-edit-event-modal' ).modal( 'show' );
     }
 
