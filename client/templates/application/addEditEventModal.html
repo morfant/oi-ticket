@@ -27,17 +27,20 @@
       <div class="form-group" name="shows">
         <label for="modal_start_time_subtitle">공연(start time)</label>
 
-      {{#if event}}
+        <!-- When 'editEvent', event() returns 'false' -->
+      {{#if event}} 
         <button type="button" class="btn btn-success addShow">+</button>
-      {{/if}}
-
         <br />
-
         {{#each showIdx in getShowIdx}}
           {{#if showIdx}}
             {{> aShowInput idx=showIdx}}
           {{/if}}
         {{/each}}
+      {{/if}}
+
+      {{#unless event}}
+        {{> timeSelect idSpecific="_modal_edit"}}
+      {{/unless}}
 
 
         <!-- Delete show button -->

@@ -11,7 +11,7 @@
         </div>
          
         <div class="time_select_hour col-md-6">
-            <select name="hour" class="form-control">
+            <select name="hour" class="form-control" id="hour{{idSpecific}}">
                 {{#each hour in getHours}}
                     {{>timeOption val=hour}}
                 {{/each}}
@@ -19,7 +19,7 @@
         </div>
 
         <div class="time_select_min col-md-6">
-            <select name="min" class="form-control">
+            <select name="min" class="form-control" id="min{{idSpecific}}">
                 {{#each min in getMins}}
                     {{>timeOption val=min}}
                 {{/each}}

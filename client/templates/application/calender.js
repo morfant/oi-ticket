@@ -109,7 +109,7 @@ Template.calender.rendered = function() {
       var timeStr = event.start.format("HH:mm");
       element.find( '.fc-content' ).html(
         "<span class=\"fc-time\">" + timeStr + "</span> \
-         <span class=\"fc-title\">" + event.title + " " + event.seats + "</span>"
+         <span class=\"fc-title\">" + event.title + " " + event.seats + "석" + "</span>"
       );
 
     },
@@ -146,19 +146,30 @@ Template.calender.rendered = function() {
     eventClick( event, jsEvent, view ) {
       // console.log("event in eventClick() :" + event.title);
       // console.log("event in eventClick() :" + event.start);
-      console.log("event in eventClick() :" + event.start);
-      console.log("event in eventClick() :" + event.title);
-      console.log("event in eventClick() :" + event._id);
-      console.log("event in eventClick() :" + event.seats);
+      // console.log("event in eventClick() :" + event.start);
+      // console.log("event in eventClick() :" + event.title);
+      // console.log("event in eventClick() :" + event._id);
+      // console.log("event in eventClick() :" + event.seats);
 
 
       var startStr = event.start.format(MOMENT_FORMAT_DAY_TIME);
-      console.log("startStr: " + startStr);
+      // console.log("startStr: " + startStr);
       Session.set( 'eventModal', {
         type: 'edit',
         start: startStr,
+        seats: event.seats,
         id: event._id
       } );
+
+
+      /* show current stored value */
+      var h = startStr.split(" ")[1].split(":")[0];
+      var m = startStr.split(" ")[1].split(":")[1];
+
+      // id '#hour/min_modal_edit' changable - check addEditEventModal.html(idSpecific="_modal_edit")
+      $( '#add-edit-event-modal' ).find('#hour_modal_edit').val(h);
+      $( '#add-edit-event-modal' ).find('#min_modal_edit').val(m);
+      $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(event.seats);
       $( '#add-edit-event-modal' ).modal( 'show' );
     },
     select( start, end, jsEvent, view ) {

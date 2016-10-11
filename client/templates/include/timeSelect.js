@@ -31,9 +31,7 @@ Template.timeSelect.helpers({
     },
     getMins() {
         return mins;
-    }
-  
-
+    },
 });
 
 Template.timeSelect.events({

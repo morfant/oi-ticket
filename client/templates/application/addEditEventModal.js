@@ -113,14 +113,15 @@ Template.addEditEventModal.events({
       var maxSeats = template.find("#modal_num_of_seats").value;
       aShowEvent.seats = Number(maxSeats);
 
-      var h_id = "#hour_modal_show_" + (0 + 1);
-      var m_id = "#min_modal_show_" + (0 + 1);
+      var h_id = "#hour_modal_edit";
+      var m_id = "#min_modal_edit";
       var gotHour = template.find(h_id).value;
       var gotMin = template.find(m_id).value;
       var gotTime = gotHour + ":" + gotMin;
       // aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/, 
-      console.log("start at edit func() : " + eventModal.start);
-      aShowEvent.start = eventModal.start;
+      // console.log("start at edit func() : " + eventModal.start);
+
+      aShowEvent.start = eventModal.start.split(" ")[0] + " " + gotTime
    
       aShowEvent._id = eventModal.id;
       eventItems.push(aShowEvent);
@@ -176,7 +177,7 @@ Template.addEditEventModal.events({
 
     let eventModal = Session.get( 'eventModal' );
     if ( confirm( 'Are you sure? This is permanent.' ) ) {
-      Meteor.call( 'removeEvent', eventModal.event, function( error ) {
+      Meteor.call( 'removeEvent', eventModal.id, function( error ) {
         if ( error ) {
           Bert.alert( error.reason, 'danger' );
         } else {
