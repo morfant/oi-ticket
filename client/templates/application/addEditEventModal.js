@@ -100,6 +100,8 @@ Template.addEditEventModal.events({
           var gotTime = gotHour + ":" + gotMin;
           aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/, 
             // 2013-02-08 09:30 
+ 
+          aShowEvent.guests = [];
 
           eventItems.push(aShowEvent);
         }

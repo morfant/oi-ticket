@@ -159,6 +159,9 @@ Template.postItem.helpers({
     // console.log("arg id: " + id);
     if (clickedId === id) return true;
     else return false;
+  },
+  getEventClicked: function() {
+    return Session.get('eventClicked');
   }
 });
 
@@ -196,60 +199,38 @@ Template.postItem.events({
 
 
   },
+  'click .reserve_confirm': function(e) {
+    e.preventDefault();
+    console.log("reserve confirm button clicked!");
 
-  //NOT USING
-    'click #mailing': function(e) {
-        e.preventDefault();
-        console.log("mailing button clicked");
+    // var guestArr = [];
+    var guestInfo = {
+      name: document.getElementById('reserve_name').value,
+      phone: document.getElementById('reserve_phone').value,
+      seats: Number(document.getElementById('reserve_numberOfSeats').value),
+    };
 
-        var originalValue = e.target.value;
-        e.target.disabled = true;
-        e.target.value = "sending...";
+    console.log("guestInfo.name: " + guestInfo.name);
+    console.log("guestInfo: " + guestInfo.phone);
+    console.log("guestInfo: " + guestInfo.seats);
 
-        var subject = this.title;
-        var text = this.text;
-        console.log(text);
+    var eventID = Session.get('eventClicked');
+    console.log("eventID: " + eventID);
 
-        Meteor.call('createCampaign', subject, function (error, result) {
-          if (error) { 
-            Session.set('sendingResult', {error: error});
-            e.target.value = "createCampaign Failed.";
-            resetButtonValue(e.target, originalValue, 1000);
-          } else {
-            // console.log(result);
-            var campaignId = result.id;
-            // console.log(campaignId);
-            Session.set('sendingResult', campaignId);
-            e.target.value = "createCampaign succeed..";
+    Meteor.call('guestInsert', eventID, guestInfo, function(error, result) {
+      console.log("Meteor call - guestInsert()");
+      // display the error to the user and abort
+      if (error) {
+        console.log("ERROR!!");
+        console.log(error.reason);
+        return throwError(error.reason);
+      }
 
-            Meteor.call ('editContent', campaignId, text, function(error, result) {
-              if (error) {
-                Session.set('sendingResult', {error: error});
-                e.target.value = "editContent Failed.";
-                resetButtonValue(e.target, originalValue, 1000);
-              }else{
-                // console.log(result);
-                Session.set('sendingResult', result);
-                e.target.value = "editContent succeed..";
+      console.log("result: " + result);
+    });
 
-                // console.log("campaignId: " + campaignId);
-                Meteor.call('sendMail', campaignId, function(error, result){
-                  if (error) {
-                    Session.set('sendingResult', error);
-                    e.target.value = "sending Failed.";
-                    resetButtonValue(e.target, originalValue, 1000);
-                  } else {
-                    Session.set('sendingResult', result);
-                    e.target.value = "Sending succeed!!";
-                    resetButtonValue(e.target, originalValue, 1000);
+  },
 
-                  }
-                })
-              }
-            }) 
-          }
-        });
-    }
 
 });
 

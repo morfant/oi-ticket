@@ -12,6 +12,7 @@ var isPast = ( date ) => {
 Template.calender.created = function() {
   let template = Template.instance();
   template.subscribe( 'events' );
+  Session.set('eventClicked', false)
 }
 
 Template.calender.helpers({
@@ -79,23 +80,17 @@ Template.calender.rendered = function() {
         }
     },
     events( start, end, timezone, callback ) {
-/*
-      var events = [];
-      Events.find().fetch().map( ( event ) => {
 
-        // console.log("event: " + event);
-        console.log("event._id: " + event._id);
-        var n = event.shows.length;
-        for (var i = 0; i < n; i++) {
-          events.push(event.shows[i].event);
-          // console.log("event start time in events(): " + event.shows[i].event.start);
-        }
-      });
-*/
-      let events = Events.find().fetch().map( ( event ) => {
-        // event.eventStartEditable = !isPast( event.start );
-        return event;
-      });
+      let events;
+      var curRouteName = Router.current().route.getName();
+      if (curRouteName == 'postSubmit') {
+        events = Events.find({post_ID:"0"}).fetch();
+      } else {
+        // load events that are owned by a specific post.
+        var sentPostID = $('#kalendar').attr('class').split(" ")[0];
+        // console.log("sentPostID: " + sentPostID);
+        events = Events.find({post_ID:sentPostID}).fetch();
+      }
 
       if ( events ) {
         // console.log("events: " + events);
@@ -168,26 +163,35 @@ Template.calender.rendered = function() {
       // console.log("event in eventClick() :" + event._id);
       // console.log("event in eventClick() :" + event.seats);
 
+      var curRouteName = Router.current().route.getName();
+      if (curRouteName == 'postSubmit') {
 
-      var startStr = event.start.format(MOMENT_FORMAT_DAY_TIME);
-      // console.log("startStr: " + startStr);
-      Session.set( 'eventModal', {
-        type: 'edit',
-        start: startStr,
-        seats: event.seats,
-        id: event._id
-      } );
+        var startStr = event.start.format(MOMENT_FORMAT_DAY_TIME);
+        // console.log("startStr: " + startStr);
+        Session.set( 'eventModal', {
+          type: 'edit',
+          start: startStr,
+          seats: event.seats,
+          id: event._id
+        } );
 
 
-      /* show current stored value */
-      var h = startStr.split(" ")[1].split(":")[0];
-      var m = startStr.split(" ")[1].split(":")[1];
+        /* show current stored value */
+        var h = startStr.split(" ")[1].split(":")[0];
+        var m = startStr.split(" ")[1].split(":")[1];
 
-      // id '#hour/min_modal_edit' changable - check addEditEventModal.html(idSpecific="_modal_edit")
-      $( '#add-edit-event-modal' ).find('#hour_modal_edit').val(h);
-      $( '#add-edit-event-modal' ).find('#min_modal_edit').val(m);
-      $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(event.seats);
-      $( '#add-edit-event-modal' ).modal( 'show' );
+        // id '#hour/min_modal_edit' changable - check addEditEventModal.html(idSpecific="_modal_edit")
+        $( '#add-edit-event-modal' ).find('#hour_modal_edit').val(h);
+        $( '#add-edit-event-modal' ).find('#min_modal_edit').val(m);
+        $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(event.seats);
+        $( '#add-edit-event-modal' ).modal( 'show' );
+      } else {
+        /* In 'postsList' to continue reservation */
+        Session.set('eventClicked', event._id);
+
+
+
+      }
     },
     select( start, end, jsEvent, view ) {
       console.log("select!");

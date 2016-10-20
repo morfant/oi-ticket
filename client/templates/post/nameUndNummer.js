@@ -26,6 +26,7 @@ Template.nameUndNummer.events({
 		console.log(e.target.value);
 		var val = e.target.value;
 
+		//TODO: input char num limit
 	    var errors = validatePhoneNumber(val);
 	    // if (errors.title || errors.text)
 	    // if (errors.reserve_mobilePhone)

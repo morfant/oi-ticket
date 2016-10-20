@@ -85,15 +85,27 @@
 
 <!-- RESERVATION  -->
 
+
     {{#if isInPostsList}}
-      <!-- <a href="{{pathFor 'reserveTicket'}}" class="discuss btn btn-default">예약하기</a> -->
-      <a class="btn btn-default reserve {{_id}}">예약하기</a>
-      <a class="btn btn-default reserve_cancel {{_id}}">취소</a>
+      <!-- {{#unless getClickedId _id}} -->
+        <div> <a class="btn btn-default reserve {{_id}}">예약하기</a> </div>
+      <!-- {{/unless}} -->
     {{/if}}
 
 
     {{# if getClickedId _id}} 
-      {{> nameUndNummer}}
+      {{> calender postID=_id}}
+
+      {{# if getEventClicked}}
+        {{> nameUndNummer}}
+        <!-- <div> <a class="btn btn-default reserve_cancel {{_id}}">취소</a> </div> -->
+        <div> <a class="btn btn-default reserve_confirm {{_id}}">예약확정</a> </div>
+      {{/if}}
+
+      <!-- {{#unless getEventClicked}} -->
+      <!-- <div> <a class="btn btn-default reserve_cancel {{_id}}">취소</a> </div> -->
+      <!-- {{/unless}} -->
+
     {{/if}}
 
 
