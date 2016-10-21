@@ -325,3 +325,8 @@ body {
 .min {
   
 }
+
+.btn_center {
+    margin:0 auto;
+    display:block;
+}

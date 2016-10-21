@@ -94,10 +94,6 @@ Template.postItem.helpers({
     // TODO: Implement
     return true;
   },
-  isInPostsList: function() {
-    if (Router.current().route.getName() == 'postsList') return true;
-    else return false;
-  },
   isInPost: function() {
     if (Router.current().route.getName() == 'postPage') return true;
     else return false;
@@ -227,6 +223,11 @@ Template.postItem.events({
       }
 
       console.log("result: " + result);
+      // console.log(result._id);
+
+
+      Router.go('reserveResult', {event_id: result._id});
+
     });
 
   },

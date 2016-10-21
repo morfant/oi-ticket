@@ -28,6 +28,9 @@ Template.nameUndNummer.events({
 
 		//TODO: input char num limit
 	    var errors = validatePhoneNumber(val);
+	    
+	    //TODO: validateSeatsNumber - must less than remain seats.
+
 	    // if (errors.title || errors.text)
 	    // if (errors.reserve_mobilePhone)
 	    	// return Session.set('nameUndNummerErrors', errors);

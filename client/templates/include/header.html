@@ -13,6 +13,7 @@
       </div>
 
 
+      {{#unless isInCustomerSide}}
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="nav navbar-nav">
           <li><a href="{{pathFor 'postsList'}}">공연정보</a></li>
@@ -21,9 +22,16 @@
           <li><a href="{{pathFor 'statistic'}}">통계</a></li>
           <li><a href="{{pathFor 'settings'}}">설정</a></li>
         </ul>
-
-
       </div>
+      {{/unless}}
+
+      {{#if isInPlaysList}}
+      <div>
+        <p>극단 오이 티켓 예약 시스템</p>
+        <!-- TODO: list of links to each play's view? -->
+      </div>
+      {{/if}}
+
     </div>
   </nav>
 </template>

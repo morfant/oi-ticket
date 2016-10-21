@@ -1,13 +1,10 @@
-<template name="postsList">
+<template name="finishedList">
 
 <br />
 
   <div class="posts">
     {{#each posts}}
-      {{> postButtons}}
       {{> postItem}}
-      <br /><br />
-
     {{/each}}
 
 <!--     {{#if nextPath}}

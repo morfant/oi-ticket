@@ -185,8 +185,11 @@ Template.calender.rendered = function() {
         $( '#add-edit-event-modal' ).find('#min_modal_edit').val(m);
         $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(event.seats);
         $( '#add-edit-event-modal' ).modal( 'show' );
+
       } else {
+
         /* In 'postsList' to continue reservation */
+        //TODO : if remains seats is 0, user can't click it. color and function must be deactivated.
         Session.set('eventClicked', event._id);
 
 

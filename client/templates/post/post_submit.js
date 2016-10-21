@@ -173,8 +173,10 @@ Template.postSubmit.events({
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
       includeImages: imgFiles, //filenames
+      isFinished: false,
       // imgId: img_unique_id,
       // imgNum: nImg,
+
 
     };
 
