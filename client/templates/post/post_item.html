@@ -83,15 +83,22 @@
       </div>
     </div>
 
+
+
+    <!-- admin side -->
+    {{#unless isInPlaysList}}
+    
+
+    {{/unless}}
+
+
+
 <!-- RESERVATION  -->
-
-
     {{#if isInPlaysList}}
       <!-- {{#unless getClickedId _id}} -->
         <div> <a class="btn btn-default reserve {{_id}}">예약하기</a> </div>
       <!-- {{/unless}} -->
     {{/if}}
-
 
     {{# if getClickedId _id}} 
       {{> calender postID=_id}}

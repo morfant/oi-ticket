@@ -8,16 +8,7 @@ Template.playsList.created = function(){
 
 
 Template.playsList.helpers({
-  posts: function() {
-    // return Posts.find({}, {sort: {submitted: -1}});
-    var p = Posts.find();
-    for (var i = 0; i < p.count(); i++){
-    	console.log(i + " / " + p.fetch()[i]._id);
-    };
-    // return Posts.find();
-    return p;
-  }
-
+	
 });
 
 

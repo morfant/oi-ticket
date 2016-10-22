@@ -1,0 +1,43 @@
+<template name="postItemSimple">
+  <div class="post">
+
+    <div class="post-content">
+
+      {{#if currentUser}}
+      <span>Written at {{submitted}}
+      submitted by {{author}} {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
+      </span>
+      {{/if}}
+
+      <div class="_text">
+        <p class="subTitle"> <h2>{{title}}</h2> </p>
+        <p class="topTxt"> <strong>{{period}}</strong><br> </p>
+
+        <ul id="infomationText">
+        {{> listElement title="장소" content=place}}
+        {{> listElement title="공연시간" content=playDates}}
+        <!-- {{> listElement title="입장권" content=price}} -->
+        <!-- {{> listElement title="소요시간" content=duration}} -->
+        <!-- {{> listElement title="문의" content=contact}} -->
+        <!-- {{> listElement title="관람연령" content=ageGrade}} -->
+        <!-- {{> listElement title="주최" content=sponsor}} -->
+        <!-- {{> listElement title="제작" content=production}} -->
+        <!-- {{> listElement title="연출" content=director}} -->
+        <!-- {{> listElement title="원작" content=original}} -->
+        <!-- {{> listElement title="출연" content=cast}} -->
+        <!-- {{> listElement title="각색" content=arrange}} -->
+        <!-- {{> listElement title="작품소개" content=description}} -->
+        <!-- {{> listElement title="시놉시스" content=synopsis}} -->
+        <!-- {{> listElement title="스태프" content=staffs}} -->
+        </ul>
+
+      </div>
+
+    </div>
+
+    <a href="{{pathFor 'postPage'}}" class="discuss btn btn-default">설정</a>
+
+    <!-- <div> <a class="btn btn-default discuss">설정</a> </div> -->
+
+  </div>
+</template>
