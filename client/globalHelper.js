@@ -28,8 +28,16 @@ Template.registerHelper("posts", function () {
     /* print each post element */
     // var p = Posts.find();
     // for (var i = 0; i < p.count(); i++){
-    // 	console.log(i + " / " + p.fetch()[i]._id);
+    //  console.log(i + " / " + p.fetch()[i]._id);
     // };
     // // return Posts.find();
     // return p;
+});
+
+Template.registerHelper("posts_CUR", function () {
+    return Posts.find({state: POST_STATE_CUR}, {sort: {submitted: -1}});
+});
+
+Template.registerHelper("posts_FIN", function () {
+    return Posts.find({state: POST_STATE_FIN}, {sort: {submitted: -1}});
 });

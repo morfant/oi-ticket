@@ -10,8 +10,23 @@ var Positions = new Meteor.Collection(null); // null means local collection
 
 Template.postItemSimple.helpers({
   ownPost: function() {
-      return this.userId === Meteor.userId();
+    return this.userId === Meteor.userId();
   },
+  postState: function() {
+    if (this.state == POST_STATE_CUR) {
+      return "상연중";
+
+    } else if (this.state == POST_STATE_TEMP) {
+      return "임시저장";
+
+    } else if (this.state == POST_STATE_FIN) {
+      return "상연종료";
+
+    } else {
+      return "Error!";
+
+    }
+  }
 
 });
 
