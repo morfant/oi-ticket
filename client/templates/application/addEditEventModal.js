@@ -90,6 +90,7 @@ Template.addEditEventModal.events({
 
           var maxSeats = template.find("#modal_num_of_seats").value;
           aShowEvent.seats = Number(maxSeats);
+          aShowEvent.maxSeats = Number(maxSeats);
 
           aShowEvent.title = (i+1) + " 회차"; // + gotTime
 
@@ -111,10 +112,10 @@ Template.addEditEventModal.events({
     /* EDIT */
     if ( submitType === 'editEvent' ) {
       var aShowEvent = {};
-
       var editedSeats = template.find("#modal_num_of_seats").value;
-      console.log(editedSeats);
+      // console.log(editedSeats);
       aShowEvent.seats = Number(editedSeats);
+      aShowEvent.maxSeats = Number(editedSeats);
 
       var h_id = "#hour_modal_edit";
       var m_id = "#min_modal_edit";

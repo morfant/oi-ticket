@@ -81,15 +81,35 @@ Template.calender.rendered = function() {
     },
     events( start, end, timezone, callback ) {
 
+      $('#kalendar').fullCalendar('option', {editable: true, selectable: true});
+
+      // console.log(Router.current().route.getName());
       let events;
       var curRouteName = Router.current().route.getName();
+
       if (curRouteName == 'postSubmit') {
         events = Events.find({post_ID:"0"}).fetch();
-      } else {
+
+      } else if (curRouteName == 'playsList') { // in 'playsList', 'statistic'
         // load events that are owned by a specific post.
         var sentPostID = $('#kalendar').attr('class').split(" ")[0];
         // console.log("sentPostID: " + sentPostID);
         events = Events.find({post_ID:sentPostID}).fetch();
+
+      } else {
+
+        $('#kalendar').fullCalendar('option', {editable: false, selectable: false});
+
+        var sentPostID = $('#kalendar').attr('class').split(" ")[0];
+        events = Events.find({post_ID:sentPostID}).fetch();       
+
+        for (var i in events) {
+          let numOfAudience = events[i].maxSeats - events[i].seats;
+          let col_r = Math.round((numOfAudience / events[i].maxSeats) * 255);
+          console.log("col_r: " + col_r);
+          // console.log("event.start: " + i + " - " + events[i].start);
+          events[i].color = "rgb(" + col_r + ", 48, 44)";
+        }
       }
 
       if ( events ) {
@@ -99,17 +119,29 @@ Template.calender.rendered = function() {
     },
     eventRender( event, element ) { //Triggered while an event is being rendered.
 
+      var curRouteName = Router.current().route.getName();
+      var timeStr = event.start.format("HH:mm");
+      var numOfAudience = event.maxSeats - event.seats;
+
+      if (curRouteName == 'postSubmit' || curRouteName == 'playsList') {
+        element.find( '.fc-content' ).html(
+          "<span class=\"fc-time\">" + timeStr + "</span> \
+          <span class=\"fc-title\">" + event.title + " " + event.seats + "/" + event.maxSeats + "석" + "</span>"
+        );
+      } else { // in statistic
+        element.find( '.fc-content' ).html(
+          "<span class=\"fc-time\">" + timeStr + "</span> \
+          <span class=\"fc-title\">" + event.title + " " + numOfAudience + "/" + event.maxSeats + "석" + "</span>"
+        );
+      }
+
+
       // console.log("eventRender() event.title: " + event.title);
       // console.log("eventRender() event.start: " + event.start.format('HH:mm'));
 
-      var timeStr = event.start.format("HH:mm");
-      element.find( '.fc-content' ).html(
-        "<span class=\"fc-time\">" + timeStr + "</span> \
-         <span class=\"fc-title\">" + event.title + " " + event.seats + "석" + "</span>"
-      );
-
     },
     eventDrop( event, delta, revert ) {
+
       let _start = event.start.format(MOMENT_FORMAT_DAY_TIME);
       // let _end = event.end.format(MOMENT_FORMAT);
       console.log("eventDrop() start / end : " + _start + " / ");
@@ -143,7 +175,7 @@ Template.calender.rendered = function() {
           revert();
         }
       }
-      
+    
     },
     // dayClick( date ) {
     //   Session.set( 'eventModal', {
@@ -186,13 +218,10 @@ Template.calender.rendered = function() {
         $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(event.seats);
         $( '#add-edit-event-modal' ).modal( 'show' );
 
-      } else {
-
-        /* In 'postsList' to continue reservation */
+      } else if (curRouteName == 'playsList') {
         //TODO : if remains seats is 0, user can't click it. color and function must be deactivated.
         Session.set('eventClicked', event._id);
-
-
+      } else {
 
       }
     },
@@ -226,6 +255,7 @@ Template.calender.rendered = function() {
 
 
   });
+
 
 
   Tracker.autorun( function() {

@@ -91,7 +91,10 @@
 
     {{/unless}}
 
-
+    <!-- In statistic -->
+    {{#if isFromStatistic}}
+      <div> <a class="btn btn-default statistic {{_id}}">관객통계</a> </div>
+    {{/if}}
 
 <!-- RESERVATION  -->
     {{#if isInPlaysList}}
@@ -102,7 +105,7 @@
 
     {{# if getClickedId _id}} 
       {{> calender postID=_id}}
-
+      
       {{# if getEventClicked}}
         {{> nameUndNummer}}
         <!-- <div> <a class="btn btn-default reserve_cancel {{_id}}">취소</a> </div> -->

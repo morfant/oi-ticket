@@ -36,38 +36,7 @@ var Positions = new Meteor.Collection(null); // null means local collection
 
 
 Template.postItem.helpers({
-  // getImgId: function(ids) {
-  //   console.log(ids);
-  //   var imgs = Posts.findOne(this._id).includeImages;
-  //   console.log(imgs);
-  //   var id = imgs[0].split('_')[0];
-  //   console.log(id);
-  //   if (imgs) return imgs[0].split('_')[0];
 
-  // },
-  // getImage: function() {
-  //   var imgs = Posts.findOne(this._id).includeImages;
-  //   // var imgSrc = BASE_DIR + UPLOAD_DIR + imgs[idx];
-
-  //   // var imgDiv = this.find('#_images');
-  //   // var imgDiv = document.getElementById('_images');
-
-  //   for (var i = 0; i < imgs.length; i++){
-  //     // var img = document.createElement("img");
-  //     // img.src = UPLOAD_DIR + imgFiles[i];
-  //     // console.log("img1: " + img);
-  //     // img.className = "sslideImages";
-  //     // console.log("img2: " + img);
-  //     // console.log(UPLOAD_DIR + imgFiles[i]);
-  //     // imgDiv.appendChild(img);
-  //   }
-
-  //   // return "<img id=\"alskjdl\">";
-
-  //   // imgSlide();
-
-  //   // return imgSrc;
-  // },
   addElement: function(element) {
     // console.log("addElement");
     // console.log(element);
@@ -180,13 +149,10 @@ Template.postItem.events({
     e.preventDefault();
     console.log("reserve button clicked!");
     // console.log(e.target.className);
-    //TODO: use regex instead.
     var postId = e.target.className.split(' ').reverse()[0];
     console.log(postId);
     Session.set('clickedPost', postId);
     // Session.set('reserveStat', {0: true, 1: false, 2: false});
-
-
   },
   'click .reserve_cancel': function(e) {
     e.preventDefault();
@@ -231,7 +197,15 @@ Template.postItem.events({
     });
 
   },
-
+  'click .statistic': function(e) {
+    e.preventDefault();
+    console.log("statistic button clicked!");
+    // console.log(e.target.className);
+    var postId = e.target.className.split(' ').reverse()[0];
+    // console.log(postId);
+    Session.set('clickedPost', postId);
+    // Session.set('reserveStat', {0: true, 1: false, 2: false});
+  },
 
 });
 

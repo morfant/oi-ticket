@@ -22,6 +22,11 @@ Template.registerHelper("isInRouteName", function (routeName) {
     else return false;
 });
 
+Template.registerHelper("isFromStatistic", function() {
+    if (Session.get('previousLocationPath') == '/admin/statistic') return true;
+    else return false;
+});
+
 // Get posts
 Template.registerHelper("posts", function () {
     return Posts.find({}, {sort: {submitted: -1}});
