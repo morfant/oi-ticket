@@ -103,12 +103,13 @@ Template.calender.rendered = function() {
         var sentPostID = $('#kalendar').attr('class').split(" ")[0];
         events = Events.find({post_ID:sentPostID}).fetch();       
 
+        /* Set event color according to number of audience */
         for (var i in events) {
           let numOfAudience = events[i].maxSeats - events[i].seats;
           let col_r = Math.round((numOfAudience / events[i].maxSeats) * 255);
-          console.log("col_r: " + col_r);
+          // console.log("col_r: " + col_r);
           // console.log("event.start: " + i + " - " + events[i].start);
-          events[i].color = "rgb(" + col_r + ", 48, 44)";
+          events[i].color = "rgb(" + col_r + ", 100, 44)";
         }
       }
 

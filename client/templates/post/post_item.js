@@ -205,6 +205,8 @@ Template.postItem.events({
     // console.log(postId);
     Session.set('clickedPost', postId);
     // Session.set('reserveStat', {0: true, 1: false, 2: false});
+
+    
   },
 
 });

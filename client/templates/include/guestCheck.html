@@ -1,0 +1,26 @@
+<template name="guestCheck">
+
+  <br /><br />
+
+  <form class="main form">
+    <div class="form-group">
+      <label class="control-label" for="reserve_search">이름 혹은 전화번호 중 일부</label>
+      <div class="controls">
+        <input name="reserve_search" id="reserve_search" type="text" class="form-control"/>
+      </div>
+    </div>
+
+    <input type="submit" value="Submit" class="btn btn-primary submit"/>
+
+
+    {{#if matchFind}} 
+      <!-- <button type="button" class="btn btn-success addShow">+</button> -->
+      <br />
+      {{#each rslts}}
+          {{> searchResult}}
+      {{/each}}
+    {{/if}}
+
+  </form>
+
+</template>
