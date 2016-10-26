@@ -330,3 +330,64 @@ body {
     margin:0 auto;
     display:block;
 }
+
+
+/* searchResults */
+.wrapper {
+  /*width: 500px;*/
+  /*overflow: hidden;*/
+  /*margin-top: auto;*/
+  margin-right: auto;
+  margin-bottom: 30px;
+  margin-left: auto;
+}
+.wrapper .paragraph {
+  width: 125px;
+  float: left;
+  height: 100px;
+  /*line-height: 150px;*/
+  /*border: medium solid #000;*/
+  /*text-align: left;*/
+  /*vertical-align: middle;*/
+}
+.wrapper .text {
+  float: left;
+  width: 125px;
+  height: 40px;
+  /*line-height: 100px;*/
+  /*border: medium solid #000;*/
+  text-align: left;
+  /*vertical-align: bottom;*/
+}
+
+
+.content {
+    width: 500px;
+}
+.row {
+    clear: both;
+    padding: 10px;
+    /*border-top: solid 1px #000;*/
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.row p {
+    width: 60%;
+    float: left;
+    /*box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    padding: 0;
+    margin: 0;
+    font-size: 50px;
+}
+.row .teaser {
+    width: 40%;
+    float: left;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 6px;
+    border: dotted 1px #999;
+}

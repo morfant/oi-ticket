@@ -1,12 +1,27 @@
 <template name="searchResult">
-  <div>
-    <p>{{playTitle}}</p>
-    <p>{{start}}</p>
-    <p>{{guests.name}}</p>
-    <p>{{seats}}</p>
-    <p>{{guests}}</p>
-    <p>{{guests.phone}}</p>
-    <p>{{guests.seats}}</p>
+
+
+<!--   <div class="wrapper">
+    <div class="paragraph">
+      <h3>{{playTitle}}</h3>
+    </div>
+    <div class="paragraph">
+      <p>{{start}}</p>
+    </div>
+      <p>{{guests.[0].name}}</p>
+      <p>{{guests.[0].phone}}</p>
+      <p>{{guests.[0].seats}}</p>
   </div>
-    
+
+ -->     <article class="row">
+        <p><h3>{{playTitle}}</h3></p>
+        <!-- <p>Paragraph A</p> -->
+        <div class="teaser">
+        {{start}}
+        </div>
+    </article>   
+
 </template>
+
+
+

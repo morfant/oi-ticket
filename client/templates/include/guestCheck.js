@@ -14,24 +14,8 @@ Template.guestCheck.helpers({
 		return Session.get('findResult').length;
 	},
 	rslts() {
-		var rslts = Session.get('findResult');
-		console.log(rslts);
-
-    _.each(rslts, function(rslt) {
-      Meteor.call( 'getTitle', rslt.post_ID, ( error, result ) => {
-	      if (error) {
-	        console.log("ERROR!!");
-	        console.log(error.reason);
-	        return throwError(error.reason);
-	      }
-        // console.log("result: " + result);
-        rslt.playTitle = result;
-        // console.log(rslt);
-      });
-    });
-
-    console.log(rslts);
-    return rslts;
+		console.log(Session.get('findResult'));
+		return Session.get('findResult');
 	},
 
 });
