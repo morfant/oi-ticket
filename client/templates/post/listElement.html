@@ -1,7 +1,14 @@
 <template name="listElement">
-	<li name="list" id={{kind}}>
-		<!-- {{getTitle}} -->
-		<p id="tit">{{title}}</p>
-		<p id="con">{{content}}</p>
+	<li name="list" class="listElement" id={{kind}}>
+		<strong style="display:inline-block; width:100px" id="tit">{{title}}</strong>
+
+		{{#if isMultilines title}}
+			<p class="listParagraph" id="con">{{content}}</p>
+		{{/if}}
+
+		{{#unless isMultilines title}}
+			<p style="display:inline;" id="con">{{content}}</p>
+		{{/unless}}
+
 	</li>
 </template>

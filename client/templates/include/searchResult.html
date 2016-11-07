@@ -13,15 +13,30 @@
       <p>{{guests.[0].seats}}</p>
   </div>
 
- -->     <article class="row">
+ -->
+ <div id="search_result">
+   <div class="search_result_1">
+     <!-- <div class="result_title">{{playTitle}}</div>
+     <div class="result_datetime">{{start}}</div> -->
+     <h4 class="result_name">{{guests.[0].name}}</h4>
+     <p class="result_phone">{{guests.[0].phone}}</p>
+   </div>
+   <div class="search_result_2">
+     <h4 class="result_title">{{playTitle}}</h4>
+     <p class="result_datetime">{{start}}</p>
+     <p class="result_seats">{{guests.[0].seats}}</p>     
+   </div>
+ </div>
+
+
+
+
+ <!--
+ <article class="row">
         <p><h3>{{playTitle}}</h3></p>
-        <!-- <p>Paragraph A</p> -->
         <div class="teaser">
         {{start}}
         </div>
-    </article>   
-
+    </article>
+ -->
 </template>
-
-
-

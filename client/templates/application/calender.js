@@ -23,7 +23,7 @@ Template.calender.helpers({
 Template.calender.events({
 
 
- 
+
 });
 
 Template.calender.rendered = function() {
@@ -61,18 +61,18 @@ Template.calender.rendered = function() {
     //     // }
     // },
     header: {
-        left: 'prev,next',
-        center: 'title',
-        right: 'today myCustomButton'
+        left: 'title',
+        center: '',
+        right: 'prev,next'
     },
-    customButtons: {
-        myCustomButton: {
-            text: 'custom!',
-            click: function() {
-                alert('clicked the custom button!');
-            }
-        }
-    },    
+    // customButtons: {
+    //     myCustomButton: {
+    //         text: 'custom!',
+    //         click: function() {
+    //             alert('clicked the custom button!');
+    //         }
+    //     }
+    // },
     views: {
         month: { // name of view
             // titleFormat: 'YYYY, MM, DD'
@@ -101,7 +101,7 @@ Template.calender.rendered = function() {
         $('#kalendar').fullCalendar('option', {editable: false, selectable: false});
 
         var sentPostID = $('#kalendar').attr('class').split(" ")[0];
-        events = Events.find({post_ID:sentPostID}).fetch();       
+        events = Events.find({post_ID:sentPostID}).fetch();
 
         /* Set event color according to number of audience */
         for (var i in events) {
@@ -151,7 +151,7 @@ Template.calender.rendered = function() {
         let update = {
           _id: event._id,
           start: _start,
-        };         
+        };
 
         Meteor.call( 'editEvent', update, ( error ) => {
           if ( error ) {
@@ -164,7 +164,7 @@ Template.calender.rendered = function() {
            let update = {
             _id: event._id,
             start: _start,
-          };         
+          };
 
           Meteor.call( 'editEvent', update, ( error ) => {
             if ( error ) {
@@ -176,7 +176,7 @@ Template.calender.rendered = function() {
           revert();
         }
       }
-    
+
     },
     // dayClick( date ) {
     //   Session.set( 'eventModal', {
@@ -233,7 +233,7 @@ Template.calender.rendered = function() {
       var days = [];
 
       for(var iMoment = start.clone(); iMoment.isBefore(end); iMoment.add(1, 'days')){
-        var aMoment = iMoment.clone().format(MOMENT_FORMAT_DAY); 
+        var aMoment = iMoment.clone().format(MOMENT_FORMAT_DAY);
         // console.log("amoment: " + aMoment);
         days.push(aMoment);
         // console.log("days in loop: " + days);

@@ -10,9 +10,11 @@
       {{/if}}
 
       <div class="_text">
-        <p class="subTitle"> <h2>{{title}}</h2> </p>
-        <p class="state"> <h3>{{postState}}</h3> </p>
-        <p class="topTxt"> <strong>{{period}}</strong><br> </p>
+        <h2 class="post_simple_title"> {{title}}</h2>
+        <h3 class="post_simple_state"> --------------> {{postState}}</h3>
+        <strong class="post_simple_period">{{period}}</strong>
+
+        <br>
 
         <ul id="infomationText">
         {{> listElement title="장소" content=place}}

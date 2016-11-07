@@ -16,9 +16,10 @@ var elementDesc = {
   "staffs": "스태프",
 };
 
+var t = "";
 
 Template.listElement.created = function() {
-  
+
 };
 
 
@@ -39,17 +40,15 @@ Template.listElement.rendered = function() {
 
 
 Template.listElement.helpers({
-	// getTitle: function() {
-	// 	console.log("LISTELEMENT - GETTITLE()");
-	// 	var li = document.getElementsByTagName('li');
-	// 	console.log(li);
-	// 	console.log(li.id);
-	// 	return li.id;
-	// 	// return "hallo";
-	// 	// console.log(this.find('li').id);
-	// 	// console.log(elementDesc[this.find('li').id]);
-	// 	// return elementDesc[this.find('li').id];
-	// }
+  isMultilines: function(title) {
+    if (title == "작품소개" || title == "시놉시스"){
+      // console.log("multiline true");
+      return true;
+    } else {
+      // console.log("multiline false");
+      return false;
+    }
+  },
 
 });
 

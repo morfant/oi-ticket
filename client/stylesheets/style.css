@@ -33,7 +33,8 @@ body {
   /* For IE 6/7 (trigger hasLayout) */
   *zoom: 1;
   position: relative;
-  opacity: 1; }
+  opacity: 1;
+}
   .post:before, .post:after {
     content: "";
     display: table; }
@@ -57,7 +58,10 @@ body {
     margin: 7px 12px 0 0;
     float: left; }
   .post .post-content {
-    float: left; }
+    float: left;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
     .post .post-content h3 {
       margin: 0;
       line-height: 1.4;
@@ -70,8 +74,7 @@ body {
         font-size: 14px;
         display: inline-block;
         color: #aaaaaa; }
-    .post .post-content p {
-      margin: 0; }
+    /*.post .post-content p { margin: 0; }*/
 
     .left_image {
       float: left;
@@ -239,18 +242,18 @@ body {
 .thumbNailDiv {
   float:left;
   height:100%;
-  width:100%; 
+  width:100%;
 }
 .thumbNailDiv .left {
   float:left; width:25%;
   text-align: center; /* move image at horizontal center*/
 }
 .thumbNailDiv .middle {
-  float:left; width:50%; 
+  float:left; width:50%;
   text-align: center;
 }
 .thumbNailDiv .right {
- float:right; width:25%; 
+ float:right; width:25%;
  text-align: center;
 }
 
@@ -264,52 +267,31 @@ body {
   border-radius: 15px;
 }
 
+/* image slide */
+._images {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin: auto;
+
+}
+
 .slideImages {
-  width: 600px;
-  height: 400px;
+  /*width: 600px;*/
+  width: 100%;
+  /*margin: auto;*/
+  /*height: 400px;*/
   display:block;
-  margin-left:auto;
-  margin-right:auto;
-
-
+  /*margin-left:40px;*/
+  /*margin-right:40px;*/
 }
 
 /* reservationStep */
-.reservationStep {
-  
+.reserver_info {
+
 }
-.reservationStep .titleBox{
-  overflow:hidden;
-  height:50px;
-  background:#e1e1e1;
-  position:relative;
-  margin:0 25px;
-}
-.reservationStep .titleBox li{
-  float:left;
-  height:50px;
-  line-height:50px;
-  list-style-type: none;
-}
-.reservationStep .titleBox .number{
-  text-align:center;
-  width:50px;
-  font-size:32px;
-  font-weight:bold;
-  color:#adadad; 
-  font-family:"Arial"; 
-  background:#333333;
-}
-.reservationStep .titleBox .title{
-  font-size:14px; 
-  font-weight:bold;
-  padding-left:20px;
-  color:#5a5a5a
-}
-.reservationStep .titleBox .txt{
-  float:right;
-  margin-right:20px;
-  color:#000000
+
+.desc_datetime {
+  margin-left: 20px;
 }
 
 /* modal show time input */
@@ -323,7 +305,7 @@ body {
 
 }
 .min {
-  
+
 }
 
 .btn_center {
@@ -390,4 +372,99 @@ body {
     -moz-box-sizing: border-box;
     padding: 6px;
     border: dotted 1px #999;
+}
+
+/* post_item_for_guest */
+#infomationText {
+  list-style: none;
+  margin-left: -40px;
+  margin-top: 40px;
+
+}
+
+.listElement {
+  line-height: 1.9em;
+}
+
+.listParagraph {
+  display: block;
+  /*margin-right: 40px;*/
+  text-align:justify;
+}
+
+.post_title {
+  /*margin-left: 40px;*/
+}
+.post_period {
+  /*padding-left: 40px;*/
+}
+
+.btn .btn-default .reserve {
+}
+
+.form-control {
+  font-size: 22px;
+  height: 44px;
+}
+
+.btn-container {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  /*text-align: center;*/
+}
+
+/* post_item_simple */
+.post_simple_title {
+  display: inline-block;
+  width: 200px;
+
+}
+
+.post_simple_state {
+  display: inline-block;
+
+}
+
+.post_simple_period {
+  display: block;
+
+}
+
+/* guest Check */
+#search_result {
+  margin-top: 20px;
+}
+
+.search_result_1 {
+  /*display: inline;*/
+}
+
+.search_result_2 {
+  margin-top: -20px;
+}
+
+
+.result_title {
+  display: inline-block;;
+  width: 200px;
+
+}
+.result_datetime {
+  display: inline-block;
+  width: 200px;
+
+}
+.result_name {
+  display: inline-block;
+  width: 200px;
+}
+.result_phone {
+  display: inline-block;
+  width: 200px;
+
+}
+.result_seats {
+  display: inline-block;
+  width: 50px;
+
 }

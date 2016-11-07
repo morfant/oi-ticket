@@ -1,6 +1,6 @@
 Template.guestCheck.created = function() {
 	Session.set('findResult', []);
-  
+
 };
 
 
@@ -25,9 +25,10 @@ Template.guestCheck.events({
 		e.preventDefault();
 
 		var keyword = $(e.target).find('[name=reserve_search]').val();
+		// TODO: Check nothing inserted.
 		// console.log(keyword);
 
-		var re = /\D/; 
+		var re = /\D/;
 		var isContainNonNumber = re.test(keyword);
 		// console.log("test: " + res);
 

@@ -24,7 +24,7 @@
 
 
     <div class="thumbNailDiv">
-     
+
     {{#if getThumbNailImgFill 0 }}
       {{> thumbNailView divClass="left" pClass="t_p_0" imgClass="t_img_0" delIdx="del_0"}}
     {{/if}}
@@ -40,7 +40,7 @@
     <!-- {{#if(uploadedImgNum > 1)}} {{/if}} -->
 
     <!-- {{#if uploadedImgNum > 2}} {{/if}} -->
-<!-- 
+<!--
       <div class="middle">
         <p id="t_p_1"></p>
         <img id="t_img_1" height="100" width="100" align="middle" />
@@ -53,7 +53,7 @@
        -->
     </div>
 
-    <!-- TODO: erneurn mit template -->
+    <!-- TODO: erneuern mit template -->
     <div class="form-group {{errorClass 'title'}}">
       <label class="control-label" for="title">제목</label>
       <div class="controls">
@@ -68,7 +68,7 @@
         <input name="period" id="period" type="text" value="2016.09.01~ 2016.09.11" placeholder="2016.09.01~ 2016.09.11" class="form-control"/>
         <span class="help-block">{{errorMessage 'period'}}</span>
       </div>
-    </div>    
+    </div>
 
     <div class="form-group {{errorClass 'place'}}">
       <label class="control-label" for="place">장소</label>
@@ -76,22 +76,22 @@
         <input name="place" id="place" type="text" value="제주특별자치도 제주시 삼도2동 예술공간오이 지하 1층 소극장" placeholder="제주특별자치도 제주시 삼도2동 예술공간오이 지하 1층 소극장" class="form-control"/>
         <span class="help-block">{{errorMessage 'place'}}</span>
       </div>
-    </div> 
+    </div>
 
 
-<!-- 
+<!--
       <div class="form-group">
         <label for="modal_num_of_seats">좌석수(number of seats)</label>
         <input type="text" name="modal_num_of_seats" class="form-control" placeholder="ex) 33">
       </div> -->
-<!-- 
+<!--
     <div class="form-group {{errorClass 'duration'}}">
       <label class="control-label" for="duration">소요시간(playtime)</label>
       <div class="controls">
         {{> timeSelect idSpecific="_submit_playtime"}}
         <span class="help-block">{{errorMessage 'duration'}}</span>
       </div>
-    </div>    
+    </div>
 
  -->
     <div class="form-group {{errorClass 'playDates'}}">
@@ -100,7 +100,7 @@
         <input name="playDates" id="playDates" type="text" value="평일 19:30, 주말 15:00, 화요일 쉼" placeholder="평일 19:30, 주말 15:00, 화요일 쉼" class="form-control"/>
         <span class="help-block">{{errorMessage 'playDates'}}</span>
       </div>
-    </div>        
+    </div>
     <!-- {{> froalaEditor}} -->
 
     <div class="form-group">
@@ -206,7 +206,7 @@
     <div class="form-group">
       <label class="control-label" for="synopsis">시놉시스</label>
       <div class="controls">
-        <input name="synopsis" id="synopsis" type="text" value="소년은 소녀를 몇 백번은 봤다. 소녀도 그를. 그러나, 한 번도 서로를 함께 본 적은 없었다. 소년은 이민자의 아들이다. 매일 들려오는 엄마나라의 이야기들이 남의 일 같지 않지만, 아무것도 할 수 있는 것은 없고, 영국 사람처럼 보이려 애써봤자 아무도 눈여겨보지 않는다. 불합리한 현실을 벗어날 수 있는 것은 오로지 비디오 게임에서 전쟁놀이를 하는 것 뿐. 그런 소년의 삶에 자신처럼 아무데도 들어맞는 않는 소녀가 들어왔다. 오늘 소녀에게 드디어 말을 걸었다.  #영국 #코코팝시리얼 #버스 #소녀 #엄마의나라 #비디오게임 #북극곰   지영은 7개월 전 초경을 했지만, 여자 몸으로 변하는 것이 두렵기만 하다. 아빠는 승승장구하는 사업가이지만, 말도 섞기 싫다. 3살 때 엄마가 떠나고, 제주도에서 온 할머니도 내 맘 몰라주기는 마찬가지인 것 같다. 그런 지영에게 엄마가 쓰던 화장대는 유일하게 고민을 털어 놓는 통로이다. 그런데, 어느 날 화장대가 사라지게 되는데... #한국 #여드름 #가슴 #허벅지살 #얼룩 #엘리베이터 #화장대 #제주도할머니 #아빠 #빙하" placeholder="" class="form-control"/>
+        <input name="synopsis" id="synopsis" type="text" value="소년은 소녀를 몇 백번은 봤다. 소녀도 그를. 그러나, 한 번도 서로를 함께 본 적은 없었다. 소년은 이민자의 아들이다. 매일 들려오는 엄마나라의 이야기들이 남의 일 같지 않지만, 아무것도 할 수 있는 것은 없고, 영국 사람처럼 보이려 애써봤자 아무도 눈여겨보지 않는다. 불합리한 현실을 벗어날 수 있는 것은 오로지 비디오 게임에서 전쟁놀이를 하는 것 뿐. 그런 소년의 삶에 자신처럼 아무데도 들어맞는 않는 소녀가 들어왔다. 오늘 소녀에게 드디어 말을 걸었다. #영국 #코코팝시리얼 #버스 #소녀 #엄마의나라 #비디오게임 #북극곰  지영은 7개월 전 초경을 했지만, 여자 몸으로 변하는 것이 두렵기만 하다. 아빠는 승승장구하는 사업가이지만, 말도 섞기 싫다. 3살 때 엄마가 떠나고, 제주도에서 온 할머니도 내 맘 몰라주기는 마찬가지인 것 같다. 그런 지영에게 엄마가 쓰던 화장대는 유일하게 고민을 털어 놓는 통로이다. 그런데, 어느 날 화장대가 사라지게 되는데... #한국 #여드름 #가슴 #허벅지살 #얼룩 #엘리베이터 #화장대 #제주도할머니 #아빠 #빙하" placeholder="" class="form-control"/>
         <span class="help-block">{{errorMessage 'synopsis'}}</span>
       </div>
     </div>
@@ -215,14 +215,15 @@
     <div class="form-group">
       <label class="control-label" for="staffs">스탭 소개</label>
       <div class="controls">
-        <input name="staffs" id="staffs" type="text" value="작, 출연 팀 크라우치  연출 앤디 스미스, 칼 제임스  디자인 그레엄 길모어  제작 팀 크라우치" placeholder="" class="form-control"/>
+        <input name="staffs" id="staffs" type="text" value="작, 출연 팀 크라우치 연출 앤디 스미스, 칼 제임스 디자인 그레엄 길모어 제작 팀 크라우치" placeholder="" class="form-control"/>
         <span class="help-block">{{errorMessage 'staffs'}}</span>
       </div>
     </div>
 
 
-
+    <br />
     <div class="form-group {{errorClass 'event'}}">
+      <label class="control-label" for="insert_events">공연 회차 입력</label>
       <div class="controls">
         <!-- Calender -->
         {{> calender}}
@@ -248,8 +249,8 @@
         <br /><br /><br /><br />
         <br /><br /><br /><br />
         <br /><br /><br /><br />
-        
-          <span class="help-block"></span>          
+
+          <span class="help-block"></span>
       </div>
     </div> -->
 
