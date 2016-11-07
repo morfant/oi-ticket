@@ -14,7 +14,7 @@ Template.nameUndNummer.helpers({
 		return Session.get('nameUndNummerErrors')[field];
 	},
 	errorClass: function (field) {
-	    return !!Session.get('nameUndNummerErrors')[field] ? 'has-error' : '';
+	  return !!Session.get('nameUndNummerErrors')[field] ? 'has-error' : '';
 	}
 });
 
@@ -26,20 +26,30 @@ Template.nameUndNummer.events({
 		console.log(e.target.value);
 		var val = e.target.value;
 
-		//TODO: input char num limit
-	    var errors = validatePhoneNumber(val);
-	    
-	    //TODO: validateSeatsNumber - must less than remain seats.
-
-	    // if (errors.title || errors.text)
-	    // if (errors.reserve_mobilePhone)
-	    	// return Session.set('nameUndNummerErrors', errors);
-	  	// else
-	  		return Session.set('nameUndNummerErrors', errors);
+    var errors = validatePhoneNumber(val);
+		if (errors.reserve_mobilePhone)
+  		return Session.set('nameUndNummerErrors', errors);
 
 
- 	  
-	}
+
+	},
+
+	// 'submit form': function(e) {
+	// 	e.preventDefault();
+	//
+	// 	var info = {
+  //     name: $(e.target).find('[name=reserve_name]').val().replace(/[\r\n]/g, "<br />"),
+  //     mobileNumber: $(e.target).find('[name=reserve_mobilePhone]').val().replace(/[\r\n]/g, "<br />"),
+	// 		seats:  $(e.target).find('[name=reserve_numberOfSeats]').val().replace(/[\r\n]/g, "<br />")
+	// 	}
+	//
+	// 	console.log(info);
+	//
+	// 	var errors = validateReservInfo(info);
+  // 	if (errors.reserve_name || errors.reserve_mobilePhone || errors.reserve_seats)
+	// 		return Session.set('nameUndNummerErrors', errors);
+	//
+	// }
 
 
 });

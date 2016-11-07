@@ -413,6 +413,10 @@ body {
   /*text-align: center;*/
 }
 
+#kalendar {
+  margin-bottom: 10px;
+}
+
 /* post_item_simple */
 .post_simple_title {
   display: inline-block;

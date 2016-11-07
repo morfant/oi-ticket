@@ -25,6 +25,8 @@ Template.postItem.created = function(){
   Session.set('sendingResult', {});
   Session.set('reserveStat', {0: false, 1: false, 2: false});
   Session.set('clickedPost', {});
+  Session.set('reserveInfoErrors', {});
+
 
 
 }
@@ -36,7 +38,12 @@ var Positions = new Meteor.Collection(null); // null means local collection
 
 
 Template.postItem.helpers({
-
+  errorMessage: function(field) {
+		return Session.get('reserveInfoErrors')[field];
+	},
+	errorClass: function (field) {
+	  return !!Session.get('reserveInfoErrors')[field] ? 'has-error' : '';
+	},
   addElement: function(element) {
     // console.log("addElement");
     // console.log(element);
@@ -50,7 +57,7 @@ Template.postItem.helpers({
     title_p.innerHTML = elementDesc[element];
     // console.log(this); //a post
     // console.log(this[element]);
-    content_p.innerHTML = this[element]; 
+    content_p.innerHTML = this[element];
     alist.appendChild(title_p);
     alist.appendChild(content_p);
     infoText.appendChild(alist);
@@ -66,7 +73,7 @@ Template.postItem.helpers({
   isInPost: function() {
     if (Router.current().route.getName() == 'postPage') return true;
     else return false;
-  },  
+  },
   postId: function() {
     console.log("currentPostId: " + this._id);
     var p = Posts.findOne(this._id);
@@ -96,7 +103,7 @@ Template.postItem.helpers({
     if (_.isUndefined(post.position)) {
       attributes.class = 'post invisible';
     } else {
-      var delta = post.position - newPosition;      
+      var delta = post.position - newPosition;
       attributes.style = "top: " + delta + "px";
       if (delta === 0)
         attributes.class = "post animate"
@@ -168,13 +175,18 @@ Template.postItem.events({
     // var guestArr = [];
     var guestInfo = {
       name: document.getElementById('reserve_name').value,
-      phone: document.getElementById('reserve_phone').value,
+      phone: document.getElementById('reserve_mobilePhone').value,
       seats: Number(document.getElementById('reserve_numberOfSeats').value),
     };
 
     console.log("guestInfo.name: " + guestInfo.name);
     console.log("guestInfo: " + guestInfo.phone);
     console.log("guestInfo: " + guestInfo.seats);
+
+  	var errors = validateReservInfo(guestInfo);
+    console.log(errors);
+  	if (errors.reserve_name || errors.reserve_mobilePhone || errors.reserve_seats)
+      return Session.set('reserveInfoErrors', errors);
 
     var eventID = Session.get('eventClicked');
     console.log("eventID: " + eventID);
@@ -206,13 +218,7 @@ Template.postItem.events({
     Session.set('clickedPost', postId);
     // Session.set('reserveStat', {0: true, 1: false, 2: false});
 
-    
+
   },
 
 });
-
-
-
-
-
-
