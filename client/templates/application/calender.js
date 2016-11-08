@@ -12,7 +12,8 @@ var isPast = ( date ) => {
 Template.calender.created = function() {
   let template = Template.instance();
   template.subscribe( 'events' );
-  Session.set('eventClicked', false)
+  Session.set('eventClicked', false);
+  Session.set('availableSeats', 0);
 }
 
 Template.calender.helpers({
@@ -36,6 +37,8 @@ Template.calender.rendered = function() {
     height: 400,
     aspectRatio: 1.5,
     editable: true,
+    eventColor: 'rgb(76, 158, 217)',
+
     // contentHeight: 300,
 
     // events: [
@@ -91,10 +94,20 @@ Template.calender.rendered = function() {
         events = Events.find({post_ID:"0"}).fetch();
 
       } else if (curRouteName == 'playsList') { // in 'playsList', 'statistic'
+
+        $('#kalendar').fullCalendar('option', {selectable: false});
+
         // load events that are owned by a specific post.
         var sentPostID = $('#kalendar').attr('class').split(" ")[0];
         // console.log("sentPostID: " + sentPostID);
         events = Events.find({post_ID:sentPostID}).fetch();
+
+        for (var e in events) {
+          if (events[e].seats <= 0) {
+            events[e].color = 'gray';
+            events[e].editable = false;
+          }
+        }
 
       } else {
 
@@ -124,11 +137,27 @@ Template.calender.rendered = function() {
       var timeStr = event.start.format("HH:mm");
       var numOfAudience = event.maxSeats - event.seats;
 
-      if (curRouteName == 'postSubmit' || curRouteName == 'playsList') {
+      if (curRouteName == 'postSubmit') {
         element.find( '.fc-content' ).html(
           "<span class=\"fc-time\">" + timeStr + "</span> \
           <span class=\"fc-title\">" + event.title + " " + event.seats + "/" + event.maxSeats + "석" + "</span>"
         );
+      } else if (curRouteName == 'playsList') {
+        element.find( '.fc-content' ).html(
+          "<span class=\"fc-time\">" + timeStr + "</span> \
+          <span class=\"fc-title\">" + event.title + " " + event.seats + "/" + event.maxSeats + "석" + "</span>"
+        );
+
+        // Turn to default border color of all events
+        // event.borderColor = 'rgb(76, 158, 217)';
+        event.backgroundColor = 'rgb(76, 158, 217)';
+        event.borderColor = 'rgb(76, 158, 217)';
+
+        if (event.seats <= 0) {
+          event.backgroundColor = 'gray';
+          event.borderColor = 'gray';
+        }
+
       } else { // in statistic
         element.find( '.fc-content' ).html(
           "<span class=\"fc-time\">" + timeStr + "</span> \
@@ -208,7 +237,6 @@ Template.calender.rendered = function() {
           id: event._id
         } );
 
-
         /* show current stored value */
         var h = startStr.split(" ")[1].split(":")[0];
         var m = startStr.split(" ")[1].split(":")[1];
@@ -220,38 +248,54 @@ Template.calender.rendered = function() {
         $( '#add-edit-event-modal' ).modal( 'show' );
 
       } else if (curRouteName == 'playsList') {
-        //TODO : if remains seats is 0, user can't click it. color and function must be deactivated.
         Session.set('eventClicked', event._id);
+        Session.set('availableSeats', event.seats);
+
+        if (event.seats != 0) {
+          event.backgroundColor = '#378006';
+          event.borderColor = 'rgb(251, 161, 27)';
+        }
+        $('#kalendar').fullCalendar( 'rerenderEvents' );
       } else {
 
       }
     },
     select( start, end, jsEvent, view ) {
-      console.log("select!");
-      // console.log(start);
-      // console.log(end);
-      var days = [];
 
-      for(var iMoment = start.clone(); iMoment.isBefore(end); iMoment.add(1, 'days')){
-        var aMoment = iMoment.clone().format(MOMENT_FORMAT_DAY);
-        // console.log("amoment: " + aMoment);
-        days.push(aMoment);
-        // console.log("days in loop: " + days);
+      var curRouteName = Router.current().route.getName();
+      if (curRouteName == 'postSubmit') {
+        console.log("select!");
+        // console.log(start);
+        // console.log(end);
+        var days = [];
+
+        for(var iMoment = start.clone(); iMoment.isBefore(end); iMoment.add(1, 'days')){
+          var aMoment = iMoment.clone().format(MOMENT_FORMAT_DAY);
+          // console.log("amoment: " + aMoment);
+          days.push(aMoment);
+          // console.log("days in loop: " + days);
+        }
+
+        // console.log("days: " + days);
+
+        Session.set( 'eventModal', {
+          type: 'add',
+          start: start.format(MOMENT_FORMAT_DAY),
+          days: days,
+          end: end.subtract(1, 'days').format(MOMENT_FORMAT_DAY)
+        });
+        // console.log(date);
+        // console.log(date.format("dddd, YYYY MM DD, h:mm a"));
+
+        $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(DEFAULT_NUM_OF_SEATS);
+        $( '#add-edit-event-modal' ).modal( 'show' );
+      } else if (curRouteName == 'playsList') {
+
+      } else {
+
       }
 
-      // console.log("days: " + days);
 
-      Session.set( 'eventModal', {
-        type: 'add',
-        start: start.format(MOMENT_FORMAT_DAY),
-        days: days,
-        end: end.subtract(1, 'days').format(MOMENT_FORMAT_DAY)
-      });
-      // console.log(date);
-      // console.log(date.format("dddd, YYYY MM DD, h:mm a"));
-
-      $( '#add-edit-event-modal' ).find('#modal_num_of_seats').val(DEFAULT_NUM_OF_SEATS);
-      $( '#add-edit-event-modal' ).modal( 'show' );
     }
 
 

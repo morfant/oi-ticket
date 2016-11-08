@@ -129,11 +129,21 @@ Template.postItem.helpers({
     var clickedId = Session.get('clickedPost');
     // console.log("clickedId: " + clickedId);
     // console.log("arg id: " + id);
-    if (clickedId === id) return true;
-    else return false;
+
+    // var seats = Session.get('availableSeats');
+    // console.log("seats: " + seats);
+    if (clickedId === id) {
+      return true;
+    } else {
+      return false;
+    }
   },
   getEventClicked: function() {
-    return Session.get('eventClicked');
+    var result = false;
+    console.log("seats: " + Session.get('availableSeats'));
+    if (Number(Session.get('availableSeats')) > 0)
+      result = true;
+    return result;
   }
 });
 
@@ -176,7 +186,7 @@ Template.postItem.events({
     var guestInfo = {
       name: document.getElementById('reserve_name').value,
       phone: document.getElementById('reserve_mobilePhone').value,
-      seats: Number(document.getElementById('reserve_numberOfSeats').value),
+      seats: Number(document.getElementById('reserve_seats').value),
     };
 
     console.log("guestInfo.name: " + guestInfo.name);
