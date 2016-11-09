@@ -91,6 +91,8 @@ Template.calender.rendered = function() {
       var curRouteName = Router.current().route.getName();
 
       if (curRouteName == 'postSubmit') {
+        $('#kalendar').fullCalendar('option', {selectable: true});
+
         events = Events.find({post_ID:"0"}).fetch();
 
       } else if (curRouteName == 'playsList') { // in 'playsList', 'statistic'

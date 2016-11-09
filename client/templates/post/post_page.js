@@ -7,40 +7,34 @@ Template.postPage.helpers({
 });
 
 Template.postPage.events({
-    
+
 })
 
 
 Template.postPage.rendered = function(){
 
-	var imgs = this.$('.slideImages');
-	// console.log(imgs);
 
-	/* Prepare imgIdx */
-	var imgIdx = 0;
+	/* Image Slide show */
+  var imgIdx = 0;
+	var imgs = document.getElementsByClassName("slideImages");
+  var maxNum = imgs.length;
 
 	/* Show first image before setInterval */
-	imgs[0].style.display = "block";
-	
+	imgs[imgIdx].style.display = "block";
+
 	console.log("SET INTERVAL - postPage");
-    slideShowTimer_OnPostPage = Meteor.setInterval(function imgSlide_OnPostPage() {
+  slideShowTimer_OnPostPage = Meteor.setInterval(function imgSlide_OnPostPage() {
 
-		// console.log("imgSlide()!!");
-		// for (var j = 0; j < postNum; j++){
+    for (var i = 0; i < maxNum; i++) {
+			imgs[i].style.display = "none";
+		}
 
-		    for (var i = 0; i < 3; i++) {
-				imgs[i].style.display = "none";
-				// console.log("idx: " + (i + (j*3)).toString());
-			}
+    imgIdx++;
+    if (imgIdx >= maxNum) {imgIdx = 0}
+    // console.log("imgIdx: " + imgIdx);
+    imgs[imgIdx].style.display = "block";
 
-		    imgIdx++;
-		    if (imgIdx > 2) {imgIdx = 0}    
-		    // console.log("imgIdx: " + imgIdx);
-		    imgs[imgIdx].style.display = "block";  
-
-		// };
-
-    }, 2000);
+  }, 2000);
 
     // console.log(slideShowTimer);
 
@@ -52,4 +46,3 @@ Template.postPage.destroyed = function () {
 	console.log("CANCEL INTERVAL - postPage");
 	Meteor.clearInterval(slideShowTimer_OnPostPage);
 };
-

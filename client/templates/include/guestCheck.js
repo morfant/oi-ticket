@@ -54,6 +54,8 @@ Template.guestCheck.events({
       // 	}
       // }
 
+			// console.log("guest search result");
+			// console.log(result);
       Session.set('findResult', result);
 
     });

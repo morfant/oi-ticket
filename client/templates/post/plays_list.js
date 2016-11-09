@@ -23,8 +23,6 @@ Template.playsList.rendered = function(){
 	}
 
 	/* Image Slide show */
-
-
 	var maxNum = [];
 	var imgSets = document.getElementsByClassName("_images");
 	// console.log("imgSets length: " + imgSets.length);
@@ -74,4 +72,5 @@ Template.playsList.rendered = function(){
 Template.playsList.destroyed = function () {
 	console.log("CANCEL INTERVAL");
 	Meteor.clearInterval(slideShowTimer);
+	postNum = 0;
 };

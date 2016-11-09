@@ -13,11 +13,11 @@
     <input type="submit" value="Submit" class="btn btn-primary submit"/>
 
 
-    {{#if matchFind}} 
+    {{#if matchFind}}
       <!-- <button type="button" class="btn btn-success addShow">+</button> -->
       <br />
-      {{#each rslts}}
-          {{> searchResult}}
+      {{#each rslt in rslts}}
+          {{> searchResult data=rslt}}
       {{/each}}
     {{/if}}
 
