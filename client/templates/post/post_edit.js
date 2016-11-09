@@ -3,6 +3,11 @@ Template.postEdit.created = function() {
 }
 
 Template.postEdit.helpers({
+  getThumbNailImgFill: function(idx) {
+    // console.log("thumbNailImgHolderArr[" + idx + "]: " + thumbNailImgHolderArr[idx]);
+    thumbNailImgHolderArr = Session.get('thumbNailImgHolderArrSes');
+    return thumbNailImgHolderArr[idx];
+  },
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];
   },
@@ -63,7 +68,7 @@ Template.postEdit.events({
       var currentPostId = this._id;
 
       console.log(currentPostId);
-      
+
       Posts.remove(currentPostId);
       Router.go('postsList');
     }

@@ -420,13 +420,13 @@ body {
 /* post_item_simple */
 .post_simple_title {
   display: inline-block;
-  width: 200px;
+  width: 180px;
+  height: 20px;
 
 }
 
 .post_simple_state {
   display: inline-block;
-
 }
 
 .post_simple_period {

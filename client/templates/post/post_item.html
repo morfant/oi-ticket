@@ -1,7 +1,5 @@
 <template name="postItem">
   <div class="post">
-
-
     <div class="post-content">
 
       {{#if currentUser}}
@@ -16,7 +14,7 @@
         <h2 class="post_title">{{title}}</h2>
         <h3 class="post_period">{{period}}</h3><br>
 
-        {{> imageSlide id=_id src=includeImages}}
+        {{> imageSlide id=_id idx=numberIdx srcs=includeImages}}
 
         <ul id="infomationText">
 

@@ -1,20 +1,10 @@
 <template name="postSubmit">
   <form class="main form">
 
-<!-- <style>
-#div1 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}
-</style>
-<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
- -->
-
     <div class="form-group {{errorClass 'image'}}">
       <label class="control-label" for="title">이미지</label>
       <div class="controls">
 
-      <!-- image upload -->
-      <!-- {{> dropZone}} <br /> -->
-
-      <!-- Defined /client/templates/application/upload.html(js) -->
       {{> uploadJquery}} <br />
 
       <div id="img-preview"></div>
@@ -37,20 +27,6 @@
       {{> thumbNailView divClass="right" pClass="t_p_2" imgClass="t_img_2" delIdx="del_2"}}
     {{/if}}
 
-    <!-- {{#if(uploadedImgNum > 1)}} {{/if}} -->
-
-    <!-- {{#if uploadedImgNum > 2}} {{/if}} -->
-<!--
-      <div class="middle">
-        <p id="t_p_1"></p>
-        <img id="t_img_1" height="100" width="100" align="middle" />
-      </div>
-
-      <div class="right">
-        <p id="t_p_2"></p>
-        <img id="t_img_2" height="100" width="100" align="middle" />
-      </div>
-       -->
     </div>
 
     <!-- TODO: erneuern mit template -->

@@ -38,6 +38,9 @@ var Positions = new Meteor.Collection(null); // null means local collection
 
 
 Template.postItem.helpers({
+  numberIdx: function() {
+    return "idx_" + postNum;
+  },
   errorMessage: function(field) {
 		return Session.get('reserveInfoErrors')[field];
 	},
@@ -182,6 +185,7 @@ Template.postItem.events({
     e.preventDefault();
     console.log("reserve confirm button clicked!");
 
+    // TODO: 이미 예약한 사람은 다시 예약 할 수 없게 해야 하나?
     // var guestArr = [];
     var guestInfo = {
       name: document.getElementById('reserve_name').value,

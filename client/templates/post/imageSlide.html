@@ -2,9 +2,9 @@
 
     <div class="_images">
 
-      <img style="display: none;" class="slideImages {{id}}" src="{{addPath src.[0]}}"/>
-      <img style="display: none;" class="slideImages {{id}}" src="{{addPath src.[1]}}"/>
-      <img style="display: none;" class="slideImages {{id}}" src="{{addPath src.[2]}}"/>
+      {{#each src in srcs}}
+        <img style="display: none;" class="{{idx}} slideImages" src="{{addPath src}}"/>
+      {{/each}}
 
 
     </div>
