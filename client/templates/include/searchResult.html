@@ -1,19 +1,5 @@
 <template name="searchResult">
 
-
-<!--   <div class="wrapper">
-    <div class="paragraph">
-      <h3>{{playTitle}}</h3>
-    </div>
-    <div class="paragraph">
-      <p>{{start}}</p>
-    </div>
-      <p>{{guests.[0].name}}</p>
-      <p>{{guests.[0].phone}}</p>
-      <p>{{guests.[0].seats}}</p>
-  </div>
-
- -->
  <!-- DATA CONTEXT TEST -->
  <!-- <div>{{playTitle}}</div> -->
  <!-- <div>{{data.playTitle}}</div> -->
@@ -25,24 +11,22 @@
      <div class="result_datetime">{{start}}</div> -->
      <h4 class="result_name">{{guest.name}}</h4>
      <p class="result_phone">{{guest.phone}}</p>
+     <label><input class={{data._id}} type="checkbox" value=""></label>
+
    </div>
+
+   <!-- <div class="checkbox">
+     <label><input class="selectBox" type="checkbox" value=""></label>
+   </div> -->
+
    <div class="search_result_2">
      <h4 class="result_title">{{data.playTitle}}</h4>
      <p class="result_datetime">{{data.start}}</p>
      <p class="result_seats">{{guest.seats}}</p>
    </div>
+
+
  </div>
  {{/each}}
 
-
-
-
- <!--
- <article class="row">
-        <p><h3>{{playTitle}}</h3></p>
-        <div class="teaser">
-        {{start}}
-        </div>
-    </article>
- -->
 </template>

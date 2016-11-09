@@ -174,13 +174,6 @@ Template.postItem.events({
     Session.set('clickedPost', postId);
     // Session.set('reserveStat', {0: true, 1: false, 2: false});
   },
-  'click .reserve_cancel': function(e) {
-    e.preventDefault();
-    console.log("cancel button clicked!");
-    Session.set('reserveStat', {0: false, 1: false, 2: false});
-
-
-  },
   'click .reserve_confirm': function(e) {
     e.preventDefault();
     console.log("reserve confirm button clicked!");

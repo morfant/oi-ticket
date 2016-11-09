@@ -1,6 +1,6 @@
 Template.registerHelper("isInCustomerSide", function () {
 	var curRouteName = Router.current().route.getName();
-	if (curRouteName == 'playsList' || curRouteName == 'reserveResult') return true;
+	if (curRouteName == 'playsList' || curRouteName == 'reserveResult' || curRouteName == 'reserveCancel') return true;
     else return false;
 });
 

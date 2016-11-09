@@ -437,14 +437,34 @@ body {
 /* guest Check */
 #search_result {
   margin-top: 20px;
+  /*border-top: 1px solid grey;*/
+  margin-bottom: 30px;
+
 }
 
 .search_result_1 {
-  /*display: inline;*/
+  display: inline-block;
+  width: 500px;
 }
 
 .search_result_2 {
+  display: inline-block;
   margin-top: -20px;
+  width: 500px;
+  /*display: inline-block;*/
+}
+
+.checkbox {
+  display: inline;
+  /*margin-top: -40px;*/
+}
+
+.selectBox {
+  /*display: block;*/
+  /*margin-top: -80px;*/
+  /*line-height: 1.2em;*/
+  font-size: 2.2em;
+
 }
 
 
