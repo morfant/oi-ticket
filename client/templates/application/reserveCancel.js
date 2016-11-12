@@ -2,6 +2,7 @@
 Template.reserveCancel.created = function() {
 	Session.set('reserveCancelErrors', {});
 	Session.set('reserveCancelFindResult', {});
+	Session.set('reserveCancelSearched', false);
 
 };
 
@@ -19,12 +20,19 @@ Template.reserveCancel.helpers({
 	  return !!Session.get('reserveCancelErrors')[field] ? 'has-error' : '';
 	},
 	matchFind() {
+		console.log("matchFind");
+		console.log(Session.get('reserveCancelFindResult'));
 		return Session.get('reserveCancelFindResult').length;
 	},
 	rslts() {
 		console.log(Session.get('reserveCancelFindResult'));
 		return Session.get('reserveCancelFindResult');
 	},
+	submitted() {
+		console.log("submitted");
+		console.log(Session.get('reserveCancelSearched'));
+		return Session.get('reserveCancelSearched');
+	}
 
 });
 
@@ -42,6 +50,13 @@ Template.reserveCancel.events({
 		e.preventDefault();
 
 		var phone = $(e.target).find('[name=reserve_mobilePhone]').val();
+
+		if (!phone) {
+			console.log("no phone");
+			Session.set('reserveCancelFindResult', {});
+			Session.set('reserveCancelSearched', false);
+			return false;
+		}
 
     Meteor.call('searchInPhoneNumber', phone, function(error, result) {
     	// console.log(result);
@@ -64,8 +79,9 @@ Template.reserveCancel.events({
 
 			// console.log("guest search result");
 			// console.log(result);
-      Session.set('reserveCancelFindResult', result);
-
+			Session.set('reserveCancelFindResult', result);
     });
+		Session.set('reserveCancelSearched', true);
+
 	},
 });

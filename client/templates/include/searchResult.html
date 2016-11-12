@@ -11,7 +11,7 @@
      <div class="result_datetime">{{start}}</div> -->
      <h4 class="result_name">{{guest.name}}</h4>
      <p class="result_phone">{{guest.phone}}</p>
-     <label><input class={{data._id}} type="checkbox" value=""></label>
+     <!-- <label><input class={{data._id}} type="checkbox" value=""></label> -->
 
    </div>
 
@@ -19,11 +19,15 @@
      <label><input class="selectBox" type="checkbox" value=""></label>
    </div> -->
 
+   <input id={{guest.reserve_id}} type="submit" value="예약취소(cancel)" class="btn btn-danger reserve_cancel"/>
+
    <div class="search_result_2">
      <h4 class="result_title">{{data.playTitle}}</h4>
      <p class="result_datetime">{{data.start}}</p>
      <p class="result_seats">{{guest.seats}}</p>
    </div>
+
+
 
 
  </div>

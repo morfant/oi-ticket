@@ -492,3 +492,19 @@ body {
   width: 50px;
 
 }
+
+/* reserve_cancel */
+.reserve_cancel {
+  margin-top: 0px;
+}
+
+.reserveCancel_searchResult {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.reserveCancel_searchResult h3 {
+  margin-top: -10px;
+  /*padding-top: -10px;*/
+}

@@ -184,6 +184,7 @@ Template.postItem.events({
       name: document.getElementById('reserve_name').value,
       phone: document.getElementById('reserve_mobilePhone').value,
       seats: Number(document.getElementById('reserve_seats').value),
+      reserve_id: Random.id()
     };
 
     console.log("guestInfo.name: " + guestInfo.name);
