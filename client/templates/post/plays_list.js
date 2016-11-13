@@ -15,7 +15,7 @@ Template.playsList.helpers({
 
 Template.playsList.rendered = function(){
 
-	// console.log(postNum);
+	console.log("postNum in play_list.js: " + postNum);
 
 	/* Prepare imgIdx[] */
 	for (var i = 0; i < postNum; i++) {

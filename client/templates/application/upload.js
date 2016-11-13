@@ -1,7 +1,5 @@
 // imgAbsPath = "";
-// imgFiles = [];
-
-var uniqueID = "";
+var imgFiles = [];
 
 var findEmptyImgHolder = function() {
   var emptyIdx = null;
@@ -28,7 +26,6 @@ Template.uploadJquery.helpers({
       id: this._id,
       other: this.other,
       hard: 'Lolcats'
-      // imgID: uniqueID 
     }
   },
   myCallbacks: function() {
@@ -78,6 +75,7 @@ Template.uploadJquery.helpers({
 
                 // imgFiles[emptyIdx] = imgAbsPath + newName; //defined post_submit.js
                 imgFiles[emptyIdx] = newName; //defined post_submit.js
+                Session.set('imgFiles', imgFiles);
                 console.log("imgFiles - UPLOADED: " + imgFiles);
                 // console.log(imgFiles[0]);
 
@@ -104,5 +102,5 @@ Template.uploadJquery.helpers({
 
         },
     }
-  }  
+  }
 });

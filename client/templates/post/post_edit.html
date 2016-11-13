@@ -16,8 +16,9 @@
 
     <div class="thumbNailDiv">
 
-      {{#each img in imgFiles}}
-        {{> thumbNailView img}}
+      {{getThumbNailImgArr includeImages}}
+      {{#each image in includeImages}}
+        {{> thumbNailView img=image}}
       {{/each}}
 
     <!-- {{#if getThumbNailImgFill 0 }}

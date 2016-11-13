@@ -21,6 +21,7 @@ elementDesc = {
 
 Template.postItem.created = function(){
   postNum++; //used in post_list.js
+  console.log("postNum in postItem.js: " + postNum);
   Session.set('isRendered', false);
   Session.set('sendingResult', {});
   Session.set('reserveStat', {0: false, 1: false, 2: false});

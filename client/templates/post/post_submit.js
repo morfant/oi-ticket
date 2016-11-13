@@ -1,11 +1,13 @@
 var testValue = "test오이test";
+var imgFiles = [];
 
 var delImgOnPage = function(idx) {
 
+  imgFiles = Session.get('imgFiles');
   console.log(imgFiles[idx]);
 
-  thumbNailImgHolderArr[idx] = false;
-  Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
+  // thumbNailImgHolderArr[idx] = false;
+  // Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
 
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
   Meteor.call('deleteImg', imgAbsPath + imgFiles[idx], function(error, result) {
@@ -22,19 +24,21 @@ var delImgOnPage = function(idx) {
 };
 
 
-var getImgNum = function() {
-  var imgNum = 0;
-  for (var i = 0; i < thumbNailImgHolderArr.length; i++){
-    if (thumbNailImgHolderArr[i] == true) imgNum++;
-  }
-  console.log(imgNum);
-  return imgNum;
-}
-
+// var getImgNum = function() {
+//   var imgNum = 0;
+//   for (var i = 0; i < thumbNailImgHolderArr.length; i++){
+//     if (thumbNailImgHolderArr[i] == true) imgNum++;
+//   }
+//   console.log(imgNum);
+//   return imgNum;
+// }
+//
 
 Template.postSubmit.created = function() {
   thumbNailImgIdx = 0;
-  imgFiles = []; //Store img filename showing on page
+  
+  // Session.set('imgFiles', {});
+  // imgFiles = []; //GLOBAL, Store img filename showing on page
 
   img_unique_id = Random.id(); // Used for events of a post also. (addEditEventModal.js)
   img_num = 0;
@@ -87,12 +91,12 @@ Template.postSubmit.rendered = function() {
 
 
 Template.postSubmit.helpers({
-  getThumbNailImgFill: function(idx) {
-    // console.log("thumbNailImgHolderArr[" + idx + "]: " + thumbNailImgHolderArr[idx]);
-    thumbNailImgHolderArr = Session.get('thumbNailImgHolderArrSes');
-    return thumbNailImgHolderArr[idx];
-  },
-
+  // getThumbNailImgFill: function(idx) {
+  //   // console.log("thumbNailImgHolderArr[" + idx + "]: " + thumbNailImgHolderArr[idx]);
+  //   thumbNailImgHolderArr = Session.get('thumbNailImgHolderArrSes');
+  //   return thumbNailImgHolderArr[idx];
+  // },
+  //
   equals: function(a, b) {
     console.log(a);
     console.log(b);

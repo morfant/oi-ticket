@@ -15,7 +15,11 @@
 
     <div class="thumbNailDiv">
 
-    {{#if getThumbNailImgFill 0 }}
+      {{#each img in includeImages}}
+        {{> thumbNailView imgClass=img}}
+      {{/each}}
+
+    <!-- {{#if getThumbNailImgFill 0 }}
       {{> thumbNailView divClass="left" pClass="t_p_0" imgClass="t_img_0" delIdx="del_0"}}
     {{/if}}
 
@@ -26,7 +30,7 @@
     {{#if getThumbNailImgFill 2 }}
       {{> thumbNailView divClass="right" pClass="t_p_2" imgClass="t_img_2" delIdx="del_2"}}
     {{/if}}
-
+ -->
     </div>
 
     <!-- TODO: erneuern mit template -->

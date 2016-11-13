@@ -1,20 +1,61 @@
+var imgFiles = [];
+
+var delImgOnPage = function(idx) {
+
+  console.log(imgFiles[idx]);
+
+  // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
+  var imgPath = '/Users/giy/oi-ticket/host_Uploads/';
+  Meteor.call('deleteImg', imgPath + imgFiles[idx], function(error, result) {
+
+    // display the error to the user and abort
+    if (error) {
+      console.log("got error");
+      return throwError(error.reason);
+    } else {
+      console.log("delete succeed");
+      imgFiles.splice(idx, 1); //remove deleted idx img
+      Session.set('imgFiles', imgFiles);
+    }
+
+  });
+};
+
+
 Template.postEdit.created = function() {
-  thumbNailImgIdx = 0;
+  thumbNailImgIdx = 0; //GLOBAL, using in thumbNailView.js
   Session.set('postEditErrors', {});
 }
 
+Template.postEdit.rendered = function(){
+  console.log("imgFiles.length");
+  var imgs = Session.get('imgFiles');
+  console.log(imgs.length);
+
+  for (var i = 0; i < imgs.length; i++) {
+    var imgId = 't_img_' + i;
+    var pId = 't_p_' + i;
+    var img = document.getElementById(imgId);
+    img.src = UPLOAD_DIR + imgs[i];
+
+    var p = document.getElementById(pId);
+    p.innerHTML = imgs[i];
+  }
+
+};
+
 Template.postEdit.helpers({
-  getThumbNailImgFill: function(idx) {
-    // console.log("thumbNailImgHolderArr[" + idx + "]: " + thumbNailImgHolderArr[idx]);
-    thumbNailImgHolderArr = Session.get('thumbNailImgHolderArrSes');
-    return thumbNailImgHolderArr[idx];
-  },
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];
   },
   errorClass: function (field) {
     return !!Session.get('postEditErrors')[field] ? 'has-error' : '';
+  },
+  getThumbNailImgArr: function(imgsArr) {
+    //get img filename array from db
+    imgFiles = imgsArr;
   }
+
 });
 
 Template.postEdit.events({
@@ -23,6 +64,7 @@ Template.postEdit.events({
 
     var currentPostId = this._id;
 
+    var imgs = Session.get('imgFiles');
     var postProperties = {
 
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
@@ -43,12 +85,29 @@ Template.postEdit.events({
       description: $(e.target).find('[name=description]').val().replace(/[\r\n]/g, "<br />"),
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
-
+      includeImages: imgs, //Array of filenames
+      state: POST_STATE_TEMP,
     }
 
     var errors = validatePost(postProperties);
     if (errors.title || errors.text)
       return Session.set('postEditErrors', errors);
+
+    // Meteor.call('postUpdate', post, function(error, result) {
+    //   console.log("Meteor call - postInsert()");
+    //   // display the error to the user and abort
+    //   if (error) {
+    //     console.log("ERROR!!");
+    //     console.log(error.reason);
+    //     return throwError(error.reason);
+    //   }
+    //
+    //   console.log("result._id: " + result._id);
+    //
+    //   /* 2. fix events to post._id */
+    //   var update = {
+    //     post_ID: result._id,
+    //   };
 
     Posts.update(currentPostId, {$set: postProperties}, function(error) {
       if (error) {
@@ -73,5 +132,25 @@ Template.postEdit.events({
       Posts.remove(currentPostId);
       Router.go('postsList');
     }
+  },
+
+  'click .deleteImg': function(e) {
+    e.preventDefault();
+
+    var targetId = $(e.target).parent().attr('id');
+    // console.log(target);
+
+    if (targetId == 'del_0') {
+      delImgOnPage(0);
+    } else if (targetId == 'del_1') {
+      delImgOnPage(1);
+    } else if (targetId == 'del_2') {
+      delImgOnPage(2);
+    } else {
+
+    }
+
+
   }
+
 });
