@@ -2,11 +2,13 @@
   <div class="post">
     <div class="post-content">
 
-      {{#if currentUser}}
-      <span>Written at {{submitted}}
-      submitted by {{author}} {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
-      </span>
-      {{/if}}
+      {{#unless isInPlaysList}}
+        {{#if currentUser}}
+        <span>Written at {{submitted}}
+        submitted by {{author}} {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
+        </span>
+        {{/if}}
+      {{/unless}}
 
       <br><br><br><br>
 

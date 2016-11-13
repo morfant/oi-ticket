@@ -1,8 +1,8 @@
 
 Template.reserveCancel.created = function() {
 	Session.set('reserveCancelErrors', {});
-	Session.set('reserveCancelFindResult', {});
 	Session.set('reserveCancelSearched', false);
+	Session.set('reserveCancelFindResult', {}); //using at guestCheck.js also.
 
 };
 

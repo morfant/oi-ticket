@@ -92,8 +92,14 @@ Template.calender.rendered = function() {
 
       if (curRouteName == 'postSubmit') {
         $('#kalendar').fullCalendar('option', {selectable: true});
-
         events = Events.find({post_ID:"0"}).fetch();
+
+      } else if (curRouteName == 'postEdit') {
+        $('#kalendar').fullCalendar('option', {editable: true, selectable: true});
+
+        var sentPostID = $('#kalendar').attr('class').split(" ")[0];
+        events = Events.find({post_ID:sentPostID}).fetch();
+
 
       } else if (curRouteName == 'playsList') { // in 'playsList', 'statistic'
 
@@ -228,7 +234,7 @@ Template.calender.rendered = function() {
       // console.log("event in eventClick() :" + event.seats);
 
       var curRouteName = Router.current().route.getName();
-      if (curRouteName == 'postSubmit') {
+      if (curRouteName == 'postSubmit' || curRouteName == 'postEdit') {
 
         var startStr = event.start.format(MOMENT_FORMAT_DAY_TIME);
         // console.log("startStr: " + startStr);
@@ -265,7 +271,7 @@ Template.calender.rendered = function() {
     select( start, end, jsEvent, view ) {
 
       var curRouteName = Router.current().route.getName();
-      if (curRouteName == 'postSubmit') {
+      if (curRouteName == 'postSubmit' || curRouteName == 'postEdit') {
         console.log("select!");
         // console.log(start);
         // console.log(end);

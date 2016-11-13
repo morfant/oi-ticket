@@ -17,7 +17,7 @@ Template.searchResult.events({
 
     if ( confirm( '정말로 예약을 취소 하시겠습니까? Are you really want to cancel a resveration?' ) ) {
       var reserveID = $(e.target).attr('id');
-      console.log(reserveID);
+      // console.log(reserveID);
 
       Meteor.call('cancelReserve', reserveID, function(error, result) {
         if (error) {
@@ -40,7 +40,7 @@ Template.searchResult.events({
             }
           };
 
-          console.log(oldResult);
+          // console.log(oldResult);
           Session.set('reserveCancelFindResult', oldResult);
 
         }

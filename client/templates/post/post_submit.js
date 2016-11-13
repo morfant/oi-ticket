@@ -6,7 +6,7 @@ var delImgOnPage = function(idx) {
 
   thumbNailImgHolderArr[idx] = false;
   Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
-  
+
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
   Meteor.call('deleteImg', imgAbsPath + imgFiles[idx], function(error, result) {
 
@@ -33,7 +33,8 @@ var getImgNum = function() {
 
 
 Template.postSubmit.created = function() {
-  imgFiles = []; //Store img file name shoing on page
+  thumbNailImgIdx = 0;
+  imgFiles = []; //Store img filename showing on page
 
   img_unique_id = Random.id(); // Used for events of a post also. (addEditEventModal.js)
   img_num = 0;
@@ -46,7 +47,7 @@ Template.postSubmit.created = function() {
   // console.log("in postsubmit.created(): " + randomKey);
 
 
-  /* Clear useless events */ 
+  /* Clear useless events */
   Meteor.call('clearEvents', function(error, result) {
       console.log("Meteor call - clearEvents()");
 
@@ -56,7 +57,7 @@ Template.postSubmit.created = function() {
         console.log(error.reason);
         return throwError(error.reason);
       }
-      
+
       console.log("clearEvents succeed.");
 
     })
@@ -77,7 +78,7 @@ Template.postSubmit.rendered = function() {
         console.log(error.reason);
         return throwError(error.reason);
       }
-      
+
       console.log("Delete all imgs");
 
     })
@@ -152,7 +153,7 @@ Template.postSubmit.events({
     // console.log($(e.target).find('#text').html());
 
     console.log("imgFiles - BEFORE SUBMITT: " + imgFiles);
-    
+
     var post = {
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
       period: $(e.target).find('[name=period]').val().replace(/[\r\n]/g, "<br />"),
@@ -182,12 +183,12 @@ Template.postSubmit.events({
 
     var errors = validatePost(post);
     // if (errors.title || errors.text)
-    if (errors.title)      
+    if (errors.title)
       return Session.set('postSubmitErrors', errors);
 
 
     var errors = validateEvent();
-    if (errors.event)      
+    if (errors.event)
       return Session.set('postSubmitErrors', errors);
 
 
@@ -208,7 +209,7 @@ Template.postSubmit.events({
       /* 2. fix events to post._id */
       var update = {
         post_ID: result._id,
-      };         
+      };
 
       Meteor.call( 'fixEventToPost', update, ( error ) => {
         if ( error ) {
@@ -228,8 +229,8 @@ Template.postSubmit.events({
 
 
       });
-      
-      
+
+
       // clear imgFiles array
       // imgFiles = [];
       // console.log("clear imgFiles");
@@ -239,7 +240,7 @@ Template.postSubmit.events({
       Router.go('postPage', {_id: result._id});
 
     });
- 
+
 
   },
 

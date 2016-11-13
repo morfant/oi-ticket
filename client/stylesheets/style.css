@@ -508,3 +508,8 @@ body {
   margin-top: -10px;
   /*padding-top: -10px;*/
 }
+
+/* header bar */
+.main_title {
+  font-size: 1.5em;
+}

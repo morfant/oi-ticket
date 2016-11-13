@@ -1,4 +1,5 @@
 Template.postEdit.created = function() {
+  thumbNailImgIdx = 0;
   Session.set('postEditErrors', {});
 }
 

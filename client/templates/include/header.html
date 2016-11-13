@@ -25,16 +25,17 @@
       </div>
       {{/unless}}
 
-      {{#if isInPlaysList}}
+      {{#if isInCustomerSide}}
       <!-- TODO: list of links to each play's view? -->
-      <!-- <div>
-        <p>극단 오이 티켓 예약 시스템</p>
-      </div>
- -->
+
         <div class="collapse navbar-collapse" id="navigation">
+          <ul class="nav navbar-nav">
+            <li class="main_title"><a href="{{pathFor 'playsList'}}">극단 오이</a></li>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="{{pathFor 'reserveCancel'}}">예약확인 및 취소</a></li>
           </ul>
+
         </div>
       {{/if}}
 

@@ -1,6 +1,6 @@
 Template.guestCheck.created = function() {
-	Session.set('findResult', []);
-
+	// Session.set('findResult', []);
+	Session.set('reserveCancelFindResult', {}); //using at reserveCancel.js also.
 };
 
 
@@ -11,12 +11,17 @@ Template.guestCheck.rendered = function() {
 
 Template.guestCheck.helpers({
 	matchFind() {
-		return Session.get('findResult').length;
+		return Session.get('reserveCancelFindResult').length;
 	},
 	rslts() {
-		console.log(Session.get('findResult'));
-		return Session.get('findResult');
+		console.log(Session.get('reserveCancelFindResult'));
+		return Session.get('reserveCancelFindResult');
 	},
+	submitted() {
+		console.log("submitted");
+		console.log(Session.get('reserveCancelSearched'));
+		return Session.get('reserveCancelSearched');
+	}
 
 });
 
@@ -45,18 +50,8 @@ Template.guestCheck.events({
         return throwError(error.reason);
       }
 
-      // console.log("succeed! - reservationSearch()");
-      // console.log("result: " + result);
-
-      // for (var i = 0; i < result.length; i++) {
-      // 	for (var j = 0; j < result[i].guests.length; j++) {
-      // 		if (result[i].guests.name)
-      // 	}
-      // }
-
-			// console.log("guest search result");
-			// console.log(result);
-      Session.set('findResult', result);
+			// console.log(oldResult);
+			Session.set('reserveCancelFindResult', result);
 
     });
   },
