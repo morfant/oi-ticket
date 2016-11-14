@@ -2,7 +2,8 @@ var imgFiles = [];
 
 var delImgOnPage = function(idx) {
 
-  console.log(imgFiles[idx]);
+  // console.log("idx: " + idx);
+  // console.log(imgFiles[idx]);
 
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
   var imgPath = '/Users/giy/oi-ticket/host_Uploads/';
@@ -14,8 +15,12 @@ var delImgOnPage = function(idx) {
       return throwError(error.reason);
     } else {
       console.log("delete succeed");
-      imgFiles.splice(idx, 1); //remove deleted idx img
+      imgFiles[idx] = false;
+      // imgFiles.splice(idx, 1); //remove deleted idx img
+      // console.log("imgFiles in delImgOnPage(): " + imgFiles);
       Session.set('imgFiles', imgFiles);
+
+      console.log(Session.get('imgFiles'));
     }
 
   });
@@ -33,13 +38,18 @@ Template.postEdit.rendered = function(){
   console.log(imgs.length);
 
   for (var i = 0; i < imgs.length; i++) {
-    var imgId = 't_img_' + i;
-    var pId = 't_p_' + i;
-    var img = document.getElementById(imgId);
-    img.src = UPLOAD_DIR + imgs[i];
+    if (imgs[i] == false){
+      continue;
+    }
+    // if (imgs[i] != false) {
+      var imgId = 't_img_' + i;
+      var pId = 't_p_' + i;
+      var img = document.getElementById(imgId);
+      img.src = UPLOAD_DIR + imgs[i];
 
-    var p = document.getElementById(pId);
-    p.innerHTML = imgs[i];
+      var p = document.getElementById(pId);
+      p.innerHTML = imgs[i];
+    // }
   }
 
 };
@@ -54,6 +64,12 @@ Template.postEdit.helpers({
   getThumbNailImgArr: function(imgsArr) {
     //get img filename array from db
     imgFiles = imgsArr;
+    Session.set('imgFiles', imgFiles);
+    // console.log(Session.get('imgFiles'));
+  },
+  reactiveThumbNailImg: function() {
+    console.log(Session.get('imgFiles'));
+    return Session.get('imgFiles');
   }
 
 });
@@ -65,6 +81,7 @@ Template.postEdit.events({
     var currentPostId = this._id;
 
     var imgs = Session.get('imgFiles');
+    console.log(imgs);
     var postProperties = {
 
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
@@ -86,39 +103,39 @@ Template.postEdit.events({
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
       includeImages: imgs, //Array of filenames
-      state: POST_STATE_TEMP,
+      state: POST_STATE_TEMP
     }
+
+    console.log(postProperties);
 
     var errors = validatePost(postProperties);
     if (errors.title || errors.text)
       return Session.set('postEditErrors', errors);
 
-    // Meteor.call('postUpdate', post, function(error, result) {
-    //   console.log("Meteor call - postInsert()");
-    //   // display the error to the user and abort
-    //   if (error) {
-    //     console.log("ERROR!!");
-    //     console.log(error.reason);
-    //     return throwError(error.reason);
-    //   }
-    //
-    //   console.log("result._id: " + result._id);
-    //
-    //   /* 2. fix events to post._id */
-    //   var update = {
-    //     post_ID: result._id,
-    //   };
-
-    Posts.update(currentPostId, {$set: postProperties}, function(error) {
+    Meteor.call('postUpdate', currentPostId, postProperties, function(error, result) {
+      console.log("Meteor call - postUpdate()");
+      // display the error to the user and abort
       if (error) {
-        // display the error to the user
-        // alert(error.reason);
-        throwError(error.reason);
-
-      } else {
-        Router.go('postPage', {_id: currentPostId});
+        console.log("ERROR!!");
+        console.log(error.reason);
+        return throwError(error.reason);
       }
+
+      console.log(result);
+      Router.go('postPage', {_id: currentPostId});
     });
+
+    // Posts.update(currentPostId, {$set: postProperties}, function(error) {
+    //   if (error) {
+    //     // display the error to the user
+    //     // alert(error.reason);
+    //     throwError(error.reason);
+    //
+    //   } else {
+    //     Router.go('postPage', {_id: currentPostId});
+    //   }
+    // });
+
   },
 
   'click .delete': function(e) {

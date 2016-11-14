@@ -14,10 +14,11 @@
     </div>
 
 
-    <div class="thumbNailDiv">
+    <div class="thumbNailsDiv">
 
       {{getThumbNailImgArr includeImages}}
-      {{#each image in includeImages}}
+      {{#each image in reactiveThumbNailImg}}
+      <!-- {{#each reactiveThumbNailImg}} -->
         {{> thumbNailView img=image}}
       {{/each}}
 
