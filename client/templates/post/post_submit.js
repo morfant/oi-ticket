@@ -1,14 +1,17 @@
 var testValue = "test오이test";
 var imgFiles_postSubmit = []; //fill with image filenames
 var imgHolders_postSubmit = []; //fill with image filenames
+var img_unique_id_postSubmit = null;
 
 var delImgOnPage = function(idx) {
 
-  imgFiles_postSubmit = Session.get('imgFiles');
+  // imgFiles_postSubmit = Session.get('imgFiles');
   console.log(imgFiles_postSubmit[idx]);
 
+  imgFiles_postSubmit[idx] = false;
   imgHolders_postSubmit[idx] = false;
   Session.set('imgHolders', imgHolders_postSubmit);
+  Session.set('imgFiles', imgFiles_postSubmit);
 
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
   Meteor.call('deleteImg', imgAbsPath + imgFiles_postSubmit[idx], function(error, result) {
@@ -37,24 +40,12 @@ var delImgOnPage = function(idx) {
 
 Template.postSubmit.created = function() {
   thumbNailImgIdx = 0;
-
-  // Session.set('imgFiles', {});
-  // imgFiles = []; //GLOBAL, Store img filename showing on page
-
-  img_unique_id = Random.id(); // Used for events of a post also. (addEditEventModal.js)
+  Session.set('postSubmitErrors', {});
   img_num = 0;
-  // imgFiles_postSubmit = [false, false, false];
-  // imgHolders_postSubmit = [false, false, false];
+
   var emptyArr = [false, false, false];
   Session.set('imgFiles', emptyArr);
   Session.set('imgHolders', emptyArr);
-
-  Session.set('postSubmitErrors', {});
-  // Session.set('uploadedImgNumSes', uploadedImgNum);
-  // Session.set('imgHolders', imgHolders_postSubmit);
-
-  // console.log("in postsubmit.created(): " + randomKey);
-
 
   /* Clear useless events */
   Meteor.call('clearEvents', function(error, result) {
@@ -66,20 +57,16 @@ Template.postSubmit.created = function() {
         console.log(error.reason);
         return throwError(error.reason);
       }
-
       console.log("clearEvents succeed.");
-
     })
-
 };
 
 
 Template.postSubmit.rendered = function() {
+  console.log("postSubmit RENDERED");
+  console.log(imgFiles_postSubmit);
 
-  console.log("imgFiles - PAGE RENDERED: " + imgFiles_postSubmit);
-
-  // TODO : delete all (.jp(e)g, .png, .gif) files
-  Meteor.call('deleteAllImg', function(error, result) {
+    Meteor.call('deleteAllImg', function(error, result) {
       console.log("Meteor call");
       // display the error to the user and abort
       if (error) {
@@ -87,10 +74,13 @@ Template.postSubmit.rendered = function() {
         console.log(error.reason);
         return throwError(error.reason);
       }
-
       console.log("Delete all imgs");
+    });
 
-    })
+  // Used for events of a post also. (addEditEventModal.js)
+  // Share img_unique_id with Session
+  img_unique_id_postSubmit = Random.id();
+  Session.set('img_unique_id', img_unique_id_postSubmit);
 
 };
 
@@ -99,57 +89,47 @@ Template.postSubmit.helpers({
   getThumbNailImgFill: function(idx) {
     // console.log("imgHolders[" + idx + "]: " + imgHolders[idx]);
     imgHolders_postSubmit = Session.get('imgHolders');
+    console.log(idx + " / " + imgHolders_postSubmit[idx]);
     return imgHolders_postSubmit[idx];
   },
-  // getThumbNailImgArr: function(imgsArr) {
-  //   //get img filename array from db
-  //   imgFiles = imgsArr;
-  //   Session.set('imgFiles', imgFiles);
-  //   // console.log(Session.get('imgFiles'));
+  //   equals: function(a, b) {
+  //   console.log(a);
+  //   console.log(b);
+  //   console.log("compare equal");
+  //   if (a == b){
+  //     console.log("true")
+  //     return true;
+  //   } else {
+  //     console.log("false");
+  //     return false;
+  //   }
   // },
-  // reactiveThumbNailImg: function() {
-  //   console.log(Session.get('imgFiles'));
-  //   return Session.get('imgFiles');
-  // }
-
-  equals: function(a, b) {
-    console.log(a);
-    console.log(b);
-    console.log("compare equal");
-    if (a == b){
-      console.log("true")
-      return true;
-    } else {
-      console.log("false");
-      return false;
-    }
-  },
-
-  gt: function(a, b) {
-    if (a >= b){
-      console.log("true")
-      return true;
-    } else {
-      console.log("false");
-      return false;
-    }
-  },
-
+  //
+  // gt: function(a, b) {
+  //   if (a >= b){
+  //     console.log("true")
+  //     return true;
+  //   } else {
+  //     console.log("false");
+  //     return false;
+  //   }
+  // },
+  //
   // uploadedImgNum: function() {
   //   console.log(uploadedImgNum);
   //   // return uploadedImgNum;
   //   return Session.get('uploadedImgNumSes');
   // },
-
-  testValue: function() {
-    return testValue;
-  },
-
-  imgUniqId: function() {
-    console.log("in postSubmit helpers randomKey(): " + img_unique_id);
-    return {uniqueID: img_unique_id};
-  },
-
+  //
+  // testValue: function() {
+  //   return testValue;
+  // },
+  //
+  // imgUniqId: function() {
+  //   console.log("in postSubmit helpers randomKey(): " + img_unique_id_postSubmit);
+  //   return {uniqueID: img_unique_id_postSubmit};
+  // },
+  //
   errorMessage: function(field) {
     return Session.get('postSubmitErrors')[field];
   },
@@ -168,8 +148,8 @@ Template.postSubmit.events({
   'submit form': function(e) {
     e.preventDefault();
 
-    console.log("postsubmit submit");
-    // console.log($(e.target).find('#text').html());
+    console.log("POSTSUBMIT submit");
+
     imgFiles_postSubmit = Session.get('imgFiles');
     console.log("imgFiles_postSubmit: " + imgFiles_postSubmit);
 
@@ -194,24 +174,15 @@ Template.postSubmit.events({
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
       includeImages: imgFiles_postSubmit, //filenames
       state: POST_STATE_TEMP,
-      // imgId: img_unique_id,
-      // imgNum: nImg,
-
-
     };
 
     var errors = validatePost(post);
-    // if (errors.title || errors.text)
-    if (errors.title)
+    if (errors.title || errors.text)
       return Session.set('postSubmitErrors', errors);
-
 
     var errors = validateEvent();
     if (errors.event)
       return Session.set('postSubmitErrors', errors);
-
-
-    // console.log("Before Meteor call");
 
     /* 1. post insert */
     Meteor.call('postInsert', post, function(error, result) {
@@ -243,24 +214,11 @@ Template.postSubmit.events({
             console.log("ERROR - moveAllImg");
             return throwError(error);
           }
-
         });
-
-
       });
-
-
-      // clear imgFiles array
-      // imgFiles = [];
-      // console.log("clear imgFiles");
-      // console.log(imgFiles);
-
       console.log("inserted post id: " + result._id);
       Router.go('postPage', {_id: result._id});
-
     });
-
-
   },
 
   'click .deleteImg': function(e) {

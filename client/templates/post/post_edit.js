@@ -1,5 +1,7 @@
 var imgFiles_postEdit = [];
 var imgHolders_postEdit = [];
+var includeImagesIsEmpty = false;
+var img_unique_id_postEdit = null;
 
 var delImgOnPage = function(idx) {
 
@@ -14,7 +16,8 @@ var delImgOnPage = function(idx) {
   Session.set('imgFiles', imgFiles_postEdit);
 
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
-  Meteor.call('deleteImg', UPLOAD_DIR + imgFiles_postEdit[idx], function(error, result) {
+  // Meteor.call('deleteImg', UPLOAD_DIR + imgFiles_postEdit[idx], function(error, result) {
+  Meteor.call('deleteImg', imgAbsPath + imgFiles_postEdit[idx], function(error, result) {
 
     // display the error to the user and abort
     if (error) {
@@ -58,32 +61,15 @@ Template.postEdit.created = function() {
   console.log("postEdit CREATED");
   thumbNailImgIdx = 0; //GLOBAL, using in thumbNailView.js
   Session.set('postEditErrors', {});
+
   var emptyArr = [false, false, false];
   Session.set('imgFiles', emptyArr);
   Session.set('imgHolders', emptyArr);
-
-  // imgHolders = [];
-  // imgFiles = Session.get('imgFilesEdit');
-  // console.log("imgFiles in CREATED");
-  // console.log(imgFiles);
-  // for (i in imgFiles) {
-  //   if (imgFiles[i] == false) {
-  //     imgHolders[i] = false;
-  //   } else {
-  //     imgHolders[i] = true;
-  //   }
-  // }
-  // Session.set('imgHoldersEdit', imgHolders);
-
 }
 
 Template.postEdit.rendered = function(){
   console.log("postEdit RENDERED");
-  // imgFiles = Session.get('imgFilesEdit');
   console.log(imgFiles_postEdit);
-  img_unique_id = null;
-  console.log(imgFiles_postEdit.length);
-  // var imgHolders = [];
 
   for (var i = 0; i < imgFiles_postEdit.length; i++) {
     if (imgFiles_postEdit[i] == false) {
@@ -91,8 +77,10 @@ Template.postEdit.rendered = function(){
       continue;
     }
     imgHolders_postEdit[i] = true;
-    img_unique_id = imgFiles_postEdit[i].split('_')[0];
-    console.log("got img_unique_id: " + img_unique_id);
+    img_unique_id_postEdit = imgFiles_postEdit[i].split('_')[0];
+    console.log("got img_unique_id: " + img_unique_id_postEdit);
+
+    // Show stored images(Not uploaded)
     var imgId = 't_img_' + i;
     var pId = 't_p_' + i;
     var img = document.getElementById(imgId);
@@ -113,10 +101,14 @@ Template.postEdit.rendered = function(){
   Session.set('imgHolders', imgHolders_postEdit);
   Session.set('imgFiles', imgFiles_postEdit);
 
-  if (img_unique_id == null) {
-    img_unique_id = Random.id();
-    console.log("NEW img_unique_id: " + img_unique_id);
+  if (img_unique_id_postEdit == null) {
+    includeImagesIsEmpty = true;
+    img_unique_id_postEdit = Random.id();
+    console.log("NEW img_unique_id: " + img_unique_id_postEdit);
   }
+
+  // Share img_unique_id with Session
+  Session.set('img_unique_id', img_unique_id_postEdit);
 
 };
 
@@ -131,14 +123,12 @@ Template.postEdit.helpers({
     console.log("postId: " + postId);
     Session.set('postEdit_postId', postId);
   },
+  // Get 'includeImages' from db.
   getThumbNailImgArr: function(imgsArr) {
     console.log("getThumbNailImgArr()");
     //get img filename array from db
     imgFiles_postEdit = imgsArr;
 
-    // Session.set('imgFilesEdit', imgsArr);
-    // console.log(Session.get('imgFiles'));
-    // imgFiles = Session.get('imgFilesEdit');
     console.log("getThumbNailImgArr() imgFiles:");
     console.log(imgFiles_postEdit);
     for (i in imgFiles_postEdit) {
@@ -149,23 +139,18 @@ Template.postEdit.helpers({
       }
     }
     Session.set('imgHolders', imgHolders_postEdit);
-    // console.log(Session.get('imgFiles'));
-    // console.log(Session.get('imgHolders'));
   },
    getThumbNailImgFill: function(idx) {
-     console.log("getThumbNailImgFill(" + idx + ")");
-    // console.log("imgHolders[" + idx + "]: " + imgHolders[idx]);
     imgHolders_postEdit = Session.get('imgHolders');
     console.log(idx + " / " + imgHolders_postEdit[idx]);
     return imgHolders_postEdit[idx];
-    // return Session.get('imgHolders')[idx];
   },
 });
 
 Template.postEdit.events({
   'submit form': function(e) {
     e.preventDefault();
-    console.log("postedit submit");
+    console.log("POSTEDIT submit");
 
     var currentPostId = this._id;
 
@@ -173,7 +158,6 @@ Template.postEdit.events({
     console.log("imgFiles_postEdit: " + imgFiles_postEdit);
 
     var postProperties = {
-
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
       period: $(e.target).find('[name=period]').val().replace(/[\r\n]/g, "<br />"),
       place: $(e.target).find('[name=place]').val().replace(/[\r\n]/g, "<br />"),
@@ -195,8 +179,7 @@ Template.postEdit.events({
       includeImages: imgFiles_postEdit, //Array of filenames
       state: POST_STATE_TEMP
     }
-
-    console.log(postProperties);
+    // console.log(postProperties);
 
     var errors = validatePost(postProperties);
     if (errors.title || errors.text)
@@ -222,22 +205,8 @@ Template.postEdit.events({
         }
         console.log("moveAllImg succeed");
         Router.go('postPage', {_id: currentPostId});
+      });
     });
-  });
-
-
-
-    // Posts.update(currentPostId, {$set: postProperties}, function(error) {
-    //   if (error) {
-    //     // display the error to the user
-    //     // alert(error.reason);
-    //     throwError(error.reason);
-    //
-    //   } else {
-    //     Router.go('postPage', {_id: currentPostId});
-    //   }
-    // });
-
   },
 
   'click .delete': function(e) {
@@ -247,18 +216,47 @@ Template.postEdit.events({
       var currentPostId = this._id;
       console.log(currentPostId);
 
-      Meteor.call('postRemove', currentPostId, function(error, result) {
-        console.log("Meteor call - postRemove()");
-        // display the error to the user and abort
-        if (error) {
-          console.log("ERROR!!");
-          console.log(error.reason);
-          return throwError(error.reason);
-        }
+      console.log("includeImagesIsEmpty: " + includeImagesIsEmpty);
+      // delete includeImages
+      // Nothing in UPLOAD_DIR_SUBMIT but only UPLOAD_DIR
+      if (!includeImagesIsEmpty){
+        Meteor.call('deleteAllImg_uploaded', img_unique_id_postEdit, function(error, result) {
+          console.log("Meteor call - deleteAllImg_uploaded()");
+          // display the error to the user and abort
+          if (error) {
+            console.log("ERROR!!");
+            console.log(error.reason);
+            return throwError(error.reason);
+          }
+          console.log(result);
 
-        console.log(result);
-        Router.go('postsList');
-      });
+          // delete event + delete post itself
+          Meteor.call('postRemove', currentPostId, function(error, result) {
+            console.log("Meteor call - postRemove()");
+            // display the error to the user and abort
+            if (error) {
+              console.log("ERROR!!");
+              console.log(error.reason);
+              return throwError(error.reason);
+            }
+            console.log(result);
+            Router.go('postsList');
+          });
+        });
+      } else {
+        // delete event + delete post itself
+        Meteor.call('postRemove', currentPostId, function(error, result) {
+          console.log("Meteor call - postRemove()");
+          // display the error to the user and abort
+          if (error) {
+            console.log("ERROR!!");
+            console.log(error.reason);
+            return throwError(error.reason);
+          }
+          console.log(result);
+          Router.go('postsList');
+        });
+      }
     }
   },
 
@@ -266,7 +264,6 @@ Template.postEdit.events({
     e.preventDefault();
 
     var targetId = $(e.target).parent().attr('id');
-    // console.log(target);
 
     if (targetId == 'del_0') {
       delImgOnPage(0);
@@ -277,8 +274,5 @@ Template.postEdit.events({
     } else {
 
     }
-
-
   }
-
 });

@@ -1,4 +1,4 @@
-// imgAbsPath = "";
+imgAbsPath = ""; //GLOBAL use at post_submit.js, post_edit.js
 var imgFiles_upload = [];
 var imgHolders_upload = [];
 
@@ -65,6 +65,7 @@ Template.uploadJquery.helpers({
 
             // var newName = uploadedImgNum + "_" + img_unique_id + "_" + file;
 
+            var img_unique_id = Session.get('img_unique_id');
             var newName = img_unique_id + "_" + emptyIdx + "." + exp;
             // console.log("newName: " + newName);
             // newName = newName.replace(/ /g, ""); //remove whitespace

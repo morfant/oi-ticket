@@ -3,7 +3,10 @@
     <div class="_images">
 
       {{#each src in srcs}}
-        <img style="display: none;" class="{{idx}} slideImages" src="{{addPath src}}"/>
+        {{#if src}}
+          <!-- <img style="display: none;" class="{{idx}} slideImages" src="{{addPath src}}"/> -->
+          <img style="display: none;" class="{{idx}} slideImages"/>
+        {{/if}}
       {{/each}}
 
 

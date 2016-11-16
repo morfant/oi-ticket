@@ -16,7 +16,13 @@
         <h2 class="post_title">{{title}}</h2>
         <h3 class="post_period">{{period}}</h3><br>
 
+      {{#if isInPlaysList}}
         {{> imageSlide idx=numberIdx srcs=includeImages}}
+      {{else}}
+        {{> imageSlide idx="a_post_item" srcs=includeImages}}
+      {{/if}}
+
+
 
         <ul id="infomationText">
 

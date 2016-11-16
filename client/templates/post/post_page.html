@@ -1,9 +1,10 @@
 <template name="postPage">
-  
+
   {{#unless isFromStatistic}}
 	  {{> postButtons}}
   {{/unless}}
-  
+
+  {{getIncludeimages includeImages}}
   {{> postItem}}
 
 </template>

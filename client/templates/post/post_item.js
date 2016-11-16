@@ -20,7 +20,11 @@ elementDesc = {
 
 
 Template.postItem.created = function(){
-  postNum++; //used in post_list.js
+  var curRouteName = Router.current().route.getName();
+  if (curRouteName == 'playsList') {
+    postNum++; //used in post_list.js
+  }
+
   console.log("postNum in postItem.js: " + postNum);
   Session.set('isRendered', false);
   Session.set('sendingResult', {});
@@ -41,6 +45,9 @@ var Positions = new Meteor.Collection(null); // null means local collection
 Template.postItem.helpers({
   numberIdx: function() {
     return "idx_" + postNum;
+  },
+  getIn: function(arr) {
+    console.log("getIncludeimages(): " + arr);
   },
   errorMessage: function(field) {
 		return Session.get('reserveInfoErrors')[field];
@@ -153,6 +160,7 @@ Template.postItem.helpers({
 
 
 Template.postItem.rendered = function(){
+  console.log("POSTITEM RENDERED");
   Session.set("isRendered", true);
 }
 

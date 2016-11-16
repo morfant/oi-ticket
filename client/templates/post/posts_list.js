@@ -1,8 +1,6 @@
-// var imgs = [];
-// var imgIdx = [];
-
+postNum = 0; //calculated by post_item.js
+  
 Template.postsList.created = function(){
-  postNum = 0; //calculated by post_item.js
 }
 
 
