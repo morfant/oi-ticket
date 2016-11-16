@@ -86,7 +86,14 @@ Template.addEditEventModal.events({
       for (var j = 0; j < days.length; j++) {
         for (var i = 0; i < nShow; i++) {
           var aShowEvent = {};
-          aShowEvent.post_ID = "0"; //"0" means yet get post._id. Will deleted when submit page loaded.
+
+          var curRouteName = Router.current().route.getName();
+          if (curRouteName == 'postEdit') {
+            aShowEvent.post_ID = Session.get('postEdit_postId');
+            console.log(aShowEvent.post_ID);
+          } else if (curRouteName == 'postSubmit') {
+            aShowEvent.post_ID = "0"; //"0" means yet get post._id. Will deleted when submit page loaded.
+          }
 
           var maxSeats = template.find("#modal_num_of_seats").value;
           aShowEvent.seats = Number(maxSeats);
@@ -99,9 +106,9 @@ Template.addEditEventModal.events({
           var gotHour = template.find(h_id).value;
           var gotMin = template.find(m_id).value;
           var gotTime = gotHour + ":" + gotMin;
-          aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/, 
-            // 2013-02-08 09:30 
- 
+          aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/,
+            // 2013-02-08 09:30
+
           aShowEvent.guests = [];
 
           eventItems.push(aShowEvent);
@@ -122,11 +129,11 @@ Template.addEditEventModal.events({
       var gotHour = template.find(h_id).value;
       var gotMin = template.find(m_id).value;
       var gotTime = gotHour + ":" + gotMin;
-      // aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/, 
+      // aShowEvent.start = days[j] + " " + gotTime; //http://momentjs.com/docs/#/parsing/string/,
       // console.log("start at edit func() : " + eventModal.start);
 
       aShowEvent.start = eventModal.start.split(" ")[0] + " " + gotTime
-   
+
       aShowEvent._id = eventModal.id;
       eventItems.push(aShowEvent);
     }
@@ -162,7 +169,7 @@ Template.addEditEventModal.events({
     nShowArr[nShow] = nShow + 1;
     nShow = nShow + 1;
     Session.set('nShow', nShowArr);
-  
+
   },
   'click .delShow': function( e, template ) {
     e.preventDefault();
@@ -174,7 +181,7 @@ Template.addEditEventModal.events({
       Session.set('nShow', nShowArr);
     }
 
-  
+
   },
   'click .delete-event': function( e ) {
     e.preventDefault();

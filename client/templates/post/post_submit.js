@@ -1,16 +1,17 @@
 var testValue = "test오이test";
-var imgFiles = [];
+var imgFiles_postSubmit = []; //fill with image filenames
+var imgHolders_postSubmit = []; //fill with image filenames
 
 var delImgOnPage = function(idx) {
 
-  imgFiles = Session.get('imgFiles');
-  console.log(imgFiles[idx]);
+  imgFiles_postSubmit = Session.get('imgFiles');
+  console.log(imgFiles_postSubmit[idx]);
 
-  // thumbNailImgHolderArr[idx] = false;
-  // Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
+  imgHolders_postSubmit[idx] = false;
+  Session.set('imgHolders', imgHolders_postSubmit);
 
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
-  Meteor.call('deleteImg', imgAbsPath + imgFiles[idx], function(error, result) {
+  Meteor.call('deleteImg', imgAbsPath + imgFiles_postSubmit[idx], function(error, result) {
 
     // display the error to the user and abort
     if (error) {
@@ -26,8 +27,8 @@ var delImgOnPage = function(idx) {
 
 // var getImgNum = function() {
 //   var imgNum = 0;
-//   for (var i = 0; i < thumbNailImgHolderArr.length; i++){
-//     if (thumbNailImgHolderArr[i] == true) imgNum++;
+//   for (var i = 0; i < imgHolders.length; i++){
+//     if (imgHolders[i] == true) imgNum++;
 //   }
 //   console.log(imgNum);
 //   return imgNum;
@@ -36,17 +37,21 @@ var delImgOnPage = function(idx) {
 
 Template.postSubmit.created = function() {
   thumbNailImgIdx = 0;
-  
+
   // Session.set('imgFiles', {});
   // imgFiles = []; //GLOBAL, Store img filename showing on page
 
   img_unique_id = Random.id(); // Used for events of a post also. (addEditEventModal.js)
   img_num = 0;
-  thumbNailImgHolderArr = [false, false, false];
+  // imgFiles_postSubmit = [false, false, false];
+  // imgHolders_postSubmit = [false, false, false];
+  var emptyArr = [false, false, false];
+  Session.set('imgFiles', emptyArr);
+  Session.set('imgHolders', emptyArr);
 
   Session.set('postSubmitErrors', {});
   // Session.set('uploadedImgNumSes', uploadedImgNum);
-  Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
+  // Session.set('imgHolders', imgHolders_postSubmit);
 
   // console.log("in postsubmit.created(): " + randomKey);
 
@@ -71,7 +76,7 @@ Template.postSubmit.created = function() {
 
 Template.postSubmit.rendered = function() {
 
-  console.log("imgFiles - PAGE RENDERED: " + imgFiles);
+  console.log("imgFiles - PAGE RENDERED: " + imgFiles_postSubmit);
 
   // TODO : delete all (.jp(e)g, .png, .gif) files
   Meteor.call('deleteAllImg', function(error, result) {
@@ -91,12 +96,22 @@ Template.postSubmit.rendered = function() {
 
 
 Template.postSubmit.helpers({
-  // getThumbNailImgFill: function(idx) {
-  //   // console.log("thumbNailImgHolderArr[" + idx + "]: " + thumbNailImgHolderArr[idx]);
-  //   thumbNailImgHolderArr = Session.get('thumbNailImgHolderArrSes');
-  //   return thumbNailImgHolderArr[idx];
+  getThumbNailImgFill: function(idx) {
+    // console.log("imgHolders[" + idx + "]: " + imgHolders[idx]);
+    imgHolders_postSubmit = Session.get('imgHolders');
+    return imgHolders_postSubmit[idx];
+  },
+  // getThumbNailImgArr: function(imgsArr) {
+  //   //get img filename array from db
+  //   imgFiles = imgsArr;
+  //   Session.set('imgFiles', imgFiles);
+  //   // console.log(Session.get('imgFiles'));
   // },
-  //
+  // reactiveThumbNailImg: function() {
+  //   console.log(Session.get('imgFiles'));
+  //   return Session.get('imgFiles');
+  // }
+
   equals: function(a, b) {
     console.log(a);
     console.log(b);
@@ -153,10 +168,10 @@ Template.postSubmit.events({
   'submit form': function(e) {
     e.preventDefault();
 
-    // console.log("postInsert in client");
+    console.log("postsubmit submit");
     // console.log($(e.target).find('#text').html());
-
-    console.log("imgFiles - BEFORE SUBMITT: " + imgFiles);
+    imgFiles_postSubmit = Session.get('imgFiles');
+    console.log("imgFiles_postSubmit: " + imgFiles_postSubmit);
 
     var post = {
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
@@ -177,7 +192,7 @@ Template.postSubmit.events({
       description: $(e.target).find('[name=description]').val().replace(/[\r\n]/g, "<br />"),
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
-      includeImages: imgFiles, //filenames
+      includeImages: imgFiles_postSubmit, //filenames
       state: POST_STATE_TEMP,
       // imgId: img_unique_id,
       // imgNum: nImg,

@@ -1,14 +1,16 @@
 // imgAbsPath = "";
-var imgFiles = [];
+var imgFiles_upload = [];
+var imgHolders_upload = [];
 
 var findEmptyImgHolder = function() {
   var emptyIdx = null;
-  for (var i = 0; i < thumbNailImgHolderArr.length; i++) {
-    if (thumbNailImgHolderArr[i] == false) {
+  var imgHolders_upload = Session.get('imgHolders');
+  for (var i = 0; i < imgHolders_upload.length; i++) {
+    if (imgHolders_upload[i] == false) {
       emptyIdx = i;
-      thumbNailImgHolderArr[i] = true;
-      Session.set('thumbNailImgHolderArrSes', thumbNailImgHolderArr);
-      // console.log(emptyIdx);
+      imgHolders_upload[i] = true;
+      Session.set('imgHolders', imgHolders_upload);
+      console.log(emptyIdx);
       break;
     }
   };
@@ -46,6 +48,9 @@ Template.uploadJquery.helpers({
           // if (uploadedImgNum <= UPLOAD_IMG_MAXIUM) {
           if (emptyIdx != null) {
 
+            imgFiles_upload = Session.get('imgFiles');
+            console.log("imgFiles");
+            console.log(imgFiles_upload);
             imgAbsPath = fileInfo.filepath;
             /* ex) /Users/giy/oi-ticket/host_Uploads/ */
             // console.log("imgAbsPath: " + imgAbsPath);
@@ -59,6 +64,7 @@ Template.uploadJquery.helpers({
             // console.log("filename: " + file);
 
             // var newName = uploadedImgNum + "_" + img_unique_id + "_" + file;
+
             var newName = img_unique_id + "_" + emptyIdx + "." + exp;
             // console.log("newName: " + newName);
             // newName = newName.replace(/ /g, ""); //remove whitespace
@@ -74,9 +80,9 @@ Template.uploadJquery.helpers({
                 console.log("rename succeed");
 
                 // imgFiles[emptyIdx] = imgAbsPath + newName; //defined post_submit.js
-                imgFiles[emptyIdx] = newName; //defined post_submit.js
-                Session.set('imgFiles', imgFiles);
-                console.log("imgFiles - UPLOADED: " + imgFiles);
+                imgFiles_upload[emptyIdx] = newName; //defined post_submit.js
+                Session.set('imgFiles', imgFiles_upload);
+                console.log("imgFiles - UPLOADED: " + imgFiles_upload);
                 // console.log(imgFiles[0]);
 
               // If any empty holder exist, fill thumbnail img into it.
@@ -84,7 +90,7 @@ Template.uploadJquery.helpers({
                 var img = document.getElementById("t_img_" + emptyIdx);
                 var p = document.getElementById("t_p_" + emptyIdx);
 
-                // console.log(UPLOAD_DIR_SUBMIT + newName);
+                console.log(UPLOAD_DIR_SUBMIT + newName);
                 img.src = UPLOAD_DIR_SUBMIT + newName;
 
                 // var nameSplited = newName.split('_');

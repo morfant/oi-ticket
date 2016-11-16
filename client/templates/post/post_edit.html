@@ -2,6 +2,7 @@
 
   <form class="main form">
 
+  {{getPostId _id}}
     <div class="form-group {{errorClass 'image'}}">
       <label class="control-label" for="title">이미지</label>
       <div class="controls">
@@ -17,12 +18,11 @@
     <div class="thumbNailsDiv">
 
       {{getThumbNailImgArr includeImages}}
-      {{#each image in reactiveThumbNailImg}}
-      <!-- {{#each reactiveThumbNailImg}} -->
+      <!-- {{#each image in reactiveThumbNailImg}}
         {{> thumbNailView img=image}}
-      {{/each}}
+      {{/each}} -->
 
-    <!-- {{#if getThumbNailImgFill 0 }}
+    {{#if getThumbNailImgFill 0 }}
       {{> thumbNailView divClass="left" pClass="t_p_0" imgClass="t_img_0" delIdx="del_0"}}
     {{/if}}
 
@@ -32,7 +32,7 @@
 
     {{#if getThumbNailImgFill 2 }}
       {{> thumbNailView divClass="right" pClass="t_p_2" imgClass="t_img_2" delIdx="del_2"}}
-    {{/if}} -->
+    {{/if}}
 
     </div>
 
@@ -216,7 +216,15 @@
     <br />
 
 
-    <input type="submit" value="Submit" class="btn btn-primary submit"/>
+    <input type="submit" value="Update" class="btn btn-primary submit"/>
+
+    <br /><br />
+    <div class="control-group">
+      <div class="controls">
+        <a class="btn btn-danger delete" href="#">Delete</a>
+      </div>
+    </div>
+
   </form>
 
 

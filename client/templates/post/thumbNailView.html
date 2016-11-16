@@ -1,26 +1,30 @@
 <template name="thumbNailView">
-  {{#if img}}
+  <!-- {{#if img}} -->
   <!-- <p>TRUE</p>
   <p>{{img}}</p>
   <p>{{setImgIdx}}</p>
  -->
     <div class=thumbNailDiv>
-      <p id={{setParaIdx}}></p>
-        <img id={{setImgIdx}} height="100" width="100" align="middle" />
+      <!-- <p id={{setParaIdx}}></p> -->
+      <p id={{pClass}}></p>
+
+        <!-- <img id={{setImgIdx}} height="100" width="100" align="middle" /> -->
+        <img id={{imgClass}} height="100" width="100" align="middle" />
           <!-- <div class="control-group"> -->
             <!-- <div class="controls"> -->
-          <div id={{setDelIdx}}>
+          <!-- <div id={{setDelIdx}}> -->
+          <div id={{delIdx}}>
             <a class="btn btn-danger btn-circle deleteImg" href="#">X</a>
           </div>
             <!-- </div> -->
           <!-- </div> -->
     </div>
-    {{nextIdx}}
-  {{else}}
+    <!-- {{nextIdx}} -->
+  <!-- {{else}} -->
     <!-- <p>FALSE</p>
     <p>{{img}}</p>
     <p>{{setImgIdx}}</p>
  -->
-    {{nextIdx}}
-  {{/if}}
+    <!-- {{nextIdx}} -->
+  <!-- {{/if}} -->
 </template>

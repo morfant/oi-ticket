@@ -1,13 +1,20 @@
-var imgFiles = [];
+var imgFiles_postEdit = [];
+var imgHolders_postEdit = [];
 
 var delImgOnPage = function(idx) {
 
-  // console.log("idx: " + idx);
-  // console.log(imgFiles[idx]);
+  // get imgFiles from upload.js
+  // imgFiles_postEdit = Session.get('imgFiles');
+  console.log(imgFiles_postEdit[idx]);
+  imgFiles_postEdit[idx] = false;
+  console.log(imgFiles_postEdit);
+  imgHolders_postEdit[idx] = false;
+  console.log(imgHolders_postEdit);
+  Session.set('imgHolders', imgHolders_postEdit);
+  Session.set('imgFiles', imgFiles_postEdit);
 
   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
-  var imgPath = '/Users/giy/oi-ticket/host_Uploads/';
-  Meteor.call('deleteImg', imgPath + imgFiles[idx], function(error, result) {
+  Meteor.call('deleteImg', UPLOAD_DIR + imgFiles_postEdit[idx], function(error, result) {
 
     // display the error to the user and abort
     if (error) {
@@ -15,41 +22,100 @@ var delImgOnPage = function(idx) {
       return throwError(error.reason);
     } else {
       console.log("delete succeed");
-      imgFiles[idx] = false;
-      // imgFiles.splice(idx, 1); //remove deleted idx img
-      // console.log("imgFiles in delImgOnPage(): " + imgFiles);
-      Session.set('imgFiles', imgFiles);
-
-      console.log(Session.get('imgFiles'));
     }
 
   });
 };
-
+//
+// var delImgOnPage = function(idx) {
+//
+//   // console.log("idx: " + idx);
+//   // console.log(imgFiles[idx]);
+//
+//   // /host_Uploads/gSAk4kgg64Lffp6tZ_bg_test.png
+//   var imgPath = '/Users/giy/oi-ticket/host_Uploads/';
+//   Meteor.call('deleteImg', imgPath + imgFiles[idx], function(error, result) {
+//
+//     // display the error to the user and abort
+//     if (error) {
+//       console.log("got error");
+//       return throwError(error.reason);
+//     } else {
+//       console.log("delete succeed");
+//       imgFiles[idx] = false;
+//       // imgFiles.splice(idx, 1); //remove deleted idx img
+//       // console.log("imgFiles in delImgOnPage(): " + imgFiles);
+//       Session.set('imgFiles', imgFiles);
+//
+//       console.log(Session.get('imgFiles'));
+//     }
+//
+//   });
+// };
+//
 
 Template.postEdit.created = function() {
+  console.log("postEdit CREATED");
   thumbNailImgIdx = 0; //GLOBAL, using in thumbNailView.js
   Session.set('postEditErrors', {});
+  var emptyArr = [false, false, false];
+  Session.set('imgFiles', emptyArr);
+  Session.set('imgHolders', emptyArr);
+
+  // imgHolders = [];
+  // imgFiles = Session.get('imgFilesEdit');
+  // console.log("imgFiles in CREATED");
+  // console.log(imgFiles);
+  // for (i in imgFiles) {
+  //   if (imgFiles[i] == false) {
+  //     imgHolders[i] = false;
+  //   } else {
+  //     imgHolders[i] = true;
+  //   }
+  // }
+  // Session.set('imgHoldersEdit', imgHolders);
+
 }
 
 Template.postEdit.rendered = function(){
-  console.log("imgFiles.length");
-  var imgs = Session.get('imgFiles');
-  console.log(imgs.length);
+  console.log("postEdit RENDERED");
+  // imgFiles = Session.get('imgFilesEdit');
+  console.log(imgFiles_postEdit);
+  img_unique_id = null;
+  console.log(imgFiles_postEdit.length);
+  // var imgHolders = [];
 
-  for (var i = 0; i < imgs.length; i++) {
-    if (imgs[i] == false){
+  for (var i = 0; i < imgFiles_postEdit.length; i++) {
+    if (imgFiles_postEdit[i] == false) {
+      imgHolders_postEdit[i] = false;
       continue;
     }
-    // if (imgs[i] != false) {
-      var imgId = 't_img_' + i;
-      var pId = 't_p_' + i;
-      var img = document.getElementById(imgId);
-      img.src = UPLOAD_DIR + imgs[i];
+    imgHolders_postEdit[i] = true;
+    img_unique_id = imgFiles_postEdit[i].split('_')[0];
+    console.log("got img_unique_id: " + img_unique_id);
+    var imgId = 't_img_' + i;
+    var pId = 't_p_' + i;
+    var img = document.getElementById(imgId);
+    if (img != null){
+      img.src = UPLOAD_DIR + imgFiles_postEdit[i];
+    } else {
+      console.log("img is null");
+    }
 
-      var p = document.getElementById(pId);
-      p.innerHTML = imgs[i];
-    // }
+    var p = document.getElementById(pId);
+    if (p != null) {
+      p.innerHTML = imgFiles_postEdit[i];
+    } else {
+      console.log("p is null");
+    }
+  }
+  console.log("rendered - imgHolders: " + imgHolders_postEdit);
+  Session.set('imgHolders', imgHolders_postEdit);
+  Session.set('imgFiles', imgFiles_postEdit);
+
+  if (img_unique_id == null) {
+    img_unique_id = Random.id();
+    console.log("NEW img_unique_id: " + img_unique_id);
   }
 
 };
@@ -61,27 +127,51 @@ Template.postEdit.helpers({
   errorClass: function (field) {
     return !!Session.get('postEditErrors')[field] ? 'has-error' : '';
   },
-  getThumbNailImgArr: function(imgsArr) {
-    //get img filename array from db
-    imgFiles = imgsArr;
-    Session.set('imgFiles', imgFiles);
-    // console.log(Session.get('imgFiles'));
+  getPostId: function(postId) {
+    console.log("postId: " + postId);
+    Session.set('postEdit_postId', postId);
   },
-  reactiveThumbNailImg: function() {
-    console.log(Session.get('imgFiles'));
-    return Session.get('imgFiles');
-  }
+  getThumbNailImgArr: function(imgsArr) {
+    console.log("getThumbNailImgArr()");
+    //get img filename array from db
+    imgFiles_postEdit = imgsArr;
 
+    // Session.set('imgFilesEdit', imgsArr);
+    // console.log(Session.get('imgFiles'));
+    // imgFiles = Session.get('imgFilesEdit');
+    console.log("getThumbNailImgArr() imgFiles:");
+    console.log(imgFiles_postEdit);
+    for (i in imgFiles_postEdit) {
+      if (imgFiles_postEdit[i] == false) {
+        imgHolders_postEdit[i] = false;
+      } else {
+        imgHolders_postEdit[i] = true;
+      }
+    }
+    Session.set('imgHolders', imgHolders_postEdit);
+    // console.log(Session.get('imgFiles'));
+    // console.log(Session.get('imgHolders'));
+  },
+   getThumbNailImgFill: function(idx) {
+     console.log("getThumbNailImgFill(" + idx + ")");
+    // console.log("imgHolders[" + idx + "]: " + imgHolders[idx]);
+    imgHolders_postEdit = Session.get('imgHolders');
+    console.log(idx + " / " + imgHolders_postEdit[idx]);
+    return imgHolders_postEdit[idx];
+    // return Session.get('imgHolders')[idx];
+  },
 });
 
 Template.postEdit.events({
   'submit form': function(e) {
     e.preventDefault();
+    console.log("postedit submit");
 
     var currentPostId = this._id;
 
-    var imgs = Session.get('imgFiles');
-    console.log(imgs);
+    imgFiles_postEdit = Session.get('imgFiles');
+    console.log("imgFiles_postEdit: " + imgFiles_postEdit);
+
     var postProperties = {
 
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
@@ -102,7 +192,7 @@ Template.postEdit.events({
       description: $(e.target).find('[name=description]').val().replace(/[\r\n]/g, "<br />"),
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
-      includeImages: imgs, //Array of filenames
+      includeImages: imgFiles_postEdit, //Array of filenames
       state: POST_STATE_TEMP
     }
 
@@ -122,8 +212,20 @@ Template.postEdit.events({
       }
 
       console.log(result);
-      Router.go('postPage', {_id: currentPostId});
+
+      /* move Imgs in submitting -> upload */
+      Meteor.call('moveAllImg', function(error, result) {
+        console.log("Meteor call - moveAllImg()");
+        if (error) {
+          console.log("ERROR - moveAllImg");
+          return throwError(error);
+        }
+        console.log("moveAllImg succeed");
+        Router.go('postPage', {_id: currentPostId});
     });
+  });
+
+
 
     // Posts.update(currentPostId, {$set: postProperties}, function(error) {
     //   if (error) {
@@ -143,11 +245,20 @@ Template.postEdit.events({
 
     if (confirm("Delete this post?")) {
       var currentPostId = this._id;
-
       console.log(currentPostId);
 
-      Posts.remove(currentPostId);
-      Router.go('postsList');
+      Meteor.call('postRemove', currentPostId, function(error, result) {
+        console.log("Meteor call - postRemove()");
+        // display the error to the user and abort
+        if (error) {
+          console.log("ERROR!!");
+          console.log(error.reason);
+          return throwError(error.reason);
+        }
+
+        console.log(result);
+        Router.go('postsList');
+      });
     }
   },
 
