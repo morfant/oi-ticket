@@ -2,7 +2,9 @@
   <form class="main form">
 
     <div class="form-group {{errorClass 'image'}}">
-      <label class="control-label" for="title">이미지</label>
+      <label class="control-label image_desc" for="title">이미지</label>
+      <p class="input_image_desc">이미지는 최대 3장까지 입력 가능합니다. 2장 이상의 이미지를 입력할 경우 반드시 동일한 사이즈인지 확인해 주세요.</p>
+      <!-- <p class="input_image_desc">** 2장 이상의 이미지를 입력할 경우 반드시 동일한 사이즈인지 확인해 주세요</p> -->
       <div class="controls">
 
       {{> uploadJquery}} <br />
@@ -37,7 +39,7 @@
     <div class="form-group {{errorClass 'title'}}">
       <label class="control-label" for="title">제목</label>
       <div class="controls">
-        <input name="title" id="title" type="text" value="사슬" placeholder="ex) 사슬" class="form-control"/>
+        <input name="title" id="title" type="text" placeholder="사슬" class="form-control"/>
         <span class="help-block">{{errorMessage 'title'}}</span>
       </div>
     </div>

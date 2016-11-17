@@ -28,10 +28,6 @@ Template.postPage.rendered = function(){
 	/* Show first image before setInterval */
 	imgs[imgIdx].style.display = "block";
 
-  for (var i = 0; i < maxNum; i++) {
-    imgs[i].src = UPLOAD_DIR + includeImages_postPage[i];
-	}
-
 	console.log("SET INTERVAL - postPage");
   slideShowTimer_OnPostPage = Meteor.setInterval(function imgSlide_OnPostPage() {
 

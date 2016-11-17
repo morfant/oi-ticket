@@ -5,7 +5,7 @@
 			<br /><br />
 
 	    <div class="form-group {{errorClass 'reserve_mobilePhone'}}">
-	      <label class="control-label" for="reserve_mobilePhone">예약시 입력한 휴대폰번호(Mobile number using reservation)</label>
+	      <label class="control-label" for="reserve_mobilePhone">예약시 입력한 휴대폰번호(Mobile number)</label>
 	      <div class="controls">
 	        <input name="reserve_mobilePhone" id="reserve_mobilePhone" type="text" class="form-control"/>
 	        <span class="help-block">{{errorMessage 'reserve_mobilePhone'}}</span>
@@ -25,8 +25,8 @@
 		{{#if submitted}}
 			{{#unless matchFind}}
 				<div class="reserveCancel_searchResult">
-					<h3>예약 내역이 없습니다</h3>
-					<h3>No matched reservation</h3>
+					<h3>예약 내역이 없습니다.</h3>
+					<h3>No matching reservations.</h3>
 				</div>
 			{{/unless}}
 		{{/if}}

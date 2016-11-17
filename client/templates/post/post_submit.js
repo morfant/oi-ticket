@@ -1,4 +1,3 @@
-var testValue = "test오이test";
 var imgFiles_postSubmit = []; //fill with image filenames
 var imgHolders_postSubmit = []; //fill with image filenames
 var img_unique_id_postSubmit = null;
@@ -114,17 +113,11 @@ Template.postSubmit.helpers({
   //     return false;
   //   }
   // },
-  //
   // uploadedImgNum: function() {
   //   console.log(uploadedImgNum);
   //   // return uploadedImgNum;
   //   return Session.get('uploadedImgNumSes');
   // },
-  //
-  // testValue: function() {
-  //   return testValue;
-  // },
-  //
   // imgUniqId: function() {
   //   console.log("in postSubmit helpers randomKey(): " + img_unique_id_postSubmit);
   //   return {uniqueID: img_unique_id_postSubmit};
@@ -175,9 +168,20 @@ Template.postSubmit.events({
       includeImages: imgFiles_postSubmit, //filenames
       state: POST_STATE_TEMP,
     };
-
+    /*
+  if (!post.title) errors.title = "공연 제목을 입력해 주세요. Please fill in a title.";
+  if (!post.period) errors.period = "공연 기간을 입력해 주세요. Please fill in a period.";
+  if (!post.place) errors.place = "공연 장소를 입력해 주세요. Please fill in a place.";
+  if (!post.playDates) errors.playDates = "공연 시간을 입력해 주세요. Please fill in a playDates.";
+  if (!post.price) errors.price = "티켓 가격 정보를 입력해 주세요. Please fill in a price.";
+  if (!post.duration) errors.duration = "공연 소요시간을 입력해 주세요. Please fill in a duration.";
+  if (!post.contact) errors.contact = "공연 문의 정보를 입력해 주세요. Please fill in a contact.";
+  if (!post.description) errors.description = "작품 소개를 입력해 주세요. Please fill in a description.";
+    */
     var errors = validatePost(post);
-    if (errors.title || errors.text)
+    if
+    ( errors.title || errors.period || errors.place || errors.playDates ||
+      errors.price || errors.duration || errors.contact || errors.description)
       return Session.set('postSubmitErrors', errors);
 
     var errors = validateEvent();

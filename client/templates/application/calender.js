@@ -153,7 +153,7 @@ Template.calender.rendered = function() {
       } else if (curRouteName == 'playsList') {
         element.find( '.fc-content' ).html(
           "<span class=\"fc-time\">" + timeStr + "</span> \
-          <span class=\"fc-title\">" + event.title + " " + event.seats + "/" + event.maxSeats + "석" + "</span>"
+          <span class=\"fc-title\">" + event.seats + "/" + event.maxSeats + "석" + "</span>"
         );
 
         // Turn to default border color of all events
