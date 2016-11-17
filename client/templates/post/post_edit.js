@@ -113,6 +113,10 @@ Template.postEdit.rendered = function(){
 };
 
 Template.postEdit.helpers({
+  needToLoading: function() {
+    console.log("needToLoading: " + Session.get('needToLoading'));
+    return Session.get('needToLoading');
+  },
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];
   },
@@ -213,12 +217,14 @@ Template.postEdit.events({
     e.preventDefault();
 
     if (confirm("Delete this post?")) {
+
       var currentPostId = this._id;
       console.log(currentPostId);
 
       console.log("includeImagesIsEmpty: " + includeImagesIsEmpty);
       // delete includeImages
       // Nothing in UPLOAD_DIR_SUBMIT but only UPLOAD_DIR
+      Session.set('needToLoading', true);
       if (!includeImagesIsEmpty){
         Meteor.call('deleteAllImg_uploaded', img_unique_id_postEdit, function(error, result) {
           console.log("Meteor call - deleteAllImg_uploaded()");
@@ -228,7 +234,7 @@ Template.postEdit.events({
             console.log(error.reason);
             return throwError(error.reason);
           }
-          console.log(result);
+          // console.log(result);
 
           // delete event + delete post itself
           Meteor.call('postRemove', currentPostId, function(error, result) {
@@ -239,6 +245,7 @@ Template.postEdit.events({
               console.log(error.reason);
               return throwError(error.reason);
             }
+            Session.set('needToLoading', false);
             console.log(result);
             Router.go('postsList');
           });

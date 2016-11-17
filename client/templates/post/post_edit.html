@@ -1,6 +1,12 @@
 <template name="postEdit">
 
+  <!-- {{#if needToLoading}}
+    {{> loading}}
+  {{/if}}
+ -->
+  {{#if Template.subscriptionsReady}}
   <form class="main form">
+
 
   {{getPostId _id}}
     <div class="form-group {{errorClass 'image'}}">
@@ -227,6 +233,9 @@
 
   </form>
 
+{{else}}
+  {{> loading}}
+{{/if}}
 
 
 </template>

@@ -195,10 +195,11 @@ Template.postSubmit.events({
       }
 
       console.log("result._id: " + result._id);
+      var submittedPostId = result._id;
 
       /* 2. fix events to post._id */
       var update = {
-        post_ID: result._id,
+        post_ID: submittedPostId,
       };
 
       Meteor.call( 'fixEventToPost', update, ( error ) => {
@@ -208,16 +209,19 @@ Template.postSubmit.events({
           return throwError(error);
         }
 
+        console.log("fixEventToPost Done!");
+
         /* 3. move Imgs */
         Meteor.call('moveAllImg', function(error, result) {
           if (error) {
             console.log("ERROR - moveAllImg");
             return throwError(error);
           }
+
+          Router.go('postPage', {_id: submittedPostId});
         });
       });
-      console.log("inserted post id: " + result._id);
-      Router.go('postPage', {_id: result._id});
+
     });
   },
 
