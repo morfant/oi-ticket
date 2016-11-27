@@ -18,27 +18,26 @@ es5-shim@4.6.13                # ECMAScript 5 compatibility for older browsers.
 ecmascript@0.5.7              # Enable ECMAScript2015+ syntax in app code
 
 mizzao:bootstrap-3
-underscore
+underscore@1.0.9
 iron:router
 sacha:spin
-session
-npm-bcrypt
-stylus
+session@1.1.6
+npm-bcrypt@0.9.1
+stylus@2.513.4
 ian:accounts-ui-bootstrap-3
-accounts-password
-random
+accounts-password@1.2.12
+random@1.0.10
 mediumeditor:mediumeditor
 tomi:upload-server
 tomi:upload-jquery
-http
-meteorhacks:npm
+http@1.2.8
 
 
 
 
-npm-container
-check
+check@1.2.3
 aldeed:simple-schema
 fullcalendar:fullcalendar
 momentjs:moment
 themeteorchef:bert
+shell-server@0.2.1

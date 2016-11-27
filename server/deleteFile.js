@@ -1,4 +1,5 @@
-fs = Meteor.npmRequire('fs');
+var fs = require('fs');
+
 
 WebApp.connectHandlers.use('/delete', function(req, res){
 
@@ -21,7 +22,7 @@ WebApp.connectHandlers.use('/delete', function(req, res){
     fs.exists(target, function(exists) {
       if(exists) {
 
-        // console.log(target + ' exists. Deleting now ...');    
+        // console.log(target + ' exists. Deleting now ...');
 
         fs.unlink(target, function(error){
             if (error) throw error;
@@ -37,4 +38,3 @@ WebApp.connectHandlers.use('/delete', function(req, res){
     });
 
 });
-

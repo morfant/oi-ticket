@@ -1,0 +1,10 @@
+imagemagick 사용 안함
+meteor version : 1.4.0.1 (meteor update —release 1.4.0.1)
+
+
+kadirahq mup 사용
+docker image : abernix/meteord:base
+
+
+meteor node -v : v4.4.7
+mode -v : v4.4.7

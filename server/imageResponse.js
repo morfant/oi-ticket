@@ -1,4 +1,4 @@
-fs = Meteor.npmRequire('fs');
+var fs = require('fs');
 
 var re_uploads = new RegExp("host_Uploads");
 var re_uploads_submit = new RegExp("host_Uploads\/submitting");
@@ -11,7 +11,7 @@ WebApp.connectHandlers.use(function (req, res, next) {
         // console.log(re);
         return re.test(req.url);
     })) {
-        
+
         // console.log("req.url: " + req.url);
         // console.log("req.originalUrl: " + req.originalUrl);
 
@@ -22,7 +22,7 @@ WebApp.connectHandlers.use(function (req, res, next) {
         var ext = fileName.split('.')[1];
 
 
-        var canGetExts = [/^gif/i, /^jpe?g/i, /^png/i];    
+        var canGetExts = [/^gif/i, /^jpe?g/i, /^png/i];
 
         if (!_.any(canGetExts, function (re) {
                 return re.test(ext);
@@ -47,7 +47,7 @@ WebApp.connectHandlers.use(function (req, res, next) {
                         'Content-Type': 'image/' + ext,
                         'Content-Length': data.length
                     });
-                    res.end(data); //end the respone 
+                    res.end(data); //end the respone
                 }
             });
         } else {
@@ -55,4 +55,3 @@ WebApp.connectHandlers.use(function (req, res, next) {
             next();
         }
 });
-

@@ -1,4 +1,4 @@
-var im = Meteor.npmRequire('imagemagick');
+// var im = Meteor.npmRequire('imagemagick');
 
 
 forDeploy = false;
@@ -27,7 +27,7 @@ Meteor.startup(function () {
     //   // return formData.contentType;
     //   return '/';
     // },
- 
+
     // getFileName: function(fileInfo, formData) { //if this function not defined, file saved as it's original name.
     //   console.log(fileInfo);
     //   return formData.imgID;
@@ -54,9 +54,9 @@ Meteor.startup(function () {
 
     },
     imageVersions: {
-      fullWidth: {width: 960, height: 960},
-      thumbnailBig: {width: 400, height: 300},
-      thumbnailSmall: {width: 200, height: 100}
+      // fullWidth: {width: 960, height: 960},
+      // thumbnailBig: {width: 400, height: 300},
+      // thumbnailSmall: {width: 200, height: 100}
     },
     cacheTime: 100,
     mimeTypes: {
@@ -66,5 +66,5 @@ Meteor.startup(function () {
   });
 
 
-  
+
 });
