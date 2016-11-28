@@ -67,13 +67,14 @@
     <!-- TODO: Show loading page when it need to be loaded. -->
 
     {{# if getClickedId _id}}
-      <div class="reservationStep_1">
-        <h4 class="select_datetime">1. 날짜 및 회차 선택(Select date and time)</h4>
-        <p class="desc_datetime">*잔여 좌석을 참고하여 원하시는 날짜 및 회차를 선택해 주세요.</p>
-      </div>
-      <br />
-
-      {{> calender postID=_id}}
+      {{#unless getStatisticPost}}
+        <div class="reservationStep_1">
+          <h4 class="select_datetime">1. 날짜 및 회차 선택(Select date and time)</h4>
+          <p class="desc_datetime">*잔여 좌석을 참고하여 원하시는 날짜 및 회차를 선택해 주세요.</p>
+        </div>
+      {{/unless}}
+        <br />
+          {{> calender postID=_id}}
 
       {{# if getEventClicked}}
       <!-- TODO: Display selected date and time -->

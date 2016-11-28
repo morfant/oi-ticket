@@ -3,7 +3,7 @@ var imgIdx = [];
 postNum = 0; //calculated by post_item.js
 
 Template.playsList.created = function(){
-
+  Session.set('slideShowTime', 2000); //milli second
 }
 
 
@@ -61,7 +61,7 @@ Template.playsList.rendered = function(){
 	    imgs[i][imgIdx[i]-1].style.display = "block";
 		};
 
-  }, 2000);
+  }, Session.get('slideShowTime')); //milli second
 
   // console.log(slideShowTimer);
 

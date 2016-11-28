@@ -20,6 +20,8 @@ elementDesc = {
 
 
 Template.postItem.created = function(){
+  Session.set('isInStatisticPost', false);
+
   var curRouteName = Router.current().route.getName();
   if (curRouteName == 'playsList') {
     postNum++; //used in post_list.js
@@ -43,6 +45,10 @@ var Positions = new Meteor.Collection(null); // null means local collection
 
 
 Template.postItem.helpers({
+  getStatisticPost: function() {
+    console.log(Session.get('isInStatisticPost'));
+    return Session.get('isInStatisticPost');
+  },
   numberIdx: function() {
     return "idx_" + postNum;
   },
@@ -229,6 +235,7 @@ Template.postItem.events({
   'click .statistic': function(e) {
     e.preventDefault();
     console.log("statistic button clicked!");
+    Session.set('isInStatisticPost', true);
     // console.log(e.target.className);
     var postId = e.target.className.split(' ').reverse()[0];
     // console.log(postId);

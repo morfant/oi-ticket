@@ -1,7 +1,3 @@
-var imgFiles_postSubmit = []; //fill with image filenames
-var imgHolders_postSubmit = []; //fill with image filenames
-var img_unique_id_postSubmit = null;
-
 var delImgOnPage = function(idx) {
 
   // imgFiles_postSubmit = Session.get('imgFiles');
@@ -38,6 +34,11 @@ var delImgOnPage = function(idx) {
 //
 
 Template.postSubmit.created = function() {
+
+  imgFiles_postSubmit = []; //fill with image filenames
+  imgHolders_postSubmit = []; //fill with image filenames
+  img_unique_id_postSubmit = null;
+
   thumbNailImgIdx = 0;
   Session.set('postSubmitErrors', {});
   img_num = 0;

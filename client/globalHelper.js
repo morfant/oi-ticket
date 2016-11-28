@@ -10,6 +10,12 @@ Template.registerHelper("isInPlaysList", function () {
     else return false;
 });
 
+// Template.registerHelper("isInStatistic", function () {
+// 	var curRouteName = Router.current().route.getName();
+// 	if (curRouteName == 'statistic') return true;
+//     else return false;
+// });
+//
 Template.registerHelper("isInReserveResult", function () {
 	var curRouteName = Router.current().route.getName();
 	if (curRouteName == 'reserveResult') return true;

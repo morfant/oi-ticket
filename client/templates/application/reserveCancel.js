@@ -49,13 +49,14 @@ Template.reserveCancel.events({
 	'submit form': function(e) {
 		e.preventDefault();
 
-		var phone = $(e.target).find('[name=reserve_mobilePhone]').val();
+		var errors = Session.get('reserveCancelErrors');
+		var phone = document.getElementById('reserve_mobilePhone').value;
 
-		if (!phone) {
-			console.log("no phone");
+		errors.reserve_mobilePhone = validatePhoneNumber(phone);
+  	if (errors.reserve_mobilePhone) {
 			Session.set('reserveCancelFindResult', {});
 			Session.set('reserveCancelSearched', false);
-			return false;
+      return Session.set('reserveCancelErrors', errors);
 		}
 
     Meteor.call('searchInPhoneNumber', phone, function(error, result) {

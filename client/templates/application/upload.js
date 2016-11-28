@@ -53,7 +53,8 @@ Template.uploadJquery.helpers({
             console.log(imgFiles_upload);
             imgAbsPath = fileInfo.filepath;
             /* ex) /Users/giy/oi-ticket/host_Uploads/ */
-            // console.log("imgAbsPath: " + imgAbsPath);
+            console.log("upload.js - upload callback()");
+            console.log("imgAbsPath: " + imgAbsPath);
 
             var exp = fileInfo.name.split('.').reverse()[0];
             /* ex) png */

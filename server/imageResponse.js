@@ -18,7 +18,7 @@ WebApp.connectHandlers.use(function (req, res, next) {
         // console.log("images on server");
         var pathLength = req.originalUrl.split('/').length;
         var fileName = req.originalUrl.split('/')[pathLength-1];
-        // console.log("filename: " + fileName);
+        // console.log("fileName: " + fileName);
         var ext = fileName.split('.')[1];
 
 
@@ -31,11 +31,18 @@ WebApp.connectHandlers.use(function (req, res, next) {
         }
 
         var readPath = "";
-        if (re_uploads_submit.test(req.url)) { readPath = UPLOAD_DIR_SUBMIT; }
-        else if (re_uploads.test(req.url)) { readPath = UPLOAD_DIR; }
-        console.log("readPath: " + readPath);
+        if (!forDeploy) {
+          if (re_uploads_submit.test(req.url)) { readPath = process.env.PWD + UPLOAD_DIR_SUBMIT; }
+          else if (re_uploads.test(req.url)) { readPath = process.env.PWD + UPLOAD_DIR; }
+          else {console.log("No matching path");}
+        } else {
+          if (re_uploads_submit.test(req.url)) { readPath = UPLOAD_DIR_SUBMIT; }
+          else if (re_uploads.test(req.url)) { readPath = UPLOAD_DIR; }
+        }
+        console.log("readPath: " + readPath + fileName);
 
-        var file = fs.readFile(process.env.PWD + readPath + fileName,
+        // var file = fs.readFile(process.env.PWD + readPath + fileName,
+        var file = fs.readFile(readPath + fileName,
             function(error, data){
                 if (error){
                     // console.log(error);

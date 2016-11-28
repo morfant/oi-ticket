@@ -2,6 +2,7 @@ var includeImages_postPage = [];
 
 Template.postPage.created = function(){
     // console.log("postPage")
+  Session.set('slideShowTime', 2000); //milli second
 }
 
 Template.postPage.helpers({
@@ -40,7 +41,7 @@ Template.postPage.rendered = function(){
     // console.log("imgIdx: " + imgIdx);
     imgs[imgIdx].style.display = "block";
 
-  }, 2000);
+  }, Session.get('slideShowTime')); //milli second
 
     // console.log(slideShowTimer);
 

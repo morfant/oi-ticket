@@ -1,0 +1,17 @@
+<template name="settings">
+
+    <br /><br />
+
+    <form class="main form">
+      <div class="form-group {{errorClass 'slideInterval'}}">
+        <label class="control-label" for="settings_slideInterval">이미지 슬라이드 시간 간격(1000 = 1초, 2000 ~ 5000 입력 가능)</label>
+        <div class="controls">
+          <input name="settings_slideInterval" id="settings_slideInterval" type="text" class="form-control"/>
+          <span class="help-block">{{errorMessage 'slideInterval'}}</span>
+        </div>
+      </div>
+
+      <input type="submit" value="Submit" class="btn btn-primary submit"/>
+
+    </form>
+</template>
