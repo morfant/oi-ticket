@@ -3,7 +3,9 @@ var imgIdx = [];
 postNum = 0; //calculated by post_item.js
 
 Template.playsList.created = function(){
-  Session.set('slideShowTime', 2000); //milli second
+  // loadSlideInterval() is defined settings.js
+	var slideTime = loadSlideInterval();
+  Session.set('slideShowTime', slideTime); //milli second
 }
 
 

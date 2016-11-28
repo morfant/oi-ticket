@@ -35,7 +35,8 @@ Template.settings.events({
 
     console.log(interval);
 
-    var errors = Session.get('settingsErrors');
+    // var errors = Session.get('settingsErrors');
+    var errors = {};
     console.log(errors);
     errors.slideInterval = validateSlideInterval(interval);
     console.log(errors);
@@ -53,6 +54,7 @@ Template.settings.events({
         return throwError(error.reason);
       }
       console.log("saveSettings() is succeeded.");
+      Session.set('slideShowTime', interval);
 
     });
   },

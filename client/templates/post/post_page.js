@@ -1,8 +1,9 @@
 var includeImages_postPage = [];
 
 Template.postPage.created = function(){
-    // console.log("postPage")
-  Session.set('slideShowTime', 2000); //milli second
+  // loadSlideInterval() is defined settings.js
+	var slideTime = loadSlideInterval();
+  Session.set('slideShowTime', slideTime); //milli second
 }
 
 Template.postPage.helpers({
