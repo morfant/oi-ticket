@@ -1,5 +1,7 @@
-Template.reserveResult.created = function(){
+// reserveConfirm = false;
 
+Template.reserveResult.created = function(){
+  // reserveConfirm = true;
 }
 
 
