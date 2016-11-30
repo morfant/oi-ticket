@@ -7,7 +7,11 @@
       <!-- <p class="input_image_desc">** 2장 이상의 이미지를 입력할 경우 반드시 동일한 사이즈인지 확인해 주세요</p> -->
       <div class="controls">
 
-      {{> uploadJquery}} <br />
+      {{#if imgQueueIsFull}}
+        <br /> <br />
+      {{else}}
+        {{> uploadJquery}} <br />
+      {{/if}}
 
       <div id="img-preview"></div>
       <span class="help-block">{{errorMessage 'image'}}</span>

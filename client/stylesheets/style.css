@@ -404,12 +404,18 @@ body {
   /*padding-left: 40px;*/
 }
 
-.btn .btn-default .reserve {
+.form-control {
+  /*font-size: 55px;*/
 }
+
+/*.btn .btn-warning .reserve .form-control {
+  font-size: 32px;
+  height: 44px;
+}*/
 
 /* 예약하기, 예약 확정 버튼 */
 .reserve .form-control {
-  font-size: 22px;
+  font-size: 42px;
   height: 44px;
 }
 
@@ -534,4 +540,31 @@ body {
   margin-left: 10px;
   font-size: 0.8em;
   line-height: 0.5em;
+}
+
+
+@media(max-width:980px){
+  body {
+    font-size: 20px;
+  }
+  .container {
+    margin: 0px;
+    width: auto;
+  }
+  .post {
+    /*width: auto;*/
+    /*margin: 0px;*/
+    /*padding: 0px;*/
+  }
+  .post .post-content {
+    margin: 0px;
+    padding: 10px;
+    /*background-color: red;*/
+  }
+
+  .btn, .form-control {
+    font-size: 42px;
+    height: 74px;
+  }
+
 }

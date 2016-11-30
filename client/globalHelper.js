@@ -52,3 +52,21 @@ Template.registerHelper("posts_CUR", function () {
 Template.registerHelper("posts_FIN", function () {
     return Posts.find({state: POST_STATE_FIN}, {sort: {submitted: -1}});
 });
+
+Template.registerHelper("imgQueueIsFull", function () {
+	// console.log(Session.get('imgHolders'));
+	// console.log(Session.get('imgHolders').length);
+
+	var t_img = Session.get('imgHolders');
+	var imgNum = 0;
+
+	for (var i = 0; i < UPLOAD_IMG_MAXIUM; i++) {
+		if (t_img[i] != false) {
+			imgNum++;
+			if (imgNum >= UPLOAD_IMG_MAXIUM) {
+				return true;
+			}
+		}
+	}
+	return false;
+});

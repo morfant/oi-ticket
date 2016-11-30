@@ -1,11 +1,12 @@
 var MOMENT_FORMAT = "MMM D, YYYY HH:mm";
 var MOMENT_FORMAT_DAY = "YYYY-MM-DD";
 var MOMENT_FORMAT_DAY_TIME = "YYYY-MM-DD HH:mm";
-var DEFAULT_NUM_OF_SEATS = 30;
 
 var isPast = ( date ) => {
   let today = moment().format(MOMENT_FORMAT);
+  // let momentDate = moment(date);
   return moment( today ).isAfter( date );
+  // return moment( today ).isAfter( momentDate );
 };
 
 
@@ -273,6 +274,15 @@ Template.calender.rendered = function() {
       var curRouteName = Router.current().route.getName();
       if (curRouteName == 'postSubmit' || curRouteName == 'postEdit') {
         console.log("select!");
+
+        // let _start = start.format(MOMENT_FORMAT_DAY_TIME);
+        // let _end = event.end.format(MOMENT_FORMAT);
+        // console.log("eventDrop() start / end : " + _start + " / ");
+
+        if (isPast(start.format(MOMENT_FORMAT))) {
+          alert("이미 지났거나, 오늘 날짜를 선택하셨습니다!");
+        }
+
         // console.log(start);
         // console.log(end);
         var days = [];
