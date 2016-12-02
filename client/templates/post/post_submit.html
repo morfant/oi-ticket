@@ -1,7 +1,7 @@
 <template name="postSubmit">
   <form class="main form">
 
-    <div class="form-group {{errorClass 'image'}}">
+    <div class="form-group">
       <label class="control-label image_desc" for="title">이미지</label>
       <p class="input_image_desc">이미지는 최대 3장까지 입력 가능합니다. 2장 이상의 이미지를 입력할 경우 반드시 동일한 사이즈인지 확인해 주세요.</p>
       <!-- <p class="input_image_desc">** 2장 이상의 이미지를 입력할 경우 반드시 동일한 사이즈인지 확인해 주세요</p> -->
@@ -14,7 +14,7 @@
       {{/if}}
 
       <div id="img-preview"></div>
-      <span class="help-block">{{errorMessage 'image'}}</span>
+      <!-- <span class="help-block">{{errorMessage 'image'}}</span> -->
       </div>
     </div>
 
@@ -43,7 +43,7 @@
     <div class="form-group {{errorClass 'title'}}">
       <label class="control-label" for="title">제목</label>
       <div class="controls">
-        <input name="title" id="title" type="text" placeholder="사슬" class="form-control"/>
+        <input name="title" id="title" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'title'}}</span>
       </div>
     </div>
@@ -51,7 +51,7 @@
     <div class="form-group {{errorClass 'period'}}">
       <label class="control-label" for="period">공연기간</label>
       <div class="controls">
-        <input name="period" id="period" type="text" value="2016.09.01~ 2016.09.11" placeholder="2016.09.01~ 2016.09.11" class="form-control"/>
+        <input name="period" id="period" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'period'}}</span>
       </div>
     </div>
@@ -59,67 +59,48 @@
     <div class="form-group {{errorClass 'place'}}">
       <label class="control-label" for="place">장소</label>
       <div class="controls">
-        <input name="place" id="place" type="text" value="제주특별자치도 제주시 삼도2동 예술공간오이 지하 1층 소극장" placeholder="제주특별자치도 제주시 삼도2동 예술공간오이 지하 1층 소극장" class="form-control"/>
+        <input name="place" id="place" type="text" placeholder="제주특별차치도 제주시 관덕로 6길 14 지하 1층" class="form-control"/>
         <span class="help-block">{{errorMessage 'place'}}</span>
       </div>
     </div>
 
-
-<!--
-      <div class="form-group">
-        <label for="modal_num_of_seats">좌석수(number of seats)</label>
-        <input type="text" name="modal_num_of_seats" class="form-control" placeholder="ex) 33">
-      </div> -->
-<!--
-    <div class="form-group {{errorClass 'duration'}}">
-      <label class="control-label" for="duration">소요시간(playtime)</label>
-      <div class="controls">
-        {{> timeSelect idSpecific="_submit_playtime"}}
-        <span class="help-block">{{errorMessage 'duration'}}</span>
-      </div>
-    </div>
-
- -->
     <div class="form-group {{errorClass 'playDates'}}">
       <label class="control-label" for="playDates">공연시간</label>
       <div class="controls">
-        <input name="playDates" id="playDates" type="text" value="평일 19:30, 주말 15:00, 화요일 쉼" placeholder="평일 19:30, 주말 15:00, 화요일 쉼" class="form-control"/>
+        <input name="playDates" id="playDates" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'playDates'}}</span>
       </div>
     </div>
-    <!-- {{> froalaEditor}} -->
 
     <div class="form-group">
       <label class="control-label" for="playDatesDetail">공연시간세부사항</label>
       <div class="controls">
-        <input name="playDatesDetail" id="playDatesDetail" type="text" value="월.화.수.목.금 15시/19시, 토.일 20시
- *7/20은 1회차 공연만 진행됩니다" placeholder="월.화.수.목.금 15시/19시, 토.일 20시
- *7/20은 1회차 공연만 진행됩니다" class="form-control"/>
+        <input name="playDatesDetail" id="playDatesDetail" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'playDatesDetail'}}</span>
       </div>
     </div>
 
 
-    <div class="form-group">
+    <div class="form-group {{errorClass 'ticketPrice'}}">
       <label class="control-label" for="ticketPrice">티켓가격</label>
       <div class="controls">
-        <input name="ticketPrice" id="ticketPrice" type="text" value="1회당 30석, 1석 10,000원" placeholder="1회당 30석, 1석 10,000원" class="form-control"/>
-        <span class="help-block">{{errorMessage 'ticektPrice'}}</span>
+        <input name="ticketPrice" id="ticketPrice" type="text" class="form-control"/>
+        <span class="help-block">{{errorMessage 'ticketPrice'}}</span>
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group {{errorClass 'duration'}}">
       <label class="control-label" for="duration">소요시간</label>
       <div class="controls">
-        <input name="duration" id="duration" type="text" value="약 100분(인터미션 없음, 변동 가능)" placeholder="약 100분(인터미션 없음, 변동 가능)" class="form-control"/>
+        <input name="duration" id="duration" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'duration'}}</span>
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group {{errorClass 'contact'}}">
       <label class="control-label" for="contact">문의</label>
       <div class="controls">
-        <input name="contact" id="contact" type="text" value="064-000-5252" placeholder="064-000-5252" class="form-control"/>
+        <input name="contact" id="contact" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'contact'}}</span>
       </div>
     </div>
@@ -127,7 +108,7 @@
     <div class="form-group">
       <label class="control-label" for="ageGrade">관람연령</label>
       <div class="controls">
-        <input name="ageGrade" id="ageGrade" type="text" value="만15세이상관람가" placeholder="만15세이상관람가" class="form-control"/>
+        <input name="ageGrade" id="ageGrade" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'ageGrade'}}</span>
       </div>
     </div>
@@ -135,7 +116,7 @@
     <div class="form-group">
       <label class="control-label" for="sponsor">주최</label>
       <div class="controls">
-        <input name="sponsor" id="sponsor" type="text" value="예술공간오이" placeholder="예술공간오이" class="form-control"/>
+        <input name="sponsor" id="sponsor" type="text" placeholder="예술공간오이" class="form-control"/>
         <span class="help-block">{{errorMessage 'sponsor'}}</span>
       </div>
     </div>
@@ -143,7 +124,7 @@
     <div class="form-group">
       <label class="control-label" for="production">제작</label>
       <div class="controls">
-        <input name="production" id="production" type="text" value="극단오이" placeholder="극단오이" class="form-control"/>
+        <input name="production" id="production" type="text" placeholder="예술공간오이" class="form-control"/>
         <span class="help-block">{{errorMessage 'production'}}</span>
       </div>
     </div>
@@ -151,7 +132,7 @@
     <div class="form-group">
       <label class="control-label" for="director">연출</label>
       <div class="controls">
-        <input name="director" id="director" type="text" value="전혁준" placeholder="" class="form-control"/>
+        <input name="director" id="director" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'director'}}</span>
       </div>
     </div>
@@ -159,7 +140,7 @@
     <div class="form-group">
       <label class="control-label" for="original">작</label>
       <div class="controls">
-        <input name="original" id="original" type="text" value="William Shakespeare" placeholder="" class="form-control"/>
+        <input name="original" id="original" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'original'}}</span>
       </div>
     </div>
@@ -167,7 +148,7 @@
     <div class="form-group">
       <label class="control-label" for="cast">출연</label>
       <div class="controls">
-        <input name="cast" id="cast" type="text" value="이강일, 김지연, 연미" placeholder="" class="form-control"/>
+        <input name="cast" id="cast" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'cast'}}</span>
       </div>
     </div>
@@ -175,16 +156,16 @@
     <div class="form-group">
       <label class="control-label" for="arrange">각색</label>
       <div class="controls">
-        <input name="arrange" id="arrange" type="text" value="오상훈" placeholder="" class="form-control"/>
+        <input name="arrange" id="arrange" type="text" class="form-control"/>
         <!-- <span class="help-block">{{errorMessage 'arrange'}}</span> -->
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group {{errorClass 'description'}}">
       <label class="control-label" for="description">작품소개</label>
       <div class="controls">
-        <input name="description" id="description" type="text" value="지금껏 만난 모든 셰익스피어를 잊게 할 팀 크라우치의 혁신적인 셰익스피어가 찾아온다
-고리타분하고, 수동적인 연극에 저항하는 영국 연극계의 혁신가 팀 크라우치. 실험 연극의 거장인 그가 직접 쓰고, 출연한 1인극 <나, 말볼리오>가 영국, 미국, 호주를 거쳐 드디어 한국에 찾아온다. 셰익스피어의 고전을 현대적으로 각색한 <나, 셰익스피어> 시리즈 중 하나인 이 작품은 악역으로만 여겨졌던 <십이야>의 ‘말볼리오’를 당당히 주인공에 등극시키고, 원작에서 끝내지 못한 복수의 기회를 마련해 준다. 재기발랄한 유머로 객석을 뒤흔들다 인생에 대한 날카로운 시선이 담긴 강력한 한방을 날리는 팀 크라우치의 장기는 이번 공연에서도 여지없이 발휘된다.  우스꽝스러운 모습으로 극장 안에 있는 모두에게 복수하겠다며 호언장담하는 말볼리오 앞에 선 우리. 단 60분의 시간 동안 관객들은 그와 함께 새로운 셰익스피어를 써내려갈 것이다." placeholder="" class="form-control"/>
+        <textarea name="description" class="form-control" rows="10" id="description"></textarea>
+        <!-- <input name="description" id="description" type="text" class="form-control"/> -->
         <span class="help-block">{{errorMessage 'description'}}</span>
       </div>
     </div>
@@ -192,7 +173,8 @@
     <div class="form-group">
       <label class="control-label" for="synopsis">시놉시스</label>
       <div class="controls">
-        <input name="synopsis" id="synopsis" type="text" value="소년은 소녀를 몇 백번은 봤다. 소녀도 그를. 그러나, 한 번도 서로를 함께 본 적은 없었다. 소년은 이민자의 아들이다. 매일 들려오는 엄마나라의 이야기들이 남의 일 같지 않지만, 아무것도 할 수 있는 것은 없고, 영국 사람처럼 보이려 애써봤자 아무도 눈여겨보지 않는다. 불합리한 현실을 벗어날 수 있는 것은 오로지 비디오 게임에서 전쟁놀이를 하는 것 뿐. 그런 소년의 삶에 자신처럼 아무데도 들어맞는 않는 소녀가 들어왔다. 오늘 소녀에게 드디어 말을 걸었다. #영국 #코코팝시리얼 #버스 #소녀 #엄마의나라 #비디오게임 #북극곰  지영은 7개월 전 초경을 했지만, 여자 몸으로 변하는 것이 두렵기만 하다. 아빠는 승승장구하는 사업가이지만, 말도 섞기 싫다. 3살 때 엄마가 떠나고, 제주도에서 온 할머니도 내 맘 몰라주기는 마찬가지인 것 같다. 그런 지영에게 엄마가 쓰던 화장대는 유일하게 고민을 털어 놓는 통로이다. 그런데, 어느 날 화장대가 사라지게 되는데... #한국 #여드름 #가슴 #허벅지살 #얼룩 #엘리베이터 #화장대 #제주도할머니 #아빠 #빙하" placeholder="" class="form-control"/>
+        <textarea name="synopsis" class="form-control" rows="10" id="synopsis"></textarea>
+        <!-- <input name="synopsis" id="synopsis" type="text" class="form-control"/> -->
         <span class="help-block">{{errorMessage 'synopsis'}}</span>
       </div>
     </div>
@@ -201,7 +183,7 @@
     <div class="form-group">
       <label class="control-label" for="staffs">스탭 소개</label>
       <div class="controls">
-        <input name="staffs" id="staffs" type="text" value="작, 출연 팀 크라우치 연출 앤디 스미스, 칼 제임스 디자인 그레엄 길모어 제작 팀 크라우치" placeholder="" class="form-control"/>
+        <input name="staffs" id="staffs" type="text" class="form-control"/>
         <span class="help-block">{{errorMessage 'staffs'}}</span>
       </div>
     </div>
@@ -217,39 +199,9 @@
       </div>
     </div>
 
-<!-- <script src="js/medium-editor.js"></script>
-<script type="text/javascript">var editor = new MediumEditor('.editable',{
-      placeholder: {
-        text: 'Click to post'
-    }
-  }
-);</script> -->
-
-
-<!--     <div class="form-group">
-      <label class="control-label" for="text">Text</label>
-      <div class="controls">
-
-        <div class="editable" name="text" id="text"></div>
-
-        <br /><br /><br /><br />
-        <br /><br /><br /><br />
-        <br /><br /><br /><br />
-
-          <span class="help-block"></span>
-      </div>
-    </div> -->
-
-
-
-
     <br />
-
-
 
     <input type="submit" value="Submit" class="btn btn-primary submit"/>
   </form>
-
-
 
 </template>

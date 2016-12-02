@@ -161,13 +161,15 @@ Template.postEdit.events({
     imgFiles_postEdit = Session.get('imgFiles');
     console.log("imgFiles_postEdit: " + imgFiles_postEdit);
 
+    var prevState = this.state;
+
     var postProperties = {
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
       period: $(e.target).find('[name=period]').val().replace(/[\r\n]/g, "<br />"),
       place: $(e.target).find('[name=place]').val().replace(/[\r\n]/g, "<br />"),
       playDates: $(e.target).find('[name=playDates]').val().replace(/[\r\n]/g, "<br />"),
       playDatesDetail: $(e.target).find('[name=playDatesDetail]').val().replace(/[\r\n]/g, "<br />"),
-      price: $(e.target).find('[name=ticketPrice]').val().replace(/[\r\n]/g, "<br />"),
+      ticketPrice: $(e.target).find('[name=ticketPrice]').val().replace(/[\r\n]/g, "<br />"),
       duration: $(e.target).find('[name=duration]').val().replace(/[\r\n]/g, "<br />"),
       contact: $(e.target).find('[name=contact]').val().replace(/[\r\n]/g, "<br />"),
       ageGrade: $(e.target).find('[name=ageGrade]').val().replace(/[\r\n]/g, "<br />"),
@@ -181,13 +183,19 @@ Template.postEdit.events({
       synopsis: $(e.target).find('[name=synopsis]').val().replace(/[\r\n]/g, "<br />"),
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
       includeImages: imgFiles_postEdit, //Array of filenames
-      state: POST_STATE_TEMP
+      state: prevState
     }
     // console.log(postProperties);
-
     var errors = validatePost(postProperties);
-    if (errors.title || errors.text)
+    if
+    ( errors.title || errors.period || errors.place || errors.playDates ||
+      errors.ticketPrice || errors.duration || errors.contact || errors.description)
       return Session.set('postEditErrors', errors);
+
+    var errors = validateEvent();
+    if (errors.event)
+      return Session.set('postEditErrors', errors);
+
 
     Meteor.call('postUpdate', currentPostId, postProperties, function(error, result) {
       console.log("Meteor call - postUpdate()");

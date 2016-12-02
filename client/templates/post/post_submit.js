@@ -153,7 +153,7 @@ Template.postSubmit.events({
       place: $(e.target).find('[name=place]').val().replace(/[\r\n]/g, "<br />"),
       playDates: $(e.target).find('[name=playDates]').val().replace(/[\r\n]/g, "<br />"),
       playDatesDetail: $(e.target).find('[name=playDatesDetail]').val().replace(/[\r\n]/g, "<br />"),
-      price: $(e.target).find('[name=ticketPrice]').val().replace(/[\r\n]/g, "<br />"),
+      ticketPrice: $(e.target).find('[name=ticketPrice]').val().replace(/[\r\n]/g, "<br />"),
       duration: $(e.target).find('[name=duration]').val().replace(/[\r\n]/g, "<br />"),
       contact: $(e.target).find('[name=contact]').val().replace(/[\r\n]/g, "<br />"),
       ageGrade: $(e.target).find('[name=ageGrade]').val().replace(/[\r\n]/g, "<br />"),
@@ -182,7 +182,7 @@ Template.postSubmit.events({
     var errors = validatePost(post);
     if
     ( errors.title || errors.period || errors.place || errors.playDates ||
-      errors.price || errors.duration || errors.contact || errors.description)
+      errors.ticketPrice || errors.duration || errors.contact || errors.description)
       return Session.set('postSubmitErrors', errors);
 
     var errors = validateEvent();
@@ -208,6 +208,7 @@ Template.postSubmit.events({
       };
 
       Meteor.call( 'fixEventToPost', update, ( error ) => {
+        console.log("fixEventToPost()");
         if ( error ) {
           console.log("ERROR - fixEventToPost");
           // bert.alert( error.reason, 'danger' );
@@ -218,6 +219,7 @@ Template.postSubmit.events({
 
         /* 3. move Imgs */
         Meteor.call('moveAllImg', function(error, result) {
+          console.log("moveAllImg()");
           if (error) {
             console.log("ERROR - moveAllImg");
             return throwError(error);

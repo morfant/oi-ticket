@@ -31,11 +31,12 @@ Template.calender.events({
 Template.calender.rendered = function() {
 
   $('#kalendar').fullCalendar({
+    lang: 'ko',
     defaultView: 'month', //agendaWeek,agendaDay
 
     selectable: true,
 
-    height: 400,
+    height: 700,
     aspectRatio: 1.5,
     editable: true,
     eventColor: 'rgb(76, 158, 217)',
@@ -146,7 +147,7 @@ Template.calender.rendered = function() {
       var timeStr = event.start.format("HH:mm");
       var numOfAudience = event.maxSeats - event.seats;
 
-      if (curRouteName == 'postSubmit') {
+      if (curRouteName == 'postSubmit' || curRouteName == 'postEdit') {
         element.find( '.fc-content' ).html(
           "<span class=\"fc-time\">" + timeStr + "</span> \
           <span class=\"fc-title\">" + event.title + " " + event.seats + "/" + event.maxSeats + "석" + "</span>"
@@ -242,6 +243,7 @@ Template.calender.rendered = function() {
         Session.set( 'eventModal', {
           type: 'edit',
           start: startStr,
+          maxSeats: event.maxSeats,
           seats: event.seats,
           id: event._id
         } );
@@ -274,6 +276,8 @@ Template.calender.rendered = function() {
       var curRouteName = Router.current().route.getName();
       if (curRouteName == 'postSubmit' || curRouteName == 'postEdit') {
         console.log("select!");
+
+
 
         // let _start = start.format(MOMENT_FORMAT_DAY_TIME);
         // let _end = event.end.format(MOMENT_FORMAT);

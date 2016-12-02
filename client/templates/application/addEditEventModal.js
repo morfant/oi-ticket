@@ -81,6 +81,21 @@ Template.addEditEventModal.events({
 
     /* ADD */
     if (submitType === 'addEvent'){
+
+      var curRoute = Router.current().route.getName();
+
+      // recover error.event to 'no error'
+      if (curRoute == 'postEdit') {
+        var errors = Session.get('postEditErrors');
+        errors.event = '';
+        Session.set('postEditErrors', errors);
+
+      } else if (curRoute == 'postSubmit') {
+        var errors = Session.get('postSubmitErrors');
+        errors.event = '';
+        Session.set('postSubmitErrors', errors);
+      }
+
       var days = eventModal.days;
 
       for (var j = 0; j < days.length; j++) {
@@ -121,8 +136,15 @@ Template.addEditEventModal.events({
       var aShowEvent = {};
       var editedSeats = template.find("#modal_num_of_seats").value;
       // console.log(editedSeats);
-      aShowEvent.seats = Number(editedSeats);
+      var reservedSeats = Number(eventModal.maxSeats) - Number(eventModal.seats);
+      // aShowEvent.seats = Number(eventModal.seats);
+
       aShowEvent.maxSeats = Number(editedSeats);
+      if (aShowEvent.maxSeats <= reservedSeats) {
+        aShowEvent.maxSeats = reservedSeats;
+        template.find("#modal_num_of_seats").value = aShowEvent.maxSeats;
+      }
+      aShowEvent.seats = aShowEvent.maxSeats - reservedSeats;
 
       var h_id = "#hour_modal_edit";
       var m_id = "#min_modal_edit";
@@ -147,12 +169,16 @@ Template.addEditEventModal.events({
         } else {
           console.log("Input events succeed!");
           console.log("result: " + result);
-          // Bert.alert( `Event ${ eventModal.type }ed!`, 'success' );
-          Bert.alert( `Event input succeed!`, 'success' ); //Not working...?
+
           closeModal();
+
+
         }
       });
     });
+
+
+
 
 
     //TODO: 회차에 따라 다른 색이 적용되도록 한다
@@ -186,8 +212,18 @@ Template.addEditEventModal.events({
   'click .delete-event': function( e ) {
     e.preventDefault();
 
+    var deleteConfirm = false;
     let eventModal = Session.get( 'eventModal' );
-    if ( confirm( 'Are you sure? This is permanent.' ) ) {
+
+    if (eventModal.maxSeats != eventModal.seats) {
+      if (confirm ('예약한 관객이 존재하는 이벤트입니다. 예약내역도 모두 지워집니다. 계속 하시겠습니까?')) {
+        deleteConfirm = true;
+      }
+    } else {
+      deleteConfirm = true;
+    }
+
+    if (deleteConfirm) {
       Meteor.call( 'removeEvent', eventModal.id, function( error ) {
         if ( error ) {
           Bert.alert( error.reason, 'danger' );
@@ -197,6 +233,7 @@ Template.addEditEventModal.events({
         }
       });
     }
+
   }
 
 });
