@@ -49,25 +49,27 @@ Template.playsList.rendered = function(){
 	}
 
 
-	console.log("SET INTERVAL");
-  slideShowTimer = Meteor.setInterval(function imgSlide() {
+	if (postNum > 0) {
+		console.log("SET INTERVAL");
+	  slideShowTimer = Meteor.setInterval(function imgSlide() {
 
-	// console.log("imgSlide()!!");
-		for (var i = 0; i < postNum; i++){
-			if (maxNum[i] != 0) {
-				for (var j = 0; j < maxNum[i]; j++){ //6 is the least common multiple of 2, 3
-					imgs[i][j].style.display = "none";
+		// console.log("imgSlide()!!");
+			for (var i = 0; i < postNum; i++){
+				if (maxNum[i] != 0) {
+					for (var j = 0; j < maxNum[i]; j++){ //6 is the least common multiple of 2, 3
+						imgs[i][j].style.display = "none";
+					}
+
+			    imgIdx[i]++;
+			    if (imgIdx[i] > maxNum[i]) {imgIdx[i] = 1}
+			    // console.log("imgIdx: " + imgIdx);
+				// console.log("j*3-1: " + j);
+			    imgs[i][imgIdx[i]-1].style.display = "block";
 				}
+			};
 
-		    imgIdx[i]++;
-		    if (imgIdx[i] > maxNum[i]) {imgIdx[i] = 1}
-		    // console.log("imgIdx: " + imgIdx);
-			// console.log("j*3-1: " + j);
-		    imgs[i][imgIdx[i]-1].style.display = "block";
-			}
-		};
-
-  }, Session.get('slideShowTime')); //milli second
+	  }, Session.get('slideShowTime')); //milli second
+	}
 
   // console.log(slideShowTimer);
 
