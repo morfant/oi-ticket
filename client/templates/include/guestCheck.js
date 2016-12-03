@@ -50,7 +50,7 @@ Template.guestCheck.events({
         return throwError(error.reason);
       }
 
-			// console.log(oldResult);
+			console.log(result);
 			Session.set('reserveCancelFindResult', result);
 
     });

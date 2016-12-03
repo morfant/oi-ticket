@@ -5,34 +5,27 @@
  <!-- <div>{{data.playTitle}}</div> -->
  <!-- <div>{{data.guests}}</div> -->
  {{#each guest in data.guests}}
- <div id="search_result">
-   <div class="search_result_1">
-     <!-- <div class="result_title">{{playTitle}}</div>
-     <div class="result_datetime">{{start}}</div> -->
-     <h4 class="result_name">{{guest.name}}</h4>
-     <p class="result_phone">{{guest.phone}}</p>
-     <!-- <label><input class={{data._id}} type="checkbox" value=""></label> -->
+   <div id="search_result">
+    <div class="search_result_1">
+      <h4 class="result_name">{{guest.name}}</h4>
+      <p class="result_phone">{{guest.phone}}</p>
+      <p class="result_state">{{convertConstant data.state}}</p>
+    </div>
 
-   </div>
+    {{#if isInCustomerSide}}
+      {{# if deletable data.state}}
+        <input id={{guest.reserve_id}} type="submit" value="예약취소(cancel)" class="btn btn-danger reserve_cancel"/>
+      {{/if}}
+    {{else}}
+        <input id={{guest.reserve_id}} type="submit" value="예약취소(cancel)" class="btn btn-danger reserve_cancel"/>
+    {{/if}}
 
-   <!-- <div class="checkbox">
-     <label><input class="selectBox" type="checkbox" value=""></label>
-   </div> -->
-
-   <input id={{guest.reserve_id}} type="submit" value="예약취소(cancel)" class="btn btn-danger reserve_cancel"/>
-
-   <div class="search_result_2">
-     <h4 class="result_title">{{data.playTitle}}</h4>
-     <p class="result_datetime">{{data.start}}</p>
-     <p class="result_seats">{{guest.seats}}</p>
-     <!-- <p class="result_kind">{{posts.state}}</p> -->
-
-   </div>
-
-
-
-
- </div>
- {{/each}}
+    <div class="search_result_2">
+      <h4 class="result_title">{{data.playTitle}}</h4>
+      <p class="result_datetime">{{data.start}}</p>
+      <p class="result_seats">{{guest.seats}}</p>
+    </div>
+  </div>
+  {{/each}}
 
 </template>

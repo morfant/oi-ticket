@@ -453,67 +453,92 @@ body {
 }
 
 /* guest Check */
-#search_result {
+.search_result_div {
   margin-top: 20px;
-  /*border-top: 1px solid grey;*/
-  margin-bottom: 30px;
+  /*border-bottom: 1px solid grey;*/
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bold;
 
 }
 
-.search_result_1 {
+#search_result {
+  /*margin-top: 20px;*/
+  border-top: 1px solid CadetBlue;
+  margin-bottom: 30px;
+  text-align: left;
+
+}
+
+.search_result_1 { /* upper line */
   display: inline-block;
   width: 500px;
+  height: 20px;
 }
 
-.search_result_2 {
+.search_result_desc_1 { /* FOR TEXT upper line */
+  display: inline-block;
+  width: 500px;
+  /*margin-bottom: -50px;*/
+  height: 20px;
+}
+
+.result_name, .result_desc_name {
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+
+}
+
+.result_phone, .result_desc_phone {
+  display: inline-block;
+  /*width: 100px;*/
+  width: 138px;
+  height: 20px;
+}
+
+.result_state, .result_desc_state {
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+}
+
+.search_result_2 { /* bottom line */
   display: inline-block;
   margin-top: -20px;
   width: 500px;
   /*display: inline-block;*/
 }
 
-.checkbox {
-  display: inline;
-  /*margin-top: -40px;*/
+.search_result_desc_2 { /* FOR TEXT bottom line */
+  /*display: inline-block;*/
+  /*margin-top: -70px;*/
+  /*margin-bottom: -200px;*/
+  width: 500px;
+  height: 20px;
+  /*display: inline-block;*/
 }
-
-.selectBox {
-  /*display: block;*/
-  /*margin-top: -80px;*/
-  /*line-height: 1.2em;*/
-  font-size: 2.2em;
-
-}
-
-
-.result_title {
+.result_title, .result_desc_title {
   display: inline-block;;
-  width: 200px;
+  width: 243px;
 
 }
-.result_datetime {
-  display: inline-block;
-  width: 200px;
 
-}
-.result_name {
+.result_datetime, .result_desc_datetime {
   display: inline-block;
-  width: 200px;
+  width: 180px;
 }
-.result_phone {
-  display: inline-block;
-  width: 200px;
 
-}
-.result_seats {
+.result_seats, .result_desc_seats {
   display: inline-block;
-  width: 50px;
-
+  width: 60px;
 }
+
 
 /* reserve_cancel */
 .reserve_cancel {
   margin-top: 0px;
+  float: right;
 }
 
 .reserveCancel_searchResult {

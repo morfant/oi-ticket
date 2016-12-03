@@ -161,7 +161,7 @@ Template.postEdit.events({
     imgFiles_postEdit = Session.get('imgFiles');
     console.log("imgFiles_postEdit: " + imgFiles_postEdit);
 
-    var prevState = this.state;
+    var prevState = Number(this.state);
 
     var postProperties = {
       title: $(e.target).find('[name=title]').val().replace(/[\r\n]/g, "<br />"),
@@ -184,6 +184,7 @@ Template.postEdit.events({
       staffs: $(e.target).find('[name=staffs]').val().replace(/[\r\n]/g, "<br />"),
       includeImages: imgFiles_postEdit, //Array of filenames
       state: prevState
+      // state: POST_STATE_TEMP
     }
     // console.log(postProperties);
     var errors = validatePost(postProperties);
