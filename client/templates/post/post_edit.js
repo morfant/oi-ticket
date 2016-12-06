@@ -193,7 +193,7 @@ Template.postEdit.events({
       errors.ticketPrice || errors.duration || errors.contact || errors.description)
       return Session.set('postEditErrors', errors);
 
-    var errors = validateEvent();
+    var errors = validateEventWithId(currentPostId);
     if (errors.event)
       return Session.set('postEditErrors', errors);
 

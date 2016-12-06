@@ -51,7 +51,7 @@
     <div class="form-group {{errorClass 'title'}}">
       <label class="control-label" for="title">제목</label>
       <div class="controls">
-        <input name="title" id="title" type="text" value="{{title}}" class="form-control"/>
+        <input maxlength="90" name="title" id="title" type="text" value="{{title}}" class="form-control"/>
         <span class="help-block">{{errorMessage 'title'}}</span>
       </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="form-group {{errorClass 'period'}}">
       <label class="control-label" for="period">공연기간</label>
       <div class="controls">
-        <input name="period" id="period" type="text" value="{{period}}" class="form-control"/>
+        <input maxlength="90" name="period" id="period" type="text" value="{{period}}" class="form-control"/>
         <span class="help-block">{{errorMessage 'period'}}</span>
       </div>
     </div>
@@ -67,7 +67,7 @@
     <div class="form-group {{errorClass 'place'}}">
       <label class="control-label" for="place">장소</label>
       <div class="controls">
-        <input name="place" id="place" type="text" value="{{place}}" class="form-control"/>
+        <input maxlength="90" name="place" id="place" type="text" value="{{place}}" placeholder="제주특별차치도 제주시 관덕로 6길 14 지하 1층" class="form-control"/>
         <span class="help-block">{{errorMessage 'place'}}</span>
       </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="form-group {{errorClass 'playDates'}}">
       <label class="control-label" for="playDates">공연시간</label>
       <div class="controls">
-        <input name="playDates" id="playDates" type="text" value="{{playDates}}" class="form-control"/>
+        <input maxlength="90" name="playDates" id="playDates" type="text" value="{{playDates}}" class="form-control"/>
         <span class="help-block">{{errorMessage 'playDates'}}</span>
       </div>
     </div>
@@ -141,7 +141,7 @@
     <div class="form-group">
       <label class="control-label" for="sponsor">주최</label>
       <div class="controls">
-        <input name="sponsor" id="sponsor" type="text" value="{{sponsor}}" class="form-control"/>
+        <input name="sponsor" id="sponsor" type="text" value="{{sponsor}}" placeholder="예술공간오이" class="form-control"/>
         <span class="help-block">{{errorMessage 'sponsor'}}</span>
       </div>
     </div>
@@ -149,7 +149,7 @@
     <div class="form-group">
       <label class="control-label" for="production">제작</label>
       <div class="controls">
-        <input name="production" id="production" type="text" value="{{production}}" class="form-control"/>
+        <input name="production" id="production" type="text" value="{{production}}" placeholder="예술공간오이" class="form-control"/>
         <span class="help-block">{{errorMessage 'production'}}</span>
       </div>
     </div>

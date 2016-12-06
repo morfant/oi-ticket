@@ -2,12 +2,8 @@
   <div class="jumbotron">
     <h2>예술공간오이 예약관리</h2>
     <!-- <p>Please log in.</p> -->
+    {{#unless isSettingInserted}}
+    <h4>슬라이드쇼 시간값이 입력되지 않았습니다. 우선 '설정' 메뉴에서 값을 입력해 주세요.</h4>
+    {{/unless}}
   </div>
-  <!-- <nav class="navbar navbar-default" role="navigation"> -->
-    <!-- <div class="container-fluid height-full"> -->
-        <!-- <ul class="nav navbar-nav navbar-right"> -->
-          <!-- {{> loginButtons}} -->
-        <!-- </ul> -->
-    <!-- </div> -->
-  <!-- </nav> -->
 </template>

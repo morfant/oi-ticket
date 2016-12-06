@@ -1,8 +1,8 @@
 // var im = Meteor.npmRequire('imagemagick');
 
 
-// forDeploy = true;
-forDeploy = false;
+forDeploy = true;
+// forDeploy = false;
 console.log("forDeploy: " + forDeploy);
 
 var _tmpDir, _uploadDir;

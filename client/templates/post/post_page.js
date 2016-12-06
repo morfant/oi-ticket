@@ -24,28 +24,35 @@ Template.postPage.rendered = function(){
 
 	/* Image Slide show */
   var imgIdx = 0;
-	var imgs = document.getElementsByClassName("slideImages");
-  var maxNum = imgs.length;
-
-	/* Show first image before setInterval */
+	var post_page_imgs = document.getElementsByClassName("slideImages");
+  var maxNum = post_page_imgs.length;
+	// console.log(maxNum);
+	
 	if (maxNum > 0) {
-		imgs[imgIdx].style.display = "block";
+		/* Hide all images */
+	  for (var i = 0; i < maxNum; i++) {
+			post_page_imgs[i].style.display = "none";
+		}
 
 		console.log("SET INTERVAL - postPage");
+
+		/* Show first image before setInterval */
+    post_page_imgs[imgIdx].style.display = "block";
+
 	  slideShowTimer_OnPostPage = Meteor.setInterval(function imgSlide_OnPostPage() {
 
 	    for (var i = 0; i < maxNum; i++) {
-				imgs[i].style.display = "none";
+				post_page_imgs[i].style.display = "none";
 			}
 
 	    imgIdx++;
 	    if (imgIdx >= maxNum) {imgIdx = 0}
-	    // console.log("imgIdx: " + imgIdx);
-	    imgs[imgIdx].style.display = "block";
+	    post_page_imgs[imgIdx].style.display = "block";
+
 
 	  }, Session.get('slideShowTime')); //milli second
 
-    // console.log(slideShowTimer);
+	  console.log(slideShowTimer);
 	}
 
 

@@ -58,7 +58,7 @@ body {
     margin: 7px 12px 0 0;
     float: left; }
   .post .post-content {
-    float: left;
+    /*float: left; // For positioning .slideImages on center, block this line */
     margin-left: 40px;
     margin-right: 40px;
   }
@@ -249,7 +249,6 @@ body {
 }
 .thumbNailDiv .left {
   /*float:left; width:25%;*/
-
   /* move image at horizontal center*/
   /*text-align: center;*/
 }
@@ -274,20 +273,31 @@ body {
 
 /* image slide */
 ._images {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin: auto;
-
+  /*height: 300px; // for make static image div height */
 }
 
+/* Fading animation */
+/*.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 5.3s;
+  animation-name: fade;
+  animation-duration: 5.3s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .7}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .7}
+  to {opacity: 1}
+}*/
+
 .slideImages {
-  /*width: 600px;*/
-  width: 100%;
-  /*margin: auto;*/
-  /*height: 400px;*/
-  display:block;
-  /*margin-left:40px;*/
-  /*margin-right:40px;*/
+  max-width: 100%;
+  margin: auto;
+  /*display: block;*/
 }
 
 /* reservationStep */
@@ -394,7 +404,8 @@ body {
 
 .listParagraph {
   display: block;
-  /*margin-right: 40px;*/
+  width: 100%;
+  margin-right: 40px;
   text-align:justify;
 }
 
