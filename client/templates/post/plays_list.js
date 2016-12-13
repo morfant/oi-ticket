@@ -44,7 +44,7 @@ Template.playsList.rendered = function(){
 	/* Show first image before setInterval */
 	for (let i = 0; i < postNum; i++){
 		if (maxNum[i] != 0) {
-			imgs[i][0].style.display = "block";
+			imgs[i][0].style.display = "none";
 		}
 	}
 
